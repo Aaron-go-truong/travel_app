@@ -2,6 +2,14 @@ import $ from 'jquery';
 
 $(() =>{
   initialPage();
+
+  $('#email-edit-button').on('click', () => {
+    showInput('email');
+  })
+
+  $('#email-tool-cancel').on('click', () => {
+    hideInput('email');
+  })
   
   $('#fullname-edit-button').on('click', () => {
     showInput('fullname');
@@ -39,9 +47,49 @@ $(() =>{
     hideInput('address');
   })
 
+  $('#reset-button').on('click', () => {
+    $('#reset-button').hide();
+    $('#reset-tool').show();
+  })
+
+  $('#reset-cancel').on('click', () => {
+    $('#reset-button').show();
+    $('#reset-tool').hide();
+  })
+
+  $('#delete-button').on('click', () => {
+    $('#delete-button').hide();
+    $('#delete-tool').show();
+  })
+
+  $('#delete-cancel').on('click', () => {
+    $('#delete-button').show();
+    $('#delete-tool').hide();
+  })
+
   $('#security-page').on('click', () => {
     $('#security').show();
     $('#person-details').hide();
+  })
+
+  $('#person-details-page').on('click', () => {
+    $('#security').hide();
+    $('#person-details').show();
+  })
+
+  $('#fullname-tool-save').on('click', () => {
+    $.ajax({
+      type: 'POST',
+      url: 'edit/full_name',
+      data: { user:{full_name:'TCH'}},
+      success(data) {
+        alert(data.id);
+        return false;
+      },
+      error(data) {
+        return false;
+      }
+    })
   })
 }
 );
@@ -52,6 +100,9 @@ function initialPage(){
   hideToolandInput('birthday')
   hideToolandInput('gender')
   hideToolandInput('address')
+  hideToolandInput('reset')
+  hideToolandInput('delete')
+  hideToolandInput('email')
 }
 
 function hideToolandInput(id){

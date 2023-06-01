@@ -27,8 +27,9 @@ ActiveRecord::Schema.define(version: 2023_05_31_031614) do
     t.string "unconfirmed_email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "full_name"
     t.string "gender"
-    t.string "dateofbirh"
+    t.string "date_of_birth"
     t.string "address"
     t.string "avt"
     t.index ["email"], name: "index_users_on_email", unique: true

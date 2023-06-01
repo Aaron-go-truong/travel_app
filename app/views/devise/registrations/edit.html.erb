@@ -1,44 +1,92 @@
-<%= javascript_pack_tag 'edit_user' %> 
-<%= stylesheet_link_tag 'user_edit' %>
+<%= javascript_pack_tag 'users/user_edit' %> 
+<%= stylesheet_link_tag 'users/user_edit' %>
 
 <div class="container mt-4">
   <div class="row">
-    <div class="col-4">
+    <div class="col-3">
       <div class="card">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item p-3 hover-select">Personal details</li>
-          <li class="list-group-item p-3 hover-select">Security</li>
+        <ul class="list-group list-group-flush text-small">
+          <li id='person-details-page' class="list-group-item p-3 hover-select d-flex align-items-center">
+              <i class="fa-solid fa-user-pen icon-width p-2"></i>
+              <div>Personal details</div>
+          </li>
+          <li id='security-page' class="list-group-item p-3 hover-select d-flex align-items-center">
+            <i class="fa-solid fa-lock p-2 icon-width"></i>
+            <div>Security</div>
+          </li>
         </ul>
       </div>
     </div>
-    <div id="person-detail" class="col-8">
+    <div id="person-details" class="col-9">
       <div class="container">
         <div class="d-flex justify-content-between">
           <div>
             <h2>Personal details</h2>
             <div class="text-muted">
-              <span>Update your info and find out how it's used.</span>
+              <span class='text-medium'>Update your info and find out how it's used.</span>
             </div>
           </div>
-          <img
-            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-            class="rounded-circle"
-            style="width: 60px; height: 60px"
-            alt="Avatar"
-          />
+          <div class='position-relative fit-content hover-button p-2 rounded'>
+            <img
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                class="rounded-circle"
+              style="width: 60px; height: 60px"
+              alt="Avatar"
+            />
+            <div class='position-absolute absolute-center blur'>
+              <i class="fa-solid fa-camera color-gray"></i>
+              <%=file_field_tag 'file'%>
+            </div>
+          </div>
         </div>
         <div class="py-4 px-3 border-top mt-2">
           <div class="row">
-            <div class="col-2">Full name</div>
-            <div class="col-8">
-              <div id="fullname">Aaron Truong</div>
-              <div id="fullname-input">
-                <div>
-                  <span>Full name</span><span class="text-danger">*</span>
-                </div>
+            <div class="col-3 text-medium">Email address</div>
+            <div class="col-7">
+              <div id="email" class='text-small'>
+                <%= current_user.email%>
+              </div>
+              <div id="email-input">
+                <div><span class='text-small'>Email address</span><span class="text-danger">*</span></div>
                 <input
                   type="text"
-                  class="form-control mt-2"
+                  class="form-control mt-2 text-small"
+                  placeholder="Email address"
+                />
+                <div>
+                  <span class='text-small text-gray'>
+                    We'll send a verification link to your new email address – check your inbox.
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col text-primary d-flex justify-content-end">
+              <div
+                id="email-edit-button"
+                class="p-2 rounded text-primary hover-button text-small"
+              >
+                Edit
+              </div>
+              <div id="email-tool">
+                <div class="p-2 rounded hover-button" id="email-tool-cancel">
+                  <span class="text-primary text-small">Cancel</span>
+                </div>
+                <button class="btn btn-primary mt-5 text-small" type="submit">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="py-4 px-3 border-top mt-2">
+          <div class="row">
+            <div class="col-3 text-medium">Full name</div>
+            <div class="col-7">
+              <div id="fullname" class='text-small'><%= current_user.full_name %></div>
+              <div id="fullname-input">
+                <div><span class='text-small'>Full name</span><span class="text-danger">*</span></div>
+                <input
+                  value="<%= current_user.full_name%>"
+                  type="text"
+                  class="form-control mt-2 text-small"
                   placeholder="Full name"
                 />
               </div>
@@ -46,34 +94,35 @@
             <div class="col text-primary d-flex justify-content-end">
               <div
                 id="fullname-edit-button"
-                class="p-2 rounded text-primary hover-button"
+                class="p-2 rounded text-primary hover-button text-small"
               >
                 Edit
               </div>
               <div id="fullname-tool">
                 <div class="p-2 rounded hover-button" id="fullname-tool-cancel">
-                  <span class="text-primary">Cancel</span>
+                  <span class="text-primary text-small">Cancel</span>
                 </div>
-                <button class="btn btn-primary mt-5" type="submit">Save</button>
+                <button id='fullname-tool-save' class="btn btn-primary mt-5 text-small" type="submit">Save</button>
               </div>
             </div>
           </div>
         </div>
         <div class="py-4 px-3 border-top">
           <div class="row">
-            <div class="col-2">Date of birth</div>
-            <div class="col-8">
-              <div id="birthday">20/04/2001</div>
+            <div class="col-3 text-medium">Date of birth</div>
+            <div class="col-6">
+              <% if !current_user.date_of_birth.nil? %>
+                <div id="birthday" class='text-small'> <%= current_user.date_of_birth%> </div>
+              <% else %>
+                <div class='text-small'>Enter your date of birth</div>
+              <% end %>
               <div id="birthday-input">
                 <div>
-                  <span>Date of birth</span><span class="text-danger">*</span>
+                  <span class='text-small'>Date of birth</span><span class="text-danger">*</span>
                 </div>
                 <div class="row mt-2">
                   <div class="col-6">
-                    <select
-                      class="form-select"
-                      aria-label="Default select example"
-                    >
+                    <select class="form-select text-small" aria-label="Default select example">
                       <option value="0" selected>Month</option>
                       <option value="1">January</option>
                       <option value="2">February</option>
@@ -89,17 +138,17 @@
                       <option value="12">December</option>
                     </select>
                   </div>
-                  <div class="col-2">
+                  <div class="col-3">
                     <input
                       type="text"
-                      class="form-control floatNumber"
+                      class="form-control floatNumber text-small"
                       placeholder="DD"
                     />
                   </div>
-                  <div class="col-4">
+                  <div class="col-3">
                     <input
                       type="text"
-                      class="form-control floatNumber"
+                      class="form-control floatNumber text-small"
                       placeholder="YYYY"
                     />
                   </div>
@@ -109,88 +158,161 @@
             <div class="col text-primary d-flex justify-content-end">
               <div
                 id="birthday-edit-button"
-                class="p-2 rounded text-primary hover-button"
+                class="p-2 rounded text-primary hover-button text-small"
               >
                 Edit
               </div>
               <div id="birthday-tool">
                 <div class="p-2 rounded hover-button" id="birthday-tool-cancel">
-                  <span class="text-primary">Cancel</span>
+                  <span class="text-primary text-small">Cancel</span>
                 </div>
-                <button class="btn btn-primary mt-5" type="submit">Save</button>
+                <button class="btn btn-primary mt-5 text-small" type="submit">Save</button>
               </div>
             </div>
           </div>
         </div>
         <div class="py-4 px-3 border-top">
           <div class="row">
-            <div class="col-2">Gender</div>
-            <div class="col-8">
-              <div id="gender">Male</div>
+            <div class="col-3 text-medium">Gender</div>
+            <div class="col-6">
+              <% if !current_user.gender.nil? %>
+                <div id="gender" class='text-small'>
+                  <% if current_user.gender == 'male' %>
+                    I'm a man
+                  <% else %>
+                    <% if current_user.gender == 'female' %>
+                      I'm a woman
+                    <% else %>
+                      <% if current_user.gender == 'other' %>
+                        I'm non-binary
+                      <% else %>
+                        I prefer not to say
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% else %>
+                <div id="gender" class='text-small'>Select your gender</div>
+              <% end %>
               <div id="gender-input">
                 <div>
-                  <span>Date of birth</span><span class="text-danger">*</span>
+                  <span class='text-small'>Gender</span><span class="text-danger">*</span>
                   <select
-                    class="form-select mt-2"
+                    id='gender-select'
+                    class="form-select mt-2 text-small"
                     aria-label="Default select example"
                   >
-                    <option selected>Select your gender</option>
-                    <option value="male">I'm a man</option>
-                    <option value="female">I'm a woman</option>
-                    <option value="non-binary">I'm non-binary</option>
-                    <option value="others">I prefer not to say</option>
+                    <%= options_for_select([['Select your gender', 0], ["I'm a man", 'male'], ["I'm a woman", 'female'],["I'm non-binary","non-binary"],["I prefer not to say",'others']], current_user.gender||0) %>
                   </select>
+                  
                 </div>
               </div>
             </div>
-            <div class="col text-primary d-flex justify-content-end">
+            <div class="col-3 text-primary d-flex justify-content-end">
               <div
                 id="gender-edit-button"
-                class="p-2 rounded text-primary hover-button"
+                class="p-2 rounded text-primary hover-button text-small"
               >
                 Edit
               </div>
               <div id="gender-tool">
                 <div class="p-2 rounded hover-button" id="gender-tool-cancel">
-                  <span class="text-primary">Cancel</span>
+                  <span class="text-primary text-small">Cancel</span>
                 </div>
-                <button class="btn btn-primary mt-5" type="submit">Save</button>
+                <button class="btn btn-primary mt-5 text-small" type="submit">Save</button>
               </div>
             </div>
           </div>
         </div>
         <div class="py-4 px-3 border-top border-bottom">
           <div class="row">
-            <div class="col-2">Address</div>
-            <div class="col-8">
-              <div id="address">Khu pho 6, Linh Trung, Thu Duc</div>
+            
+            <div class="col-3 text-medium">Address</div>
+            <div class="col-6">
+              <% if !current_user.address.nil? %>
+                <div id="address" class='text-small'> <%= current_user.address%> </div>
+              <% else %>
+                <div class='text-small'>Add your address</div>
+              <% end %>
               <div id="address-input">
-                <div>
-                  <span>Address</span><span class="text-danger">*</span>
-                </div>
+                <div><span class='text-small'>Address</span><span class="text-danger">*</span></div>
                 <input
                   type="text"
-                  class="form-control mt-2"
+                  class="form-control mt-2 text-small"
                   placeholder="Address"
                 />
               </div>
             </div>
-            <div class="col text-primary d-flex justify-content-end">
+            <div class="col-3 text-primary d-flex justify-content-end">
               <div
                 id="address-edit-button"
-                class="p-2 rounded text-primary hover-button"
+                class="p-2 rounded text-primary hover-button text-small"
               >
                 Edit
               </div>
               <div id="address-tool">
                 <div class="p-2 rounded hover-button" id="address-tool-cancel">
-                  <span class="text-primary">Cancel</span>
+                  <span class="text-primary text-small">Cancel</span>
                 </div>
-                <button class="btn btn-primary mt-5" type="submit">Save</button>
+                <button class="btn btn-primary mt-5 text-small" type="submit">Save</button>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>  
+    <div id="security" class="col-9">
+      <div class="container">
+        <div>
+          <h2>Security</h2>
+          <div class="">
+            <span class='text-medium'
+              >Adjust your security settings and set up two-factor
+              authentication.</span
+            >
+          </div>
+        </div>
+        <div class="py-4 px-3 border-top mt-2">
+          <div class="row">
+            <div class="text-medium col-3">Password</div>
+            <div class="col-6">
+              <span class='text-small text-gray'>Reset your password regularly to keep your account secure</span>
+            </div>
+            <div class="col-3 text-primary d-flex justify-content-end">
+              <div id="reset-button" class="text-small text-gray p-2 rounded text-primary hover-button">
+                Reset
+              </div>
+              <div id="reset-tool">
+                <div class="p-2 rounded hover-button" id="reset-cancel">
+                  <span class="text-primary text-small">Cancel</span>
+                </div>
+                <button class="btn btn-primary mt-5 text-small" type="submit">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="py-4 px-3 border-top mt-2">
+          <div class="row">
+            <div class="col-3 text-medium">Delete account</div>
+            <div class="col-6">
+              <span class='text-small text-gray'>Permanently delete your travel account</span>
+            </div>
+            <div class="col-3 text-primary d-flex justify-content-end">
+              <div id="delete-button" class="p-2 rounded text-primary hover-button text-small text-gray ">
+                Delete account
+              </div>
+              <div id="delete-tool">
+                <div class='d-flex flex-column align-items-end'>
+                  <div class="p-2 rounded hover-button fit-content" id="delete-cancel">
+                    <span class="text-small text-primary">Cancel</span>
+                  </div>
+                  <button class="text-small btn btn-primary mt-5" type="submit">Delete account</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
   </div>
