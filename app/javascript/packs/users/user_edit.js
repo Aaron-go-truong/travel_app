@@ -79,9 +79,10 @@ $(() =>{
 
   $('#fullname-tool-save').on('click', () => {
     $.ajax({
-      type: 'POST',
-      url: 'edit/full_name',
-      data: { user:{full_name:'TCH'}},
+      type: 'PATCH',
+      url: '/users/edit_fullname',
+      dataType: 'html',
+      data: {full_name:'TCH'},
       success(data) {
         alert(data.id);
         return false;

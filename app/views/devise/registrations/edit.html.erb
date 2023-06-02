@@ -1,4 +1,4 @@
-<%= javascript_pack_tag 'users/user_edit' %> 
+<%= javascript_pack_tag 'users/user_edit' %>
 <%= stylesheet_link_tag 'users/user_edit' %>
 
 <div class="container mt-4">
@@ -26,17 +26,8 @@
               <span class='text-medium'>Update your info and find out how it's used.</span>
             </div>
           </div>
-          <div class='position-relative fit-content hover-button p-2 rounded'>
-            <img
-              src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                class="rounded-circle"
-              style="width: 60px; height: 60px"
-              alt="Avatar"
-            />
-            <div class='position-absolute absolute-center blur'>
-              <i class="fa-solid fa-camera color-gray"></i>
-              <%=file_field_tag 'file'%>
-            </div>
+          <div class='avatar w-100 h-100'>  
+            <%=file_field_tag 'avatar',data: {controller: 'filepond', filepond_target:'input',files: filepond_initial_files(@user.avatar)} %>
           </div>
         </div>
         <div class="py-4 px-3 border-top mt-2">
