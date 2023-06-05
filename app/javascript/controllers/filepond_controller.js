@@ -29,7 +29,7 @@ const avatarExtraOptions = {
   imageResizeTargetWidth: 200,
   imageResizeTargetHeight: 200,
   styleLoadIndicatorPosition: 'center bottom',
-  styleButtonRemoveItemPosition: 'center bottom',
+  styleButtonRemoveItemPosition: 'right bottom',
   stylePanelLayout: 'compact circle',
 }
 
@@ -44,9 +44,9 @@ export default class extends Controller {
     let options = { ...baseOptions };
     const { dataset: { styleLayout, files } } = inputTarget;
 
-    if (styleLayout === 'avatar') {
-      options = { ...options, ...avatarExtraOptions };
-    }
+  
+    options = { ...options, ...avatarExtraOptions };
+    
 
     if (files) {
       options = { ...options, files: JSON.parse(files) };

@@ -82,21 +82,79 @@ $(() =>{
       type: 'PATCH',
       url: '/users/edit_fullname',
       dataType: 'html',
-      data: {full_name:'TCH'},
+      data: {full_name: $("#fullname-value").val()},
       success(data) {
-        alert(data.id);
         return false;
       },
       error(data) {
         return false;
       }
-    })
+    }).then(
+      $("#fullname").text($("#fullname-value").val()),
+      hideInput('fullname')
+    )
+  })
+
+  $('#birthday-tool-save').on('click', () => {
+    let date_of_birth = $('#birthday-day-value').val()+'/'+$('#birthday-month-value').val()+'/'+$('#birthday-year-value').val();
+    $.ajax({
+      type: 'PATCH',
+      url: '/users/edit_dateofbirth',
+      dataType: 'html',
+      data: {date_of_birth: date_of_birth},
+      success(data) {
+        return false;
+      },
+      error(data) {
+        return false;
+      }
+    }).then(
+      $("#birthday").text(date_of_birth),
+      hideInput('birthday')
+    )
+  })
+
+  $('#gender-tool-save').on('click', () => { 
+    $.ajax({
+      type: 'PATCH',
+      url: '/users/edit_gender',
+      dataType: 'html',
+      data: {gender: $('#gender-select').val()},
+      success(data) {
+        return false;
+      },
+      error(data) {
+        return false;
+      }
+    }).then(
+      $("#gender").text($('#gender-select :selected').text()),
+      hideInput('gender')
+    )
+  })
+
+  $('#address-tool-save').on('click', () => {
+    $.ajax({
+      type: 'PATCH',
+      url: '/users/edit_address',
+      dataType: 'html',
+      data: {address: $('#address-value').val()},
+      success(data) {
+        return false;
+      },
+      error(data) {
+        return false;
+      }
+    }).then(
+      $("#address").text($('#address-value').val()),
+      hideInput('address')
+    )
   })
 }
 );
 
 function initialPage(){
   $('#security').hide()
+  $('#save-avatar').hide()
   hideToolandInput('fullname')
   hideToolandInput('birthday')
   hideToolandInput('gender')
