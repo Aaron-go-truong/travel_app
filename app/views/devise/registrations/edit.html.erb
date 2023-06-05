@@ -25,8 +25,8 @@
               <span class='text-medium'>Update your info and find out how it's used.</span>
             </div>
           </div>
-          <div class='d-flex position-relative align-items-end'>
-            <button id='save-avatar' class="btn btn-primary text-small fit-content align-bottom" type="submit">Save</button>
+          <div class='d-flex position-relative align-items-end'>           
+            <button id='btn-save-avatar', class="btn btn-primary text-small fit-content align-bottom", type="submit">Save</button>
             <%=file_field_tag 'filepond-avatar', class:'filepond-avatar',data: {controller: 'filepond', filepond_target:'input',files: filepond_initial_files(@user.avatar)} %>
           </div>
         </div>

@@ -148,13 +148,31 @@ $(() =>{
       $("#address").text($('#address-value').val()),
       hideInput('address')
     )
+  }),
+  $('#btn-save-avatar').on('click', () => {
+    console.log($('#filepond-avatar'))
+    // $.ajax({
+    //   type: 'PATCH',
+    //   url: '/users/edit_address',
+    //   dataType: 'html',
+    //   data: {address: $('#address-value').val()},
+    //   success(data) {
+    //     return false;
+    //   },
+    //   error(data) {
+    //     return false;
+    //   }
+    // }).then(
+    //   $("#address").text($('#address-value').val()),
+    //   hideInput('address')
+    // )
   })
 }
 );
 
 function initialPage(){
   $('#security').hide()
-  $('#save-avatar').hide()
+  // $('#save-avatar').hide()
   hideToolandInput('fullname')
   hideToolandInput('birthday')
   hideToolandInput('gender')
