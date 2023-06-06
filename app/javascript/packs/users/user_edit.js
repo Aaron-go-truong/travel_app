@@ -138,19 +138,18 @@ const saveInfo = (field, data) => {
     type: "PATCH",
     url: "/users/edit_profile",
     dataType: "html",
-    data: { user: data },
+    data: { user: data},
     success(data) {
-      return false;
+      field == "birthday"
+      ? $(`#${field}`).text(data.date_of_birth)
+      : field == "gender"
+      ? $(`#${field}`).text($("#gender-select :selected").text())
+      : $(`#${field}`).text($(`#${field}-value`).val())
     },
     error(data) {
       return false;
     },
   }).then(
-    field == "birthday"
-      ? $(`#${field}`).text(data.date_of_birth)
-      : field == "gender"
-      ? $(`#${field}`).text($("#gender-select :selected").text())
-      : $(`#${field}`).text($(`#${field}-value`).val()),
     hideInput(field)
   );
 };

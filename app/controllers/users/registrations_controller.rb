@@ -8,8 +8,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update_profile
     if @user.update(user_params)
+      flash[:notice] = "Field successfully updated"
       redirect_to edit_user_registration_path
     else
+      flash[:alert] = "Field can't update"
       render edit_user_registration_path
     end
   end
