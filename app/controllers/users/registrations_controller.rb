@@ -6,7 +6,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   skip_before_action :verify_authenticity_token
   before_action :find_user, only: %i[update_profile]
 
-
   def update_profile
     if @user.update(user_params)
       redirect_to edit_user_registration_path
@@ -16,6 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
   def find_user
     @user = User.find(current_user.id)
   end
