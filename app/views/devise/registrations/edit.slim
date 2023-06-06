@@ -1,0 +1,242 @@
+= javascript_pack_tag 'users/user_edit'
+.container.mt-4
+  .row
+    .col-3
+      .card
+        ul.list-group.list-group-flush.text-small
+          li#person-details-page.list-group-item.hover-select.d-flex.align-items-center
+            i.fa-solid.fa-user-pen.icon-width.p-2
+            div
+              | Personal details
+          li#security-page.list-group-item.hover-select.d-flex.align-items-center
+            i.fa-solid.fa-lock.p-2.icon-width
+            div
+              | Security
+    #person-details.col-9
+      .container
+        .d-flex.justify-content-between
+          div
+            h2
+              | Personal details
+            .text-muted
+              span.text-medium
+                | Update your info and find out how it's used.
+          .d-flex.position-relative.align-items-end
+            =file_field_tag 'filepond-avatar', class:'filepond-avatar',data: {controller: 'filepond', filepond_target:'input',files: filepond_initial_files(@user.avatar)}
+        .py-4.px-3.border-top.mt-2
+          .row
+            .col-3.text-medium
+              | Email address
+            .col-7
+              #email.text-small
+                = current_user.email
+              #email-input
+                div
+                  span.text-small
+                    | Email address
+                  span.text-danger
+                    | *
+                input.form-control.mt-2.text-small[type="text" placeholder="Email address"]
+                div
+                  span.text-small.text-gray
+                    |  We'll send a verification link to your new email address – check your inbox.
+            .col.text-primary.d-flex.justify-content-end
+              #email-edit-button.p-2.rounded.text-primary.hover-button.text-small
+                |  Edit
+              #email-tool
+                #email-tool-cancel.p-2.rounded.hover-button
+                  span.text-primary.text-small
+                    | Cancel
+                button.btn.btn-primary.mt-5.text-small[type="submit"]
+                  | Save
+        .py-4.px-3.border-top.mt-2
+          .row
+            .col-3.text-medium
+              | Full name
+            .col-7
+              #fullname.text-small
+                = current_user.full_name
+              #fullname-input
+                div
+                  span.text-small
+                    | Full name
+                  span.text-danger
+                    | *
+                |  <input id='fullname-value' value="
+                = current_user.full_name
+                | " type="text" class="form-control mt-2 text-small" placeholder="Full name" />
+            .col.text-primary.d-flex.justify-content-end
+              #fullname-edit-button.p-2.rounded.text-primary.hover-button.text-small
+                |  Edit
+              #fullname-tool
+                #fullname-tool-cancel.p-2.rounded.hover-button
+                  span.text-primary.text-small
+                    | Cancel
+                button#fullname-tool-save.btn.btn-primary.mt-5.text-small[type="submit"]
+                  | Save
+        .py-4.px-3.border-top
+          .row
+            .col-3.text-medium
+              | Date of birth
+            .col-6
+              - if !current_user.date_of_birth.nil?
+                #birthday.text-small
+                  = current_user.date_of_birth
+              - else
+                .text-small
+                  | Enter your date of birth
+              #birthday-input
+                div
+                  span.text-small
+                    | Date of birth
+                  span.text-danger
+                    | *
+                .row.mt-2
+                  .col-6
+                    select#birthday-month-value.form-select.text-small[aria-label="Default select example"]
+                      option[value="0" selected]
+                        | Month
+                      option[value="1"]
+                        | January
+                      option[value="2"]
+                        | February
+                      option[value="3"]
+                        | March
+                      option[value="4"]
+                        | April
+                      option[value="5"]
+                        | May
+                      option[value="6"]
+                        | June
+                      option[value="7"]
+                        | July
+                      option[value="8"]
+                        | August
+                      option[value="9"]
+                        | September
+                      option[value="10"]
+                        | October
+                      option[value="11"]
+                        | November
+                      option[value="12"]
+                        | December
+                  .col-3
+                    input#birthday-day-value.form-control.floatNumber.text-small[type="text" placeholder="DD"]
+                  .col-3
+                    input#birthday-year-value.form-control.floatNumber.text-small[type="text" placeholder="YYYY"]
+            .col.text-primary.d-flex.justify-content-end
+              #birthday-edit-button.p-2.rounded.text-primary.hover-button.text-small
+                |  Edit
+              #birthday-tool
+                #birthday-tool-cancel.p-2.rounded.hover-button
+                  span.text-primary.text-small
+                    | Cancel
+                button#birthday-tool-save.btn.btn-primary.mt-5.text-small[type="submit"]
+                  | Save
+        .py-4.px-3.border-top
+          .row
+            .col-3.text-medium
+              | Gender
+            .col-6
+              - if !current_user.gender.nil?
+                #gender.text-small
+                  - if current_user.gender == 'male'
+                    |  I'm a man
+                  - else
+                    - if current_user.gender == 'female'
+                      |  I'm a woman
+                    - else
+                      - if current_user.gender == 'non-binary'
+                        |  I'm non-binary
+                      - else
+                        |  I prefer not to say
+              - else
+                #gender.text-small
+                  | Select your gender
+              #gender-input
+                div
+                  span.text-small
+                    | Gender
+                  span.text-danger
+                    | *
+                  select#gender-select.form-select.mt-2.text-small[aria-label="Default select example"]
+                    = options_for_select([['Select your gender', 0], ["I'm a man", 'male'], ["I'm a woman", 'female'],["I'm non-binary","non-binary"],["I prefer not to say",'others']], current_user.gender||0)
+            .col-3.text-primary.d-flex.justify-content-end
+              #gender-edit-button.p-2.rounded.text-primary.hover-button.text-small
+                |  Edit
+              #gender-tool
+                #gender-tool-cancel.p-2.rounded.hover-button
+                  span.text-primary.text-small
+                    | Cancel
+                button#gender-tool-save.btn.btn-primary.mt-5.text-small[type="submit"]
+                  | Save
+        .py-4.px-3.border-top.border-bottom
+          .row
+            .col-3.text-medium
+              | Address
+            .col-6
+              - if !current_user.address.nil?
+                #address.text-small
+                  = current_user.address
+              - else
+                .text-small
+                  | Add your address
+              #address-input
+                div
+                  span.text-small
+                    | Address
+                  span.text-danger
+                    | *
+                |  <input id='address-value' value="
+                = current_user.address
+                | " type="text" class="form-control mt-2 text-small" placeholder="Address" />
+            .col-3.text-primary.d-flex.justify-content-end
+              #address-edit-button.p-2.rounded.text-primary.hover-button.text-small
+                |  Edit
+              #address-tool
+                #address-tool-cancel.p-2.rounded.hover-button
+                  span.text-primary.text-small
+                    | Cancel
+                button#address-tool-save.btn.btn-primary.mt-5.text-small[type="submit"]
+                  | Save
+    #security.col-9
+      .container
+        div
+          h2
+            | Security
+          div
+            span.text-medium
+              | Adjust your security settings and set up two-factor authentication.
+        .py-4.px-3.border-top.mt-2
+          .row
+            .text-medium.col-3
+              | Password
+            .col-6
+              span.text-small.text-gray
+                | Reset your password regularly to keep your account secure
+            .col-3.text-primary.d-flex.justify-content-end
+              #reset-button.text-small.text-gray.p-2.rounded.text-primary.hover-button
+                |  Reset
+              #reset-tool
+                #reset-cancel.p-2.rounded.hover-button
+                  span.text-primary.text-small
+                    | Cancel
+                button.btn.btn-primary.mt-5.text-small[type="submit"]
+                  | Save
+        .py-4.px-3.border-top.mt-2
+          .row
+            .col-3.text-medium
+              | Delete account
+            .col-6
+              span.text-small.text-gray
+                | Permanently delete your travel account
+            .col-3.text-primary.d-flex.justify-content-end
+              #delete-button.p-2.rounded.text-primary.hover-button.text-small.text-gray
+                |  Delete account
+              #delete-tool
+                .d-flex.flex-column.align-items-end
+                  #delete-cancel.p-2.rounded.hover-button.fit-content
+                    span.text-small.text-primary
+                      | Cancel
+                  button.text-small.btn.btn-primary.mt-5[type="submit"]
+                    | Delete account

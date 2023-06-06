@@ -1,202 +1,156 @@
-import $ from 'jquery';
+import $, { data } from "jquery";
 
-$(() =>{
+$(() => {
   initialPage();
 
-  $('#email-edit-button').on('click', () => {
-    showInput('email');
-  })
-
-  $('#email-tool-cancel').on('click', () => {
-    hideInput('email');
-  })
-  
-  $('#fullname-edit-button').on('click', () => {
-    showInput('fullname');
-  })
-
-  $('#fullname-tool-cancel').on('click', () => {
-    hideInput('fullname');
-  })
-
-  $('#birthday-edit-button').on('click', () => {
-    showInput('birthday');
-  })
-
-  $('#birthday-tool-cancel').on('click', () => {
-    hideInput('birthday');
-  })
-  
-  $('input.floatNumber').on('input', function() {
-    this.value = this.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g, '$1');
+  $("#email-edit-button").on("click", () => {
+    showInput("email");
   });
 
-  $('#gender-edit-button').on('click', () => {
-    showInput('gender');
-  })
+  $("#email-tool-cancel").on("click", () => {
+    hideInput("email");
+  });
 
-  $('#gender-tool-cancel').on('click', () => {
-    hideInput('gender');
-  })
+  $("#fullname-edit-button").on("click", () => {
+    showInput("fullname");
+  });
 
-  $('#address-edit-button').on('click', () => {
-    showInput('address');
-  })
+  $("#fullname-tool-cancel").on("click", () => {
+    hideInput("fullname");
+  });
 
-  $('#address-tool-cancel').on('click', () => {
-    hideInput('address');
-  })
+  $("#birthday-edit-button").on("click", () => {
+    showInput("birthday");
+  });
 
-  $('#reset-button').on('click', () => {
-    $('#reset-button').hide();
-    $('#reset-tool').show();
-  })
+  $("#birthday-tool-cancel").on("click", () => {
+    hideInput("birthday");
+  });
 
-  $('#reset-cancel').on('click', () => {
-    $('#reset-button').show();
-    $('#reset-tool').hide();
-  })
+  $("input.floatNumber").on("input", function () {
+    this.value = this.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+  });
 
-  $('#delete-button').on('click', () => {
-    $('#delete-button').hide();
-    $('#delete-tool').show();
-  })
+  $("#gender-edit-button").on("click", () => {
+    showInput("gender");
+  });
 
-  $('#delete-cancel').on('click', () => {
-    $('#delete-button').show();
-    $('#delete-tool').hide();
-  })
+  $("#gender-tool-cancel").on("click", () => {
+    hideInput("gender");
+  });
 
-  $('#security-page').on('click', () => {
-    $('#security').show();
-    $('#person-details').hide();
-  })
+  $("#address-edit-button").on("click", () => {
+    showInput("address");
+  });
 
-  $('#person-details-page').on('click', () => {
-    $('#security').hide();
-    $('#person-details').show();
-  })
+  $("#address-tool-cancel").on("click", () => {
+    hideInput("address");
+  });
 
-  $('#fullname-tool-save').on('click', () => {
-    $.ajax({
-      type: 'PATCH',
-      url: '/users/edit_fullname',
-      dataType: 'html',
-      data: {full_name: $("#fullname-value").val()},
-      success(data) {
-        return false;
-      },
-      error(data) {
-        return false;
-      }
-    }).then(
-      $("#fullname").text($("#fullname-value").val()),
-      hideInput('fullname')
-    )
-  })
+  $("#reset-button").on("click", () => {
+    $("#reset-button").hide();
+    $("#reset-tool").show();
+  });
 
-  $('#birthday-tool-save').on('click', () => {
-    let date_of_birth = $('#birthday-day-value').val()+'/'+$('#birthday-month-value').val()+'/'+$('#birthday-year-value').val();
-    $.ajax({
-      type: 'PATCH',
-      url: '/users/edit_dateofbirth',
-      dataType: 'html',
-      data: {date_of_birth: date_of_birth},
-      success(data) {
-        return false;
-      },
-      error(data) {
-        return false;
-      }
-    }).then(
-      $("#birthday").text(date_of_birth),
-      hideInput('birthday')
-    )
-  })
+  $("#reset-cancel").on("click", () => {
+    $("#reset-button").show();
+    $("#reset-tool").hide();
+  });
 
-  $('#gender-tool-save').on('click', () => { 
-    $.ajax({
-      type: 'PATCH',
-      url: '/users/edit_gender',
-      dataType: 'html',
-      data: {gender: $('#gender-select').val()},
-      success(data) {
-        return false;
-      },
-      error(data) {
-        return false;
-      }
-    }).then(
-      $("#gender").text($('#gender-select :selected').text()),
-      hideInput('gender')
-    )
-  })
+  $("#delete-button").on("click", () => {
+    $("#delete-button").hide();
+    $("#delete-tool").show();
+  });
 
-  $('#address-tool-save').on('click', () => {
-    $.ajax({
-      type: 'PATCH',
-      url: '/users/edit_address',
-      dataType: 'html',
-      data: {address: $('#address-value').val()},
-      success(data) {
-        return false;
-      },
-      error(data) {
-        return false;
-      }
-    }).then(
-      $("#address").text($('#address-value').val()),
-      hideInput('address')
-    )
-  }),
-  $('#btn-save-avatar').on('click', () => {
-    console.log($('#filepond-avatar'))
-    // $.ajax({
-    //   type: 'PATCH',
-    //   url: '/users/edit_address',
-    //   dataType: 'html',
-    //   data: {address: $('#address-value').val()},
-    //   success(data) {
-    //     return false;
-    //   },
-    //   error(data) {
-    //     return false;
-    //   }
-    // }).then(
-    //   $("#address").text($('#address-value').val()),
-    //   hideInput('address')
-    // )
-  })
-}
-);
+  $("#delete-cancel").on("click", () => {
+    $("#delete-button").show();
+    $("#delete-tool").hide();
+  });
 
-function initialPage(){
-  $('#security').hide()
+  $("#security-page").on("click", () => {
+    $("#security").show();
+    $("#person-details").hide();
+  });
+
+  $("#person-details-page").on("click", () => {
+    $("#security").hide();
+    $("#person-details").show();
+  });
+
+  $("#fullname-tool-save").on("click", () => {
+    saveInfo(`fullname`, { full_name: $("#fullname-value").val() });
+  });
+
+  $("#birthday-tool-save").on("click", () => {
+    let date_of_birth = `${$("#birthday-day-value").val()}/${$(
+      "#birthday-month-value"
+    ).val()}/${$("#birthday-year-value").val()}`;
+
+    saveInfo("birthday", { date_of_birth: date_of_birth });
+  });
+
+  $("#gender-tool-save").on("click", () => {
+    saveInfo("gender", { gender: $("#gender-select").val() });
+  });
+
+  $("#address-tool-save").on("click", () => {
+    saveInfo("address", { address: $("#address-value").val() });
+  });
+
+  $("#btn-save-avatar").on("click", () => {
+    // console.log($("#filepond-avatar"));
+  });
+});
+
+const initialPage = () => {
+  $("#security").hide();
   // $('#save-avatar').hide()
-  hideToolandInput('fullname')
-  hideToolandInput('birthday')
-  hideToolandInput('gender')
-  hideToolandInput('address')
-  hideToolandInput('reset')
-  hideToolandInput('delete')
-  hideToolandInput('email')
-}
+  hideToolandInput("fullname");
+  hideToolandInput("birthday");
+  hideToolandInput("gender");
+  hideToolandInput("address");
+  hideToolandInput("reset");
+  hideToolandInput("delete");
+  hideToolandInput("email");
+};
 
-function hideToolandInput(id){
-  $('#'+id+'-tool').hide();
-  $('#'+id+'-input').hide(); 
-}
+const hideToolandInput = (id) => {
+  $(`#${id}-tool`).hide();
+  $(`#${id}-input`).hide();
+};
 
-function showInput(id){
-  $('#'+id+'-edit-button').hide();
-  $('#'+id).hide();
-  $('#'+id+'-tool').show();
-  $('#'+id+'-input').show();
-}
+const showInput = (id) => {
+  $(`#${id}` + "-edit-button").hide();
+  $(`#${id}`).hide();
+  $(`#${id}-tool`).show();
+  $(`#${id}-input`).show();
+};
 
-function hideInput(id){
-  $('#'+id+'-tool').hide();
-  $('#'+id+'-input').hide();
-  $('#'+id+'-edit-button').show();
-  $('#'+id+'').show();
-}
+const hideInput = (id) => {
+  $(`#${id}-tool`).hide();
+  $(`#${id}-input`).hide();
+  $(`#${id}-edit-button`).show();
+  $(`#${id}`).show();
+};
+
+const saveInfo = (field, data) => {
+  $.ajax({
+    type: "PATCH",
+    url: "/users/edit_profile",
+    dataType: "html",
+    data: { user: data },
+    success(data) {
+      return false;
+    },
+    error(data) {
+      return false;
+    },
+  }).then(
+    field == "birthday"
+      ? $(`#${field}`).text(data.date_of_birth)
+      : field == "gender"
+      ? $(`#${field}`).text($("#gender-select :selected").text())
+      : $(`#${field}`).text($(`#${field}-value`).val()),
+    hideInput(field)
+  );
+};
