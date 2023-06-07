@@ -1,7 +1,26 @@
 import $ from "jquery";
 
 $(() => {
-  $('#notFound').hide()
+  $("#notFound").hide();
+
+  $("#follow-btn").on("click", () => {
+    let url = `/users/index_${$("#follow-btn").text().toLowerCase()}`;
+    let isFollow = $("#follow-btn").text() == "Follow";
+    $.ajax({
+      type: isFollow?"POST":"DELETE",
+      url: url,
+      dataType: "html",
+      data: { user_id: $(followed_id).val() },
+      success(data) {
+        isFollow
+          ? $("#follow-btn").text("Unfollow")
+          : $("#follow-btn").text("Follow");
+      },
+      error(data) {
+        return false;
+      },
+    });
+  });
 
   $("#search").on("keyup", function () {
     var value = $(this).val().toLowerCase();
@@ -11,10 +30,9 @@ $(() => {
       );
     });
     if ($("#listUsers div#user-card:visible").length === 0) {
-      $('#notFound').show();
-    }
-    else{
-      $('#notFound').hide();
+      $("#notFound").show();
+    } else {
+      $("#notFound").hide();
     }
   });
 });
