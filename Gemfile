@@ -59,3 +59,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'cssbundling-rails', '~> 1.1'
+gem 'slim'
+gem 'slim-rails'

@@ -6,7 +6,13 @@
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
-import "channels"
+import "@fortawesome/fontawesome-free/css/all.css";
+import '@tabler/core/dist/js/tabler.min';
+import '@tabler/core/dist/css/tabler.min.css';
+
+import 'channels';
+import 'controllers';
+import '../styles/index.sass'
 
 Rails.start()
 Turbolinks.start()
