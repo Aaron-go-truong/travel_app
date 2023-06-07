@@ -1,0 +1,51 @@
+= javascript_pack_tag 'users/list_users'
+.container
+  .row.d-flex.justify-content-center.mt-5
+    .col-md-8
+      .card
+        .d-flex.justify-content-between.align-items-center
+          span.font-weight-bold
+            | Users List
+          .d-flex.justify-content-between.min-width
+            button.btn.btn-primary.active
+              i.fa-regular.fa-heart
+              |  Loved
+            button.btn.btn-primary.active
+              i.fa-regular.fa-eye
+              |  Followed
+        .mt-3.inputs
+          i.fa.fa-search
+          input#search.form-control[type="text" placeholder="Search Users..."]
+  - if @users.blank?
+    p
+      | There are not any users currently in the system.
+  -else
+  #listUsers.flex-container.wrap.w-100.align-items-center.gap-1
+    - @users.each do |user|
+      #user-card.fit-content.border.rounded.p-0.5.mt-2
+        .card-body.p-2
+          .d-flex.text-black
+            .flex-shrink-0
+              = image_tag user.avatar, class: "user-image"
+            .flex-grow-1.ms-3
+              #userName.text-medium-bold.mb-1
+                | #{user.full_name}
+
+              .d-flex.justify-content-start.rounded-3.p-2.mb-2[style="background-color: #efefef"]
+                div
+                  p.small.text-muted.mb-1
+                    | Plans
+                  p.mb-0
+                    | 41
+                .px-3
+                  p.small.text-muted.mb-1
+                    | Followers
+                  p.mb-0.text-medium
+                    | 976
+              .d-flex.pt-1
+                button.btn.btn-outline-primary.me-1.flex-grow-1.text-small[type="button"]
+                  |  Details
+                button.btn.btn-primary.flex-grow-1[type="button"]
+                  |  Follow
+    p#notFound
+      | Your search did not match any users

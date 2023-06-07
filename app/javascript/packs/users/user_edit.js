@@ -97,8 +97,8 @@ $(() => {
     saveInfo("address", { address: $("#address-value").val() });
   });
 
-  $("#btn-save-avatar").on("click", () => {
-    // console.log($("#filepond-avatar"));
+  $("#btn-save-avt").on("click", () => {
+    console.log($("#filepond-avatar").find('img'));
   });
 });
 

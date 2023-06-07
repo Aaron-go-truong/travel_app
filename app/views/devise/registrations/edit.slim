@@ -21,8 +21,14 @@
             .text-muted
               span.text-medium
                 | Update your info and find out how it's used.
-          .d-flex.position-relative.align-items-end
-            =file_field_tag 'filepond-avatar', class:'filepond-avatar',data: {controller: 'filepond', filepond_target:'input',files: filepond_initial_files(@user.avatar)}
+
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+            .d-flex.position-relative.align-items-end[data-controller="filepond"]
+              #btn-cancel-img.d-none.p-2.rounded.btn-cancel[data-filepond-target="button_cancel" data-action="click->filepond#recover"]
+                  span.text-primary.text-small
+                    | Cancel
+              =f.submit "Save", class:'btn btn-primary text-small d-none',data: {filepond_target:'buttonsave'}
+              =f.file_field :avatar, class:'filepond-avatar',data: {filepond_target:'input',files: filepond_initial_files(@user.avatar)}
         .py-4.px-3.border-top.mt-2
           .row
             .col-3.text-medium
