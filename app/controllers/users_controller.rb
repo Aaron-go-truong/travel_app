@@ -19,6 +19,6 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    @target_user=User.find(params[:user_id])
+    @target_user = User.find(params[:user_id])
   end
 end

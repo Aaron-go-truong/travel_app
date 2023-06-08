@@ -24,7 +24,7 @@
 
           = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
             .d-flex.position-relative.align-items-end[data-controller="filepond"]
-              #btn-cancel-img.d-none.p-2.rounded.btn-cancel[data-filepond-target="button_cancel" data-action="click->filepond#recover"]
+              #btn-cancel-img.d-none.p-2.rounded.btn-cancel[data-filepond-target="buttoncancel" data-action="click->filepond#recover"]
                   span.text-primary.text-small
                     | Cancel
               =f.submit "Save", class:'btn btn-primary text-small d-none',data: {filepond_target:'buttonsave'}
