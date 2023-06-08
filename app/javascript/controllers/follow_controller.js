@@ -4,9 +4,6 @@ import $ from "jquery";
 export default class extends Controller {
   static targets = ["flbutton"];
 
-  // flbuttonTargetConnected(currentAlert) {
-
-  // }
   show() {
     let url = `/users/index_${this.flbuttonTarget.textContent.toLowerCase()}`;
     let user_id = this.flbuttonTarget.id;
@@ -17,7 +14,13 @@ export default class extends Controller {
       dataType: "html",
       data: { user_id: user_id },
       success(data) {
-        isFollow ? $(`#${user_id}`).text("Unfollow") : $(`#${user_id}`).text("Follow");
+        if (isFollow) {
+          $(`#${user_id}`).text("Unfollow");
+          $(`#${user_id}`).toggleClass("btn-primary btn-light");
+        } else {
+          $(`#${user_id}`).text("Follow");
+          $(`#${user_id}`).toggleClass("btn-light btn-primary ");
+        }
       },
       error(data) {
         return false;
