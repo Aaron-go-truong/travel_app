@@ -1,33 +1,38 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
+# Additional translations at https://github.com/heartcombo/devise/wiki/I18n
 
 en:
-  hello: "Hello world"
+  devise:
+    sessions:
+      email: "Email"
+      password: "Password"
+      remember: "Remember me"
+      forgot_password: "Forgot password?"
+      sign_in: "Sign in"
+      facebook_login: "Continue with Facebook"
+    registrations:
+      title-details: "Personal Details"
+      des-details: "Update your info and find out how it's used."
+      title-security: "Security"
+      des-security: "Adjust your security settings and set up two-factor authentication."
+      email-address: "Email Address"
+      des-email: "We'll send a verification link to your new email address – check your inbox."
+      fullname: "Full Name"
+      birthday: "Date of birth"
+      des-birthday: "Enter your date of birth"
+      gender: "Gender"
+      gender-male: "I'm a man"
+      gender-female: "I'm a Woman"
+      gender-non-binary: "I'm non-binary"
+      gender-other: "I prefer not to say"
+      des-gender: "Select your gender"
+      address: "Address"
+      des-address: "Add your address"
+      password: "Password"
+      des-password: "Reset your password regularly to keep your account secure"
+      deleteaccount: "Delete account"
+      des-deleteaccount: "Permanently delete your travel account"
+      save-btn: "Save"
+      edit-btn: "Edit"
+      cancel-btn: "Cancel"
+      delete-btn: "Delete account"
+      reset-btn: "Reset"

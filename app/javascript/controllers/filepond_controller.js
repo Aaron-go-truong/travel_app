@@ -34,13 +34,19 @@ const avatarExtraOptions = {
 };
 
 export default class extends Controller {
-  static targets = ["input"];
+  static targets = ["input", "buttonsave","buttoncancel"];
 
   inputTargetConnected(inputTarget) {
     this.setupFilePond(inputTarget);
   }
 
- 
+  showButton(target) {
+    target.classList.remove("d-none");
+  }
+
+  recover(){
+
+  }
 
   setupFilePond(inputTarget) {
     let options = { ...baseOptions };
@@ -64,7 +70,10 @@ export default class extends Controller {
         inputElement?.remove();
       },
       onremovefile: (errRes, file) => {
-        
+        this.showButton(this.buttoncancelTarget);
+      },
+      onaddfilestart: (file) => {
+        this.showButton(this.buttonsaveTarget);
       },
     });
   }

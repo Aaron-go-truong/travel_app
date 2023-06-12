@@ -1,0 +1,58 @@
+= javascript_pack_tag 'users/list_users'
+.container
+  .row.d-flex.justify-content-center.mt-5
+    .col-md-8
+      .card
+        .d-flex.justify-content-between.align-items-center
+          span.font-weight-bold
+            | Users List
+          .d-flex.justify-content-between.min-width
+            button.btn.btn-primary.active
+              i.fa-regular.fa-heart
+              |  Loved
+            button.btn.btn-primary.active
+              i.fa-regular.fa-eye
+              |  Followed
+        .mt-3.inputs
+          i.fa.fa-search
+          input#search.form-control[type="text" placeholder="Search Users..."]
+  - if @users.blank?
+    p
+      | There are not any users currently in the system.
+  -else
+  #listUsers.flex-container.wrap.w-100.align-items-center.gap-1
+    - @users.each do |user|
+      .fit-content.border.rounded.p-0.5.mt-2[id = user.id.to_s+'_usercard']
+        .card-body.p-2
+          .d-flex.text-black
+            .flex-shrink-0
+              = image_tag user.avatar, class: "user-image"
+            .flex-grow-1.ms-3
+              = hidden_field_tag :followed_id, user.id
+              #userName.text-medium-bold.mb-1
+                | #{user.full_name}
+
+              .d-flex.justify-content-start.rounded-3.p-2.mb-2[style="background-color: #efefef"]
+                div
+                  p.small.text-muted.mb-1
+                    | Plans
+                  p.mb-0
+                    | 41
+                .px-3
+                  p.small.text-muted.mb-1
+                    | Followers
+                  p.mb-0.text-medium
+                    | 976
+              .d-flex.pt-1[data-controller="follow"]
+                button.btn.btn-sm.btn-outline-primary.me-1.flex-grow-1.text-small[type="button"]
+                  |  <a href="/users/index/
+                  = user.id
+                  | ">
+                  | Details
+                button.btn.btn-sm.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-light' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#show"]
+                  - if current_user.following?(user)
+                    | Unfollow
+                  - else
+                    | Follow
+    p#notFound
+      | Your search did not match any users

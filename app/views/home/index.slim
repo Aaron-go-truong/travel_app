@@ -8,7 +8,7 @@ h1
   | |
   => link_to "Logout", destroy_user_session_path, class: 'navbar-link'
   | |
-  => link_to "List Users", list_users_index_path, class: 'navbar-link'
+  => link_to "List Users", users_index_path, class: 'navbar-link'
 - else
   => link_to "Sign up", new_user_registration_path, class: 'navbar-link'
   | |

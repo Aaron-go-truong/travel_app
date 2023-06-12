@@ -7,59 +7,65 @@
           li#person-details-page.list-group-item.hover-select.d-flex.align-items-center
             i.fa-solid.fa-user-pen.icon-width.p-2
             div
-              | Personal details
+              = I18n.t("devise.registrations.title-details")
           li#security-page.list-group-item.hover-select.d-flex.align-items-center
             i.fa-solid.fa-lock.p-2.icon-width
             div
-              | Security
+              = I18n.t("devise.registrations.title-security")
     #person-details.col-9
       .container
         .d-flex.justify-content-between
           div
             h2
-              | Personal details
+              = I18n.t("devise.registrations.title-details")
             .text-muted
               span.text-medium
-                | Update your info and find out how it's used.
-          .d-flex.position-relative.align-items-end
-            =file_field_tag 'filepond-avatar', class:'filepond-avatar',data: {controller: 'filepond', filepond_target:'input',files: filepond_initial_files(@user.avatar)}
+                = I18n.t("devise.registrations.des-details")
+
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+            .d-flex.position-relative.align-items-end[data-controller="filepond"]
+              #btn-cancel-img.d-none.p-2.rounded.btn-cancel[data-filepond-target="buttoncancel" data-action="click->filepond#recover"]
+                  span.text-primary.text-small
+                    = I18n.t("devise.registrations.cancel-btn")
+              =f.submit "Save", class:'btn btn-primary text-small d-none',data: {filepond_target:'buttonsave'}
+              =f.file_field :avatar, class:'filepond-avatar',data: {filepond_target:'input',files: filepond_initial_files(@user.avatar)}
         .py-4.px-3.border-top.mt-2
           .row
             .col-3.text-medium
-              | Email address
+              = I18n.t("devise.registrations.email-address")
             .col-7
               #email.text-small
                 = current_user.email
               #email-input
                 div
                   span.text-small
-                    | Email address
+                    = I18n.t("devise.registrations.email")
                   span.text-danger
                     | *
                 input.form-control.mt-2.text-small[type="text" placeholder="Email address"]
                 div
                   span.text-small.text-gray
-                    |  We'll send a verification link to your new email address – check your inbox.
+                    = I18n.t("devise.registrations.des-email")
             .col.text-primary.d-flex.justify-content-end
               #email-edit-button.p-2.rounded.text-primary.hover-button.text-small
-                |  Edit
+                = I18n.t("devise.registrations.edit-btn")
               #email-tool
                 #email-tool-cancel.p-2.rounded.hover-button
                   span.text-primary.text-small
-                    | Cancel
+                    = I18n.t("devise.registrations.cancel-btn")
                 button.btn.btn-primary.mt-5.text-small[type="submit"]
-                  | Save
+                  = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top.mt-2
           .row
             .col-3.text-medium
-              | Full name
+              = I18n.t("devise.registrations.fullname")
             .col-7
               #fullname.text-small
                 = current_user.full_name
               #fullname-input
                 div
                   span.text-small
-                    | Full name
+                    = I18n.t("devise.registrations.fullname")
                   span.text-danger
                     | *
                 |  <input id='fullname-value' value="
@@ -67,28 +73,28 @@
                 | " type="text" class="form-control mt-2 text-small" placeholder="Full name" />
             .col.text-primary.d-flex.justify-content-end
               #fullname-edit-button.p-2.rounded.text-primary.hover-button.text-small
-                |  Edit
+                = I18n.t("devise.registrations.edit-btn")
               #fullname-tool
                 #fullname-tool-cancel.p-2.rounded.hover-button
                   span.text-primary.text-small
-                    | Cancel
+                    = I18n.t("devise.registrations.cancel-btn")
                 button#fullname-tool-save.btn.btn-primary.mt-5.text-small[type="submit"]
-                  | Save
+                  = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top
           .row
             .col-3.text-medium
-              | Date of birth
+              = I18n.t("devise.registrations.birthday")
             .col-6
               - if !current_user.date_of_birth.nil?
                 #birthday.text-small
                   = current_user.date_of_birth
               - else
                 .text-small
-                  | Enter your date of birth
+                  = I18n.t("devise.registrations.des-birthday")
               #birthday-input
                 div
                   span.text-small
-                    | Date of birth
+                    = I18n.t("devise.registrations.birthday")
                   span.text-danger
                     | *
                 .row.mt-2
@@ -121,22 +127,22 @@
                       option[value="12"]
                         | December
                   .col-3
-                    input#birthday-day-value.form-control.floatNumber.text-small[type="text" placeholder="DD"]
+                    input#birthday-day-value.form-control.input-form.floatNumber.text-small[type="text" placeholder="DD"]
                   .col-3
-                    input#birthday-year-value.form-control.floatNumber.text-small[type="text" placeholder="YYYY"]
+                    input#birthday-year-value.form-control.input-form.floatNumber.text-small[type="text" placeholder="YYYY"]
             .col.text-primary.d-flex.justify-content-end
               #birthday-edit-button.p-2.rounded.text-primary.hover-button.text-small
-                |  Edit
+                = I18n.t("devise.registrations.edit-btn")
               #birthday-tool
                 #birthday-tool-cancel.p-2.rounded.hover-button
                   span.text-primary.text-small
-                    | Cancel
+                    = I18n.t("devise.registrations.cancel-btn")
                 button#birthday-tool-save.btn.btn-primary.mt-5.text-small[type="submit"]
-                  | Save
+                  = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top
           .row
             .col-3.text-medium
-              | Gender
+              = I18n.t("devise.registrations.gender")
             .col-6
               - if !current_user.gender.nil?
                 #gender.text-small
@@ -152,39 +158,39 @@
                         |  I prefer not to say
               - else
                 #gender.text-small
-                  | Select your gender
+                  = I18n.t("devise.registrations.des-gender")
               #gender-input
                 div
                   span.text-small
-                    | Gender
+                    = I18n.t("devise.registrations.gender")
                   span.text-danger
                     | *
                   select#gender-select.form-select.mt-2.text-small[aria-label="Default select example"]
                     = options_for_select([['Select your gender', 0], ["I'm a man", 'male'], ["I'm a woman", 'female'],["I'm non-binary","non-binary"],["I prefer not to say",'others']], current_user.gender||0)
             .col-3.text-primary.d-flex.justify-content-end
               #gender-edit-button.p-2.rounded.text-primary.hover-button.text-small
-                |  Edit
+                = I18n.t("devise.registrations.edit-btn")
               #gender-tool
                 #gender-tool-cancel.p-2.rounded.hover-button
                   span.text-primary.text-small
-                    | Cancel
+                    = I18n.t("devise.registrations.cancel-btn")
                 button#gender-tool-save.btn.btn-primary.mt-5.text-small[type="submit"]
-                  | Save
+                  = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top.border-bottom
           .row
             .col-3.text-medium
-              | Address
+              = I18n.t("devise.registrations.address")
             .col-6
               - if !current_user.address.nil?
                 #address.text-small
                   = current_user.address
               - else
                 .text-small
-                  | Add your address
+                  = I18n.t("devise.registrations.des-address")
               #address-input
                 div
                   span.text-small
-                    | Address
+                    = I18n.t("devise.registrations.address")
                   span.text-danger
                     | *
                 |  <input id='address-value' value="
@@ -192,51 +198,51 @@
                 | " type="text" class="form-control mt-2 text-small" placeholder="Address" />
             .col-3.text-primary.d-flex.justify-content-end
               #address-edit-button.p-2.rounded.text-primary.hover-button.text-small
-                |  Edit
+                = I18n.t("devise.registrations.edit-btn")
               #address-tool
                 #address-tool-cancel.p-2.rounded.hover-button
                   span.text-primary.text-small
-                    | Cancel
+                    = I18n.t("devise.registrations.cancel-btn")
                 button#address-tool-save.btn.btn-primary.mt-5.text-small[type="submit"]
-                  | Save
+                  = I18n.t("devise.registrations.save-btn")
     #security.col-9
       .container
         div
           h2
-            | Security
-          div
+            = I18n.t("devise.registrations.title-security")
+          .text-muted
             span.text-medium
-              | Adjust your security settings and set up two-factor authentication.
+              = I18n.t("devise.registrations.des-security")
         .py-4.px-3.border-top.mt-2
           .row
             .text-medium.col-3
-              | Password
+              = I18n.t("devise.registrations.password")
             .col-6
               span.text-small.text-gray
-                | Reset your password regularly to keep your account secure
+                = I18n.t("devise.registrations.des-password")
             .col-3.text-primary.d-flex.justify-content-end
               #reset-button.text-small.text-gray.p-2.rounded.text-primary.hover-button
-                |  Reset
+                = I18n.t("devise.registrations.reset-btn")
               #reset-tool
                 #reset-cancel.p-2.rounded.hover-button
                   span.text-primary.text-small
-                    | Cancel
+                    = I18n.t("devise.registrations.cancel-btn")
                 button.btn.btn-primary.mt-5.text-small[type="submit"]
-                  | Save
+                  = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top.mt-2
           .row
             .col-3.text-medium
-              | Delete account
+              = I18n.t("devise.registrations.deleteaccount")
             .col-6
               span.text-small.text-gray
-                | Permanently delete your travel account
+                = I18n.t("devise.registrations.des-deleteaccount")
             .col-3.text-primary.d-flex.justify-content-end
               #delete-button.p-2.rounded.text-primary.hover-button.text-small.text-gray
-                |  Delete account
+                = I18n.t("devise.registrations.delete-btn")
               #delete-tool
                 .d-flex.flex-column.align-items-end
                   #delete-cancel.p-2.rounded.hover-button.fit-content
                     span.text-small.text-primary
-                      | Cancel
+                      = I18n.t("devise.registrations.cancel-btn")
                   button.text-small.btn.btn-primary.mt-5[type="submit"]
                     | Delete account
