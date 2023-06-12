@@ -11,18 +11,18 @@ class UsersController < ApplicationController
   end
 
   def follow
-    current_user.follow(@target_user)
+    current_user.follow(@user)
     redirect_to users_index_path
   end
 
   def unfollow
-    current_user.unfollow(@target_user)
+    current_user.unfollow(@user)
     redirect_to users_index_path
   end
 
   private
 
   def find_user
-    @target_user = User.find(params[:user_id])
+    @user = User.find(params[:user_id])
   end
 end

@@ -7,6 +7,7 @@ export default class extends Controller {
   show() {
     let url = `/users/index_${this.flbuttonTarget.textContent.toLowerCase()}`;
     let user_id = this.flbuttonTarget.id;
+    let followbtnElm = $(`#${user_id}`)
     let isFollow = this.flbuttonTarget.textContent == "Follow";
     $.ajax({
       type: isFollow ? "POST" : "DELETE",
@@ -15,11 +16,11 @@ export default class extends Controller {
       data: { user_id: user_id },
       success(data) {
         if (isFollow) {
-          $(`#${user_id}`).text("Unfollow");
-          $(`#${user_id}`).toggleClass("btn-primary btn-light");
+          followbtnElm.text("Unfollow");
+          followbtnElm.toggleClass("btn-primary btn-light");
         } else {
-          $(`#${user_id}`).text("Follow");
-          $(`#${user_id}`).toggleClass("btn-light btn-primary ");
+          followbtnElm.text("Follow");
+          followbtnElm.toggleClass("btn-light btn-primary ");
         }
       },
       error(data) {
