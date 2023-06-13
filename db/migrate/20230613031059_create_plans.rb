@@ -10,7 +10,8 @@ class CreatePlans < ActiveRecord::Migration[6.1]
       t.text :activities
       t.text :notes
       t.integer :plan_audience, default: 0, null: false
-
+      t.references :plan_parent, foreign_key: { to_table: :plans }
+      t.references :user, null: false, foreign_key: true
       t.timestamps null: false
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_13_032108) do
+ActiveRecord::Schema.define(version: 2023_06_13_031059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,15 +43,6 @@ ActiveRecord::Schema.define(version: 2023_06_13_032108) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "plan_details", force: :cascade do |t|
-    t.integer "plan_id"
-    t.integer "plan_detail_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["plan_detail_id"], name: "index_plan_details_on_plan_detail_id"
-    t.index ["plan_id"], name: "index_plan_details_on_plan_id"
-  end
-
   create_table "plans", force: :cascade do |t|
     t.integer "amount", null: false
     t.string "title", null: false
@@ -61,8 +52,13 @@ ActiveRecord::Schema.define(version: 2023_06_13_032108) do
     t.string "vehicles"
     t.text "activities"
     t.text "notes"
+    t.integer "plan_audience", default: 0, null: false
+    t.bigint "plan_parent_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["plan_parent_id"], name: "index_plans_on_plan_parent_id"
+    t.index ["user_id"], name: "index_plans_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -95,4 +91,6 @@ ActiveRecord::Schema.define(version: 2023_06_13_032108) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "plans", "plans", column: "plan_parent_id"
+  add_foreign_key "plans", "users"
 end
