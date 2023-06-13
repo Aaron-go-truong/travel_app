@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     get '/users/sign_out', to: 'devise/sessions#destroy'
     patch '/users/edit_profile', to: 'users/registrations#update_profile'
   end
+
+
+
   root 'home#index'
   get 'home/index'
 end

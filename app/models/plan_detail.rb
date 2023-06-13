@@ -4,5 +4,4 @@ class PlanDetail < ApplicationRecord
 
   validates :plan_id, presence: true
   validates :plan_detail_id, presence: true
-
 end
