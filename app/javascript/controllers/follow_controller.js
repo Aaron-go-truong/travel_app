@@ -4,7 +4,7 @@ import $ from "jquery";
 export default class extends Controller {
   static targets = ["flbutton"];
 
-  show() {
+  follow_action() {
     let url = `/users/index_${this.flbuttonTarget.textContent.toLowerCase()}`;
     let user_id = this.flbuttonTarget.id;
     let followbtnElm = $(`#${user_id}`)

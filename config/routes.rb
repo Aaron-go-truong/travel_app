@@ -11,9 +11,7 @@ Rails.application.routes.draw do
     patch '/users/edit_profile', to: 'users/registrations#update_profile'
   end
 
-  resources :plans do
-    resources :comments
-  end
+  resources :plans
 
   root 'home#index'
   get 'home/index'

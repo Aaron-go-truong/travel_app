@@ -14,5 +14,6 @@ class CreatePlans < ActiveRecord::Migration[6.1]
       t.references :user, null: false, foreign_key: true
       t.timestamps null: false
     end
+    add_index :plans, [:user_id, :created_at]
   end
 end
