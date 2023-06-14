@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 1
+  title: MyString
+  descriptions: MyText
+  time: MyString
+  address: MyString
+  vehicles: MyString
+  activities: MyText
+  notes: MyText
+
+two:
+  amount: 1
+  title: MyString
+  descriptions: MyText
+  time: MyString
+  address: MyString
+  vehicles: MyString
+  activities: MyText
+  notes: MyText
