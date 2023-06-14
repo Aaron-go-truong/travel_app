@@ -1,7 +1,7 @@
 import $ from "jquery";
 
 $(() => {
-  console.log($("#form-plan"))
+  console.log($("#form-plan"));
   $("#form-plan").hide();
   $("btn-cancel").hide();
   $("#edit-plan").on("click", () => {
