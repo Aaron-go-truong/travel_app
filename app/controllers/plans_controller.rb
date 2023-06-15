@@ -2,7 +2,8 @@ class PlansController < ApplicationController
   before_action :find_plan, only: %i[show update]
 
   def index
-    @plans = Plan.find_by_user_id(current_user.id)
+    @plans = Plan.all
+    @plans = @plans.where(user_id: params[:user_id]) if params[:user_id].present?
   end
 
   def show; end
