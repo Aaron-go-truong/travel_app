@@ -3,15 +3,15 @@
 .container
   .d-flex.mt-7
     = render 'shared/sidebar'
-    .workpage
+    .workpage.w-100
       h4.text-muted
         span
           | YOUR WORKSPACES
-      .row.row-cols-3.g-2
+      .row.row-cols-3.w-100.g-2
         - @plans.each do |plan|
           .col.mb-2[data-controller="plan"]
             .position-relative.g-2.card-plan.rounded-3[id= plan.id.to_s data-plan-target="plancard" data-action="click->plan#navigate"]
-              = image_tag plan.image_description, class: "w-100 min-height-card rounded-3 position-relative"
+              = image_tag plan.image_description, class: "w-100 card-height rounded-3 position-relative"
               .position-absolute.bottom-0.title-plan.rounded-bottom-3
               .position-absolute.bottom-0.p-2
                 span.text-title--bold

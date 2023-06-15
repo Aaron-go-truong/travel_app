@@ -1,8 +1,8 @@
 class PlansController < ApplicationController
-  before_action :find_plan, only: %i[show update]
+  before_action :find_plan, only: %i[show update destroy]
 
   def index
-    @plans = Plan.all
+    @plans = Plan.where(plan_parent_id: nil)
     @plans = @plans.where(user_id: params[:user_id]) if params[:user_id].present?
   end
 
@@ -15,12 +15,20 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new(plan_params)
     @plan.user_id = current_user.id
+    @plan.plan_parent_id = params[:plan_parent_id].split.last unless params[:plan_parent_id][-1].blank?
 
     if @plan.save
       @plan.image_description.attach(plan_params[:image_description])
-      redirect_to plans_path
-    else
+
+      if @plan.plan_parent_id.nil?
+        redirect_to plans_path
+      else
+        redirect_to Plan.find(@plan.plan_parent_id)
+      end
+    elsif @plan.plan_parent_id.nil?
       render plans_path
+    else
+      render :edit
     end
   end
 
@@ -28,9 +36,22 @@ class PlansController < ApplicationController
 
   def update
     if @plan.update(plan_params)
-      redirect_to @plan
+      if @plan.plan_parent_id.nil?
+        redirect_to @plan
+      else
+        redirect_to Plan.find(@plan.plan_parent_id)
+      end
     else
       render :edit
+    end
+  end
+
+  def destroy
+    @plan.destroy
+    if @plan.plan_parent_id.nil?
+      redirect_to plans_path
+    else
+      redirect_to Plan.find(@plan.plan_parent_id)
     end
   end
 
