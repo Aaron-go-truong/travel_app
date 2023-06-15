@@ -97,9 +97,7 @@ $(() => {
     saveInfo("address", { address: $("#address-value").val() });
   });
 
-  $("#btn-save-avt").on("click", () => {
-    console.log($("#filepond-avatar").find('img'));
-  });
+  $("#btn-save-avt").on("click", () => {});
 });
 
 const initialPage = () => {
@@ -138,18 +136,16 @@ const saveInfo = (field, data) => {
     type: "PATCH",
     url: "/users/edit_profile",
     dataType: "html",
-    data: { user: data},
+    data: { user: data },
     success(data) {
       field == "birthday"
-      ? $(`#${field}`).text(data.date_of_birth)
-      : field == "gender"
-      ? $(`#${field}`).text($("#gender-select :selected").text())
-      : $(`#${field}`).text($(`#${field}-value`).val())
+        ? $(`#${field}`).text(data.date_of_birth)
+        : field == "gender"
+        ? $(`#${field}`).text($("#gender-select :selected").text())
+        : $(`#${field}`).text($(`#${field}-value`).val());
     },
     error(data) {
       return false;
     },
-  }).then(
-    hideInput(field)
-  );
+  }).then(hideInput(field));
 };

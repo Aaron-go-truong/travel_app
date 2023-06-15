@@ -1,0 +1,24 @@
+= javascript_pack_tag 'plans/plan_index'
+
+.container
+  .d-flex.mt-7
+    = render 'shared/sidebar'
+    .workpage
+      h4.text-muted
+        span
+          | YOUR WORKSPACES
+      .row.row-cols-3.g-2
+        - @plans.each do |plan|
+          .col.mb-2[data-controller="plan"]
+            .position-relative.g-2.card-plan.rounded-3[id= plan.id.to_s data-plan-target="plancard" data-action="click->plan#navigate"]
+              = image_tag plan.image_description, class: "w-100 min-height-card rounded-3 position-relative"
+              .position-absolute.bottom-0.title-plan.rounded-bottom-3
+              .position-absolute.bottom-0.p-2
+                span.text-title--bold
+                  | #{plan.title}
+
+        #create-plan.col.mb-2
+          .w-100.h-100.addplan-card.rounded-3.d-flex.align-items-center.justify-content-center.gap-2
+            i.fa-solid.fa-plus.addplan
+            span.addplan
+              => link_to "Create new plan", new_plan_path, class: 'navbar-link'

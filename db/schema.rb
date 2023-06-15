@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2023_06_13_031059) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["plan_parent_id"], name: "index_plans_on_plan_parent_id"
+    t.index ["user_id", "created_at"], name: "index_plans_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_plans_on_user_id"
   end
 

@@ -1,0 +1,40 @@
+= javascript_pack_tag 'plans/plan_show'
+
+.container
+  .d-flex.mt-7
+    = render 'shared/sidebar'
+    div
+      .w-100
+        .row.row-cols-2.g-2
+          .col.mb-2.rounded-3
+            = image_tag @plan.image_description, class: "w-100 min-height-card rounded-3 position-relative"
+          .col.mb-2.rounded-3
+            .card.position-relative
+              .d-flex.justify-content-between
+                h5
+                  | #{@plan.title}
+                #edit-plan.edit-plan.px-2.py-1.rounded-3
+                  i.fa-regular.fa-pen-to-square
+              .text-medium.text-muted
+                | #{@plan.descriptions}
+              .text-small.mt-2.d-flex.gap-2
+                div
+                  | Time:
+                span.text-muted.ml-2
+                  | #{@plan.time}
+              .text-small.mt-2.d-flex.gap-2
+                div
+                  | Budget:
+                span.text-muted.ml-2
+                  | #{@plan.amount} VND
+              .text-small.mt-2.d-flex.gap-2.align-items-center
+                i.fa-solid.fa-location-dot
+                span.text-muted.ml-2
+                  | #{@plan.address}
+      #add-plan.card.add-plan-btn
+          h3
+            i.fa-solid.fa-plus
+            span.px-2
+              | Add new Plan
+      #form-plan
+        = render 'shared/new_plan_form', plan: @plan

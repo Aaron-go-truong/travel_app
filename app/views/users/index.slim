@@ -48,7 +48,7 @@
                   button.btn.btn-sm.btn-outline-primary.me-1.flex-grow-1.text-small[type="button"]
                     a[href="/users/index/#{user.id}"]
                       | Details
-                  button.btn.btn-sm.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-light' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#show"]
+                  button.btn.btn-sm.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-light' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
                     - if current_user.following?(user)
                       | Unfollow
                     - else

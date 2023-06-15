@@ -33,34 +33,44 @@ const avatarExtraOptions = {
   stylePanelLayout: "compact circle",
 };
 
+const imgExtraOptions = {
+  imagePreviewHeight: 200,
+  imageCropAspectRatio: "1:1",
+  imageResizeTargetWidth: 200,
+  imageResizeTargetHeight: 200,
+  styleLoadIndicatorPosition: "center bottom",
+  styleButtonRemoveItemPosition: "right bottom",
+};
+
 export default class extends Controller {
-  static targets = ["input", "buttonsave","buttoncancel"];
+  static targets = ["input", "img", "buttonsave", "buttoncancel"];
 
   inputTargetConnected(inputTarget) {
     this.setupFilePond(inputTarget);
+  }
+
+  imgTargetConnected(imgTarget) {
+    this.setupFilePond(imgTarget);
   }
 
   showButton(target) {
     target.classList.remove("d-none");
   }
 
-  recover(){
-
-  }
-
-  setupFilePond(inputTarget) {
+  setupFilePond(target) {
     let options = { ...baseOptions };
     const {
       dataset: { styleLayout, files },
-    } = inputTarget;
-
-    options = { ...options, ...avatarExtraOptions };
+    } = target;
+    target.attributes[0].nodeValue == "filepond-bg"
+      ? (options = { ...options, ...imgExtraOptions })
+      : (options = { ...options, ...avatarExtraOptions });
 
     if (files) {
       options = { ...options, files: JSON.parse(files) };
     }
 
-    const instance = FilePond.create(inputTarget, {
+    const instance = FilePond.create(target, {
       ...options,
       oninit: () => {
         // prevent submit existing files load from server
