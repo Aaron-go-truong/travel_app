@@ -3,6 +3,7 @@ class Plan < ApplicationRecord
 
   has_one_attached :image_description
 
+  has_many :comments, dependent: :destroy
   has_many :plan_details, class_name: 'Plan', foreign_key: :plan_parent_id, dependent: :destroy
   belongs_to :plan_parent, class_name: 'Plan', optional: true
   belongs_to :user
