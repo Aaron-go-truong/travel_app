@@ -1,4 +1,5 @@
-plan = User.find(24).plans.create(
+plan = PLan.create(
+  user_id: 24
   title: "Du lich Vung Tau",
   descriptions: "Home stay view bien 3N-2D",
   time: "5 days",

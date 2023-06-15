@@ -97,9 +97,7 @@ $(() => {
     saveInfo("address", { address: $("#address-value").val() });
   });
 
-  $("#btn-save-avt").on("click", () => {
-    console.log($("#filepond-avatar").find("img"));
-  });
+  $("#btn-save-avt").on("click", () => {});
 });
 
 const initialPage = () => {

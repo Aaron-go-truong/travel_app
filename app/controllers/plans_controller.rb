@@ -1,18 +1,20 @@
 class PlansController < ApplicationController
+  before_action :find_plan, only: %i[show update]
+
   def index
-    @plans = current_user.plans
+    @plans = Plan.find_by_user_id(current_user.id)
   end
+
+  def show; end
 
   def new
-    @plan = current_user.plans.new
-  end
-
-  def show
-    @plan = current_user.plans.find(params[:id])
+    @plan = Plan.new(user_id: current_user.id)
   end
 
   def create
-    @plan = current_user.plans.new(plan_params)
+    @plan = Plan.new(plan_params)
+    @plan.user_id = current_user.id
+
     if @plan.save
       @plan.image_description.attach(plan_params[:image_description])
       redirect_to plans_path
@@ -24,7 +26,6 @@ class PlansController < ApplicationController
   def edit; end
 
   def update
-    @plan = current_user.plans.find(params[:id])
     if @plan.update(plan_params)
       redirect_to @plan
     else
@@ -36,5 +37,9 @@ class PlansController < ApplicationController
 
   def plan_params
     params.require(:plan).permit(:title, :amount, :descriptions, :plan_audience, :address, :time, :activities, :notes, :vehicles, :image_description)
+  end
+
+  def find_plan
+    @plan = Plan.find(params[:id])
   end
 end
