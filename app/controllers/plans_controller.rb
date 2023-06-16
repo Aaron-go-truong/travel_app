@@ -2,7 +2,7 @@ class PlansController < ApplicationController
   before_action :find_plan, only: %i[show update destroy]
 
   def index
-    @plans = Plan.where(plan_parent_id: nil)
+    @plans = Plan.plan_parent
     @plans = @plans.where(user_id: params[:user_id]) if params[:user_id].present?
   end
 
@@ -10,22 +10,22 @@ class PlansController < ApplicationController
 
   def new
     @plan = Plan.new(user_id: current_user.id)
+    @plan.plan_details.build unless @plan.plan_details.build.present?
   end
 
   def create
-    @plan = Plan.new(plan_params)
-    @plan.user_id = current_user.id
-    @plan.plan_parent_id = params[:plan_parent_id].split.last unless params[:plan_parent_id][-1].blank?
+    @plan = Plan.new(plan_params.merge(user_id: current_user.id))
+    @plan.plan_details.map{|detail| detail.user_id=@plan.user_id}
 
     if @plan.save
       @plan.image_description.attach(plan_params[:image_description])
 
-      if @plan.plan_parent_id.nil?
+      if @plan.is_plan_parent?
         redirect_to plans_path
       else
         redirect_to Plan.find(@plan.plan_parent_id)
       end
-    elsif @plan.plan_parent_id.nil?
+    elsif @plan.is_plan_parent?
       render plans_path
     else
       render :edit
@@ -36,7 +36,7 @@ class PlansController < ApplicationController
 
   def update
     if @plan.update(plan_params)
-      if @plan.plan_parent_id.nil?
+      if @plan.is_plan_parent?
         redirect_to @plan
       else
         redirect_to Plan.find(@plan.plan_parent_id)
@@ -48,7 +48,7 @@ class PlansController < ApplicationController
 
   def destroy
     @plan.destroy
-    if @plan.plan_parent_id.nil?
+    if @plan.is_plan_parent?
       redirect_to plans_path
     else
       redirect_to Plan.find(@plan.plan_parent_id)
@@ -58,7 +58,32 @@ class PlansController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(:title, :amount, :descriptions, :plan_audience, :address, :time, :activities, :notes, :vehicles, :image_description)
+    params.require(:plan).permit(
+      :title,
+      :amount,
+      :descriptions,
+      :plan_audience,
+      :address,
+      :time,
+      :activities,
+      :notes,
+      :vehicles,
+      :image_description,
+      plan_details_attributes: [
+        :title,
+        :amount,
+        :descriptions,
+        :plan_audience,
+        :address,
+        :time,
+        :activities,
+        :notes,
+        :vehicles,
+        :image_description,
+        :user_id,
+        :plan_parent_id
+      ]
+    )
   end
 
   def find_plan
