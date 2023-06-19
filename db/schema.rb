@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_15_091501) do
+ActiveRecord::Schema.define(version: 2023_06_19_051316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,17 @@ ActiveRecord::Schema.define(version: 2023_06_15_091501) do
     t.index ["cmt_parent_id"], name: "index_comments_on_cmt_parent_id"
     t.index ["plan_id"], name: "index_comments_on_plan_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "comment_id"
+    t.bigint "plan_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["comment_id"], name: "index_likes_on_comment_id"
+    t.index ["plan_id"], name: "index_likes_on_plan_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "plans", force: :cascade do |t|
@@ -107,6 +118,9 @@ ActiveRecord::Schema.define(version: 2023_06_15_091501) do
   add_foreign_key "comments", "comments", column: "cmt_parent_id"
   add_foreign_key "comments", "plans"
   add_foreign_key "comments", "users"
+  add_foreign_key "likes", "comments"
+  add_foreign_key "likes", "plans"
+  add_foreign_key "likes", "users"
   add_foreign_key "plans", "plans", column: "plan_parent_id"
   add_foreign_key "plans", "users"
 end

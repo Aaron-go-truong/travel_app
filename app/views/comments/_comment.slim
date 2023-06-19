@@ -1,6 +1,7 @@
 = javascript_pack_tag 'comments/comment';
 
 - unless !comment.persisted?
+  = hidden_field_tag :plan_id, value: comment.plan.id
   .row.d-flex.justify-content-center
     .col-md-12.col-lg-10.col-xl-8
       .card-body.pt-4
@@ -20,7 +21,6 @@
                           |  - #{comment.created_at}
                     p.small.mb-0
                       |  #{comment.content}
-
                   #options.d-none
                     .more-options.rounded-circle.d-flex.justify-content-center.align-items-center
                       .dropdown
@@ -30,11 +30,11 @@
                             | Edit
                           .dd-item
                             = link_to 'Delete', [comment.plan, comment], method: :delete, data: { confirm: 'Are you sure?' }
-                .d-flex.gap-4.mt-1
-                  a[style='margin-left:1rem']
-                    span.small.text-small--bold.text-grey
+                .d-flex.gap-4.mt-1[data-controller="comment"]
+                  a#like-cmt[style='margin-left:1rem']
+                    span.like-cmt.small.text-small--bold[ id = "cmt_#{comment.id}" class="#{ Like.where(user_id:current_user.id,comment_id: comment.id).blank? ? 'text-grey' : 'btn-blue'}"  data-comment-target="likebtn" data-action="click->comment#like_action"]
                       |  Like
-                  a
+                  a#reply-cmt
                     span.small.text-small--bold.text-grey
                       |  Reply
             - if comment.replies.any?

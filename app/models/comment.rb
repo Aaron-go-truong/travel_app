@@ -27,6 +27,6 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :cmt_parent, class_name: 'Comment', optional: true
   has_many :replies, class_name: 'Comment', foreign_key: :cmt_parent_id, dependent: :destroy
-
+  has_many :likes, dependent: :destroy
   validates :content, presence: true
 end

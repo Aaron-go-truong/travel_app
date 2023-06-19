@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  post '/like_new', to:'likes#create'
+  delete '/like_destroy', to:'likes#destroy'
+
   root 'home#index'
   get 'home/index'
 end
