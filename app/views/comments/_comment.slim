@@ -1,10 +1,42 @@
-/ p
-/   strong
-/     | Commenter:
-/   = comment.user.first_name+" "+comment.user.last_name
-/ p
-/   strong
-/     | Comment:
-/   = comment.content
-/ p
-/   = link_to 'Destroy Comment', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' }
+= javascript_pack_tag 'comments/comment';
+
+- unless !comment.persisted?
+  .row.d-flex.justify-content-center
+    .col-md-12.col-lg-10.col-xl-8
+      .card-body.pt-4
+        .row
+          .col
+            #edit-cmt
+                = render 'comments/form', comment: comment
+            #cmt.d-flex.flex-start
+              img.rounded-circle.shadow-1-strong.me-3[src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65" height="65"]
+              .flex-grow-1.flex-shrink-1
+                .d-flex.align-items-center
+                  .card-cmt
+                    .d-flex.justify-content-between.align-items-center
+                      p.mb-1.text-medium--bold
+                        | #{comment.user.full_name}
+                        span.small
+                          |  - #{comment.created_at}
+                    p.small.mb-0
+                      |  #{comment.content}
+
+                  #options.d-none
+                    .more-options.rounded-circle.d-flex.justify-content-center.align-items-center
+                      .dropdown
+                        i.fa-solid.fa-ellipsis[type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+                        .dropdown-menu[aria-labelledby="dropdownMenu2"]
+                          #edit-cmt-btn.dd-item
+                            | Edit
+                          .dd-item
+                            = link_to 'Delete', [comment.plan, comment], method: :delete, data: { confirm: 'Are you sure?' }
+                .d-flex.gap-4.mt-1
+                  a[style='margin-left:1rem']
+                    span.small.text-small--bold.text-grey
+                      |  Like
+                  a
+                    span.small.text-small--bold.text-grey
+                      |  Reply
+            - if comment.replies.any?
+              = render partial: 'comments/reply', collection: comment.replies
+            = render 'comments/form', comment: @plan.comments.build(cmt_parent_id: comment.id)

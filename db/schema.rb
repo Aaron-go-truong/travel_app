@@ -47,8 +47,10 @@ ActiveRecord::Schema.define(version: 2023_06_15_091501) do
     t.string "content", null: false
     t.bigint "user_id", null: false
     t.bigint "plan_id", null: false
+    t.bigint "cmt_parent_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["cmt_parent_id"], name: "index_comments_on_cmt_parent_id"
     t.index ["plan_id"], name: "index_comments_on_plan_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -102,6 +104,7 @@ ActiveRecord::Schema.define(version: 2023_06_15_091501) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "comments", column: "cmt_parent_id"
   add_foreign_key "comments", "plans"
   add_foreign_key "comments", "users"
   add_foreign_key "plans", "plans", column: "plan_parent_id"

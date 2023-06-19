@@ -1,12 +1,18 @@
 class CommentsController < ApplicationController
-  before_action :find_plan, only: %i[create destroy]
-  before_action :find_comment, only: %i[destroy]
+  before_action :find_plan, only: %i[create update destroy]
+  before_action :find_comment, only: %i[update destroy]
   def create
-    Comment.new(comment_params.merge({ plan_id: @plan.id, user_id: current_user.id}))
+    @comment = Comment.new(comment_params.merge({ plan_id: @plan.id, user_id: current_user.id}))
+    @comment.cmt_parent_id = params[:cmt_parent_id].delete('value ') unless params[:cmt_parent_id].delete('value ').nil?
 
     if @comment.save
       redirect_to plan_path(@plan)
     end
+  end
+
+  def update
+    @comment.update(comment_params)
+    redirect_to plan_path(@plan)
   end
 
   def destroy
@@ -17,7 +23,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content)
+    params.require(:comment).permit(:content, :cmt_parent_id)
   end
 
   def find_plan
