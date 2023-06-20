@@ -25,6 +25,35 @@
         .form-group
           = form.label :amount, class:'col-form-label'
           = form.text_field :amount, class:"form-control"
+    = form.fields_for :plan_details do |add_plan|
+      = hidden_field_tag :user_id, value: current_user.id
+      = hidden_field_tag :plan_parent_id, value: plan.plan_parent_id
+      .d-flex.justify-content-end.w-100
+        .card-plan-child
+          .form-create.d-flex.w-100.align-items-start.justify-content-around[data-controller="filepond"]
+            .left-form.w-100.p-2
+              .form-group
+                = add_plan.label :title, class:'col-form-label'
+                = add_plan.text_field :title, class:'form-control'
+              .form-group
+                = add_plan.label :descriptions, class:'col-form-label'
+                = add_plan.text_area :descriptions, class:"form-control h-100"
+              .form-group.w-100
+                = add_plan.label :plan_audience,"Plan audience", class:'col-form-label'
+                = add_plan.select(:plan_audience, Plan.plan_audiences.map { |plan_audience| plan_audience.first}, {}, { :class => 'form-select w-50' })
+              .form-group
+                = add_plan.label :time, class:'col-form-label'
+                = add_plan.text_field :time, class:'form-control'
 
-        .form-group.mt-2.d-flex.justify-content-end
-          = form.submit "Create", class:"btn btn-primary"
+            .right-form.w-100.p-2
+              .form-group
+                = add_plan.label :image_description,"Image Description", class:'col-form-label'
+                = add_plan.file_field :image_description, class:'filepond-bg',data: {filepond_target:'img', files: filepond_initial_files(plan.image_description)}
+              .form-group
+                = add_plan.label :address, class:'col-form-label'
+                = add_plan.text_field :address, class:'form-control'
+              .form-group
+                = add_plan.label :amount, class:'col-form-label'
+                = add_plan.text_field :amount, class:"form-control"
+    .form-group.mt-2.d-flex.justify-content-end
+      = form.submit "Save", class:"btn btn-primary"
