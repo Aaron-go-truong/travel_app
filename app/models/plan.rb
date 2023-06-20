@@ -34,7 +34,7 @@ class Plan < ApplicationRecord
   has_one_attached :image_description
 
   has_many :plan_details, class_name: 'Plan', foreign_key: :plan_parent_id, dependent: :destroy
-  accepts_nested_attributes_for :plan_details, allow_destroy:true
+  accepts_nested_attributes_for :plan_details, allow_destroy: true
 
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -44,13 +44,13 @@ class Plan < ApplicationRecord
 
   validates_numericality_of :amount
 
-  scope :plan_parent, ->{where plan_parent_id: nil}
+  scope :plan_parent, -> { where plan_parent_id: nil }
 
   def include_plan?(other_plan)
     plan_details.include?(other_plan)
   end
 
-  def is_plan_parent?
+  def plan_parent?
     plan_parent_id.nil?
   end
 end

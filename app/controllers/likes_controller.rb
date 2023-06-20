@@ -6,7 +6,6 @@ class LikesController < ApplicationController
   def create
     @like = Like.create(user_id: current_user.id, comment_id: params[:comment_id], plan_id: params[:plan_id])
     redirect_to plan_path(@plan)
-
   end
 
   def destroy

@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :find_plan, only: %i[create update destroy]
   before_action :find_comment, only: %i[update destroy]
   def create
-    @comment = Comment.new(comment_params.merge({ plan_id: @plan.id, user_id: current_user.id}))
+    @comment = Comment.new(comment_params.merge({ plan_id: @plan.id, user_id: current_user.id }))
     @comment.cmt_parent_id = params[:cmt_parent_id].delete('value ') unless params[:cmt_parent_id].delete('value ').nil?
 
     if @comment.save
