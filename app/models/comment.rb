@@ -29,4 +29,18 @@ class Comment < ApplicationRecord
   has_many :replies, class_name: 'Comment', foreign_key: :cmt_parent_id, dependent: :destroy
   has_many :likes, dependent: :destroy
   validates :content, presence: true
+
+  has_noticed_notifications model_name: 'Notification'
+  after_create_commit :broadcast_notifications
+  before_destroy :cleanup_notifications
+  private
+
+  def broadcast_notifications
+    CommentNotification.with(comment: self, plan: plan).deliver_later(plan.user)
+
+  end
+
+  def cleanup_notifications
+    notifications_as_comment.destroy_all
+  end
 end

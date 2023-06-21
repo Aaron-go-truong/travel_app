@@ -42,6 +42,9 @@ class Plan < ApplicationRecord
   belongs_to :plan_parent, class_name: 'Plan', optional: true
   belongs_to :user
 
+  has_noticed_notifications model_name: 'Notification'
+  has_many :notifications, through: :user , dependent: :destroy
+
   validates_numericality_of :amount
 
   scope :plan_parent, ->{where plan_parent_id: nil}

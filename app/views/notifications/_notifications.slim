@@ -1,0 +1,17 @@
+- if current_user
+  li.nav-item.dropdown
+    a.nav-link.dropdown-toggle[type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+      span.badge.rounded-pill.bg-danger
+        = @unread.count >= 9 ? "9+" : @unread.count
+        i.fas.fa-bell
+    ul.dropdown-menu.dropdown-menu-lg-end[aria-labelledby="navbarDropdown"]
+      - @unread.each do |notification|
+        = render 'notifications/notification', notification: notification
+      - if @read.count > 0 && @unread.count > 0
+        li
+          hr.dropdown-divider
+      - elsif @read.count + @unread.count == 0
+        li.dropdown-item
+          | No notification yet.
+      - @read.each do |notification|
+        = render 'notifications/notification', notification: notification

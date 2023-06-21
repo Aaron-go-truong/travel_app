@@ -1,0 +1,12 @@
+= javascript_pack_tag 'notifications/notifications'
+
+ul.notificator
+  a#open_notification[href="#"]
+    = render 'notifications/counter', counter: @unread.count
+  #notificationContainer
+    #notificationTitle
+      | Notifications
+    #notificationsBody.notifications
+      ul#notificationList
+        = render notifications
+    #notificationFooter
