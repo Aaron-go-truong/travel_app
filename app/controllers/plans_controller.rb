@@ -8,7 +8,7 @@ class PlansController < ApplicationController
   end
 
   def show
-    mark_notifications_as_read
+    mark_notifications_as_read if @plan.user_id === current_user.id
   end
 
   def new

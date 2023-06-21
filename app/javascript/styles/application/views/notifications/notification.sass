@@ -1,94 +1,72 @@
-ul.notificator
-  display: inline-block
-  float: right
-  margin: 0
-  li
+ul
+  padding: 0 !important
+  list-style-type: none
 
-    position: relative
-    list-style: none
+li
+  list-style: none
 
-    i
+.noti-avt
+  height: 3.5rem
+  width: 3.5rem
 
-      color: #fff
+.time
+  font-size: 12px
+  font-weight: 400
+  &--unread
+      @extend .time
+      color:  #1b74e4
+      font-weight: 700
 
-#notification-counter
-  position: absolute
-  top: -2px
-  left: 25px
+.noti-card:hover
+  background: #f2f3f4
+  cursor: pointer
 
-  background-color: rgb(212, 78, 3)
-  color: #fff
-  border-radius: 3px
-  padding: 1px 3px
-  font: 8px Verdana
+.noti-card
+  padding: 0.25rem
+  border-radius: 0.5rem
 
-ul #notificationList
+.filter-noti
+  padding: 0.5rem 1rem
+  border-radius: 1rem
+  &--active
+      @extend .filter-noti
+      color:  #1b74e4
+      background: #e7f3ff
 
-  li
+.filter-noti:hover
+  background: #f2f3f4
+  cursor: pointer
 
-    position: relative
-    border-bottom: #dddddd 1px solid
-
-  span
-
-    color: #989494
-    font-size: 8px
-
-#notificationsBody  ul
-
-  padding-left: 0
+.notificator
+  max-width: 75%
 
 #notificationContainer
-
-  background-color: #fff
-  border: 1px solid rgba(100, 100, 100, .4)
-  -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25)
-  overflow: visible
   position: absolute
-  top: 70px
-  margin-left: -253px
-  width: 300px
-  z-index: 0
-  display: none
+  right: 0
+  width: 22.5rem
+  margin-top: 0.5rem
 
-#notificationContainer:before
-  content: ''
-  display: block
-  position: absolute
-  width: 0
-  height: 0
-  color: transparent
-  border: 10px solid black
-  border-color: transparent transparent white
-  margin-top: -20px
-  margin-left: 258px
-
-#notificationTitle
-
-  font-weight: bold
-  padding: 8px
-  font-size: 13px
-  background-color: #f0f0f0
-  position: absolute
-  z-index: 1
-  width: 284px
-  border-bottom: 1px solid #d44e03
-  color: #d44e03
-
-#notificationsBody
-
-  padding: 3px 0px 0px 0px !important
-  min-height: 300px
-  max-height: 300px
-  overflow: auto
+.notificator
   position: relative
-  width: 100%
 
-#notificationFooter
+.noti-content
+  font-size: 15px
+  &--readed
+      @extend .noti-content
+      opacity: 0.75
 
-  background-color: #e9eaed
-  text-align: center
-  font-weight: bold
-  padding: 8px
-  font-size: 12px
-  border-top: 1px solid #dddddd
+#notification_count
+  top: -0.5rem
+  left: 0.5rem
+  position: absolute
+  padding: 0.25rem
+  background: #ff0f22
+  color: $white
+  font-size: 8px
+
+.mark-as-read
+  right: 0
+  min-width: 8rem
+.option:hover
+  background: #f2f3f4
+  cursor: pointer

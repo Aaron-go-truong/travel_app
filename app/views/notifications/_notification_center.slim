@@ -1,12 +1,25 @@
 = javascript_pack_tag 'notifications/notifications'
 
 ul.notificator
-  a#open_notification[href="#"]
+  a#open_notification.position-relative[href="#"]
     = render 'notifications/counter', counter: @unread.count
-  #notificationContainer
-    #notificationTitle
-      | Notifications
+  #notificationContainer.d-none.card[style="padding: 0.5rem"]
+    .d-flex.align-items-center.justify-content-between
+      h5#notificationTitle[style="padding-left: 0.25rem;padding-right: 0.25rem"]
+        | Notifications
+      .position-relative
+        .more-options.rounded-circle.d-flex.justify-content-center.align-items-center
+          i.fa-solid.fa-ellipsis[type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+        .mark-as-read.position-absolute.d-none
+          .card[style="padding:0.25rem"]
+            .option
+              | Mark all as read
+    .d-flex.gap-4[style="padding-left: 0.25rem;padding-right: 0.25rem"]
+      strong#all-noti.filter-noti--active
+        | All
+      strong#unread-noti.filter-noti
+        | Unread
     #notificationsBody.notifications
-      ul#notificationList
+      ul#notificationList.mt-2
         = render notifications
     #notificationFooter

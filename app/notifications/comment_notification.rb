@@ -11,7 +11,12 @@ class CommentNotification < Noticed::Base
 
   def cable_comment
     {
-      notification: ApplicationController.renderer.render(partial: 'notifications/notification', locals: { notification: recipient.notifications.newest_first.first }),
+      notification: ApplicationController.renderer.render(
+        partial: 'notifications/notification',
+        locals: {
+          notification: recipient.notifications.newest_first.first
+        }
+      ),
       counter: recipient.notifications.unread.size
     }
   end
@@ -30,7 +35,7 @@ class CommentNotification < Noticed::Base
     @comment = Comment.find(params[:comment][:id])
     @user = User.find(@comment.user_id)
 
-    "#{@user.full_name} commented on #{@plan.title}"
+    " commented on your plan."
   end
 
   def url
