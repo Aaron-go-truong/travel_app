@@ -2,11 +2,16 @@ class LikeNotification < BaseNotification
 
   def message
     @like = Like.find(params[:like][:id])
-    " reacted to your comment." if  @like.plan_id.nil?
-    " reacted to your plan." if  @like.comment_id.nil?
+    " reacted to your #{@like.likeable_type.downcase }."
   end
 
   def url
-    plan_path(Plan.find(params[:like][:plan_id]))
+    @like = Like.find(params[:like][:id])
+    if @like.likeable_type=="Comment"
+      plan_path(Plan.find(@like.likeable.plan_id))
+    else
+      plan_path(@like.likeable)
+    end
   end
+
 end

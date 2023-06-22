@@ -1,12 +1,12 @@
-li[data-controller="notification"]
+li#noti-item[data-controller="notification"]
   .d-flex.align-items-center.noti-card[id= "#{notification.id}" data-plan-target="notification" data-action="click->notification#navigate"]
     = hidden_field_tag :url_noti, value: notification.to_notification.url
     .noti-avt
       img.rounded-circle.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
-    div[class="#{notification.unread? ? 'noti-content' : 'noti-content--readed'}"]
+    #noti-item[class="#{notification.unread? ? 'noti-content' : 'noti-content--readed'}"]
       span
         strong
-          = notification.recipient.full_name
+          = notification.params[:user].full_name
         span
           = notification.to_notification.message
       div[class="#{notification.unread? ? 'time--unread' : 'time'}"]

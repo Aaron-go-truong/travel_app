@@ -17,18 +17,20 @@ class PlansController < ApplicationController
   end
 
   def create
+
     @plan = Plan.new(plan_params.merge(user_id: current_user.id))
     @plan.plan_details.map{|detail| detail.user_id=@plan.user_id}
+    @plan.plan_parent_id = params[:parent_id].delete('value ') if params[:parent_id].delete('value ').present?
 
     if @plan.save
       @plan.image_description.attach(plan_params[:image_description])
 
-      if @plan.is_plan_parent?
+      if @plan.plan_parent?
         redirect_to plans_path
       else
         redirect_to Plan.find(@plan.plan_parent_id)
       end
-    elsif @plan.is_plan_parent?
+    elsif @plan.plan_parent?
       render plans_path
     else
       render :edit
@@ -39,7 +41,7 @@ class PlansController < ApplicationController
 
   def update
     if @plan.update(plan_params)
-      if @plan.is_plan_parent?
+      if @plan.plan_parent?
         redirect_to @plan
       else
         redirect_to Plan.find(@plan.plan_parent_id)
@@ -51,7 +53,7 @@ class PlansController < ApplicationController
 
   def destroy
     @plan.destroy
-    if @plan.is_plan_parent?
+    if @plan.plan_parent?
       redirect_to plans_path
     else
       redirect_to Plan.find(@plan.plan_parent_id)

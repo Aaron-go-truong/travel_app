@@ -43,17 +43,29 @@ class Plan < ApplicationRecord
   belongs_to :user
 
   has_noticed_notifications model_name: 'Notification'
-  has_many :notifications, through: :user , dependent: :destroy
+
 
   validates_numericality_of :amount
 
   scope :plan_parent, ->{where plan_parent_id: nil}
 
+  after_create_commit :broadcast_notifications
+
   def include_plan?(other_plan)
     plan_details.include?(other_plan)
   end
 
-  def is_plan_parent?
+  def plan_parent?
     plan_parent_id.nil?
   end
+
+  private
+
+  def broadcast_notifications
+    PlanNotification.with(
+      plan: plan_parent? ? self : Plan.find(plan_parent_id),
+      user: user
+    ).deliver_later(user.followers)
+  end
+
 end

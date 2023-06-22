@@ -16,4 +16,15 @@ class Relationship < ApplicationRecord
   validates :followed_id, presence: true
 
   validates_uniqueness_of :follower_id, scope: [:followed_id]
+
+  has_noticed_notifications model_name: 'Notification'
+  after_create_commit :broadcast_notifications
+  private
+
+  def broadcast_notifications
+    FollowNotification.with(
+      relationship: self,
+      user: follower
+    ).deliver_later(followed)
+  end
 end

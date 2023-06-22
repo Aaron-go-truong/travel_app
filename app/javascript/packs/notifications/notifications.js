@@ -9,7 +9,7 @@ $(document).ready(() => {
   $("#notificationContainer").hide();
 
   $("#open_notification").click(() => {
-    $("#notificationContainer").removeClass('d-none');
+    $("#notificationContainer").removeClass("d-none");
     $("#notificationContainer").fadeToggle(300);
     // $("#notification_count").fadeOut("fast");
     return false;
@@ -29,20 +29,32 @@ $(document).ready(() => {
   });
 
   all_noti.click(() => {
-    if (!(all_noti.hasClass("filter-noti--active"))) {
-        filterSelect(all_noti)
-        filterRemove(unread_noti)
+    if (!all_noti.hasClass("filter-noti--active")) {
+      filterSelect(all_noti);
+      filterRemove(unread_noti);
+      $("#notificationList li").filter(function () {
+        $(this).toggle(
+          $(this).find("#noti-item").hasClass('noti-content--readed') || $(this).find("#noti-item").hasClass('noti-content')
+        );
+      });
     }
   });
 
-  $("#notification").click(() => {
-    alert($("#url-noti").text());
-  });
-
   unread_noti.click(() => {
-    if (!(unread_noti.hasClass("filter-noti--active"))) {
-        filterSelect(unread_noti)
-        filterRemove(all_noti)
+    if (!unread_noti.hasClass("filter-noti--active")) {
+      filterSelect(unread_noti);
+      filterRemove(all_noti);
+
+      $("#notificationList li").filter(function () {
+        $(this).toggle(
+          $(this).find("#noti-item").hasClass('noti-content')
+        );
+      });
+      // if ($("#listUsers .fit-content:visible").length === 0) {
+      //   $("#notFound").show();
+      // } else {
+      //   $("#notFound").hide();
+      // }
     }
   });
 

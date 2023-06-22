@@ -4,7 +4,7 @@ import $ from "jquery";
 consumer.subscriptions.create("Noticed::NotificationChannel", {
   received(data) {
     $(() => {
-      $("#notificationList").append(`${data.notification}`);
+      $("#notificationList").prepend(`${data.notification}`);
       $("#notification_count").text(data.counter);
     });
   },

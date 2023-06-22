@@ -1,8 +1,8 @@
 class BaseNotification < Noticed::Base
   deliver_by :database
-  deliver_by :action_cable, format: :cable_comment
+  deliver_by :action_cable, format: :cable
 
-  def cable_comment
+  def cable
     {
       notification: ApplicationController.renderer.render(
         partial: 'notifications/notification',
@@ -13,4 +13,5 @@ class BaseNotification < Noticed::Base
       counter: recipient.notifications.unread.size
     }
   end
+
 end
