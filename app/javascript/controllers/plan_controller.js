@@ -34,14 +34,19 @@ export default class extends Controller {
       type: is_liked ? "DELETE" : "POST",
       url: is_liked ? url + "_destroy" : url + "_new",
       dataType: "html",
-      data: { plan_id: plan_id},
+      data: {
+        like: {
+          likeable_id: plan_id,
+          likeable_type: "Plan",
+        },
+        plan_id: plan_id,
+      },
       success(data) {
-        if (is_liked){
-          like_elm.removeClass("heart--active")
+        if (is_liked) {
+          like_elm.removeClass("heart--active");
           like_elm.addClass("heart");
-        }
-        else{
-          like_elm.removeClass("heart")
+        } else {
+          like_elm.removeClass("heart");
           like_elm.addClass("heart--active");
         }
       },

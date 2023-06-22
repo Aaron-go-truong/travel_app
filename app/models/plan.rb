@@ -37,7 +37,7 @@ class Plan < ApplicationRecord
   accepts_nested_attributes_for :plan_details, allow_destroy:true
 
   has_many :comments, dependent: :destroy
-  has_many :likes, dependent: :destroy
+  has_many :likes, as: :likeable, dependent: :destroy
 
   belongs_to :plan_parent, class_name: 'Plan', optional: true
   belongs_to :user

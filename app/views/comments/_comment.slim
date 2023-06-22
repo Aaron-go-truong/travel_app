@@ -32,7 +32,7 @@
                             = link_to 'Delete', [comment.plan, comment], method: :delete, data: { confirm: 'Are you sure?' }
                 .d-flex.gap-4.mt-1[data-controller="comment"]
                   a#like-cmt[style='margin-left:1rem']
-                    span.like-cmt.small.text-small--bold[ id = "cmt_#{comment.id}" class="#{ Like.where(user_id:current_user.id,comment_id: comment.id).blank? ? 'text-grey' : 'btn-blue'}"  data-comment-target="likebtn" data-action="click->comment#like_action"]
+                    span.like-cmt.small.text-small--bold[ id = "cmt_#{comment.id}" class="#{ comment.likes.where(user_id:current_user.id).blank? ? 'text-grey' : 'btn-blue'}"  data-comment-target="likebtn" data-action="click->comment#like_action"]
                       |  Like
                   a#reply-cmt
                     span.small.text-small--bold.text-grey

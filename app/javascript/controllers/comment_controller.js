@@ -11,19 +11,23 @@ export default class extends Controller {
     let plan_id = $("#plan_id").val().replace("value ", "");
     let is_liked = like_elm.hasClass("btn-blue");
 
-
     $.ajax({
       type: is_liked ? "DELETE" : "POST",
       url: is_liked ? url + "_destroy" : url + "_new",
       dataType: "html",
-      data: { comment_id: comment_id, plan_id: plan_id },
+      data: {
+        like: {
+          likeable_id: comment_id,
+          likeable_type: "Comment",
+        },
+        plan_id: plan_id,
+      },
       success(data) {
-        if (is_liked){
-          like_elm.removeClass("btn-blue")
+        if (is_liked) {
+          like_elm.removeClass("btn-blue");
           like_elm.addClass("text-grey");
-        }
-        else{
-          like_elm.removeClass("text-grey")
+        } else {
+          like_elm.removeClass("text-grey");
           like_elm.addClass("btn-blue");
         }
       },
