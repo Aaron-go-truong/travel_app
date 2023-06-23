@@ -1,4 +1,4 @@
-.container-registration[data-controller='registration']
+.container
   .forms-container
     .signin-signup
       form.sign-in-form[action="#"]
@@ -6,11 +6,11 @@
           | Sign in
         .input-field
           i.fas.fa-user
-          input[type="email" placeholder="Email"]
+          input[type="text" placeholder="Username"]
         .input-field
           i.fas.fa-lock
           input[type="password" placeholder="Password"]
-        input.btnn.solid[type="submit" value="Login" data-action="click->registration#login"]
+        input.btn.solid[type="submit" value="Login"]
         p.social-text
           | Or Sign in with social platforms
         .social-media
@@ -34,7 +34,7 @@
         .input-field
           i.fas.fa-lock
           input[type="password" placeholder="Password"]
-        input.btnn[type="submit" value="Sign up"]
+        input.btn[type="submit" value="Sign up"]
         p.social-text
           | Or Sign up with social platforms
         .social-media
@@ -52,16 +52,16 @@
         h3
           | New here ?
         p
-          |  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis, ex ratione. Aliquid!
-        button#sign-up-btn.btnn.transparent[data-action="click->registration#swap"]
+          |  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis, ex ratione. Aliquid! 
+        button#sign-up-btn.btn.transparent
           | Sign up
-      = image_pack_tag 'log.svg', class: 'image'
+      img.image[src="img/log.svg" alt=""]
     .panel.right-panel
       .content
         h3
           | One of us ?
         p
-          |  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum laboriosam ad deleniti.
-        button#sign-in-btn.btnn.transparent[data-action="click->registration#swap"]
+          |  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum laboriosam ad deleniti. 
+        button#sign-in-btn.btn.transparent
           | Sign in
-      = image_pack_tag 'register.svg', class: 'image'
+      img.image[src="img/register.svg" alt=""]
