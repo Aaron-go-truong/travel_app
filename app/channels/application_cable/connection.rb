@@ -7,9 +7,10 @@ module ApplicationCable
     end
 
     private
-      def find_verified_user
-        verified_user = env['warden'].user
-        verified_user || reject_unauthorized_connection
-      end
+
+    def find_verified_user
+      verified_user = env['warden'].user
+      verified_user || reject_unauthorized_connection
+    end
   end
 end

@@ -24,6 +24,7 @@ class Like < ApplicationRecord
 
   has_noticed_notifications model_name: 'Notification'
   after_create_commit :broadcast_notifications
+
   private
 
   def broadcast_notifications

@@ -13,9 +13,8 @@ class PlansController < ApplicationController
   end
 
   def create
-
     @plan = Plan.new(plan_params.merge(user_id: current_user.id))
-    @plan.plan_details.map{|detail| detail.user_id=@plan.user_id}
+    @plan.plan_details.map { |detail| detail.user_id = @plan.user_id }
     @plan.plan_parent_id = params[:parent_id].delete('value ') if params[:parent_id].delete('value ').present?
 
     if @plan.save

@@ -16,10 +16,10 @@
 #  index_notifications_on_read_at    (read_at)
 #  index_notifications_on_recipient  (recipient_type,recipient_id)
 #
-require "test_helper"
+require 'test_helper'
 
 class NotificationTest < ActiveSupport::TestCase
-  # test "the truth" do
+  # test 'the truth' do
   #   assert true
   # end
 end

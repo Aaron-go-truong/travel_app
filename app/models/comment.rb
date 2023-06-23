@@ -36,7 +36,7 @@ class Comment < ApplicationRecord
   private
 
   def broadcast_notifications
-    CommentNotification.with(user: user,comment: self, plan: plan).deliver_later(plan.user)
+    CommentNotification.with(user: user, comment: self, plan: plan).deliver_later(plan.user)
   end
 
   def cleanup_notifications

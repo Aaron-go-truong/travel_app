@@ -13,5 +13,4 @@ class BaseNotification < Noticed::Base
       counter: recipient.notifications.unread.size
     }
   end
-
 end

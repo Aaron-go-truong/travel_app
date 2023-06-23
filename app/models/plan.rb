@@ -34,7 +34,7 @@ class Plan < ApplicationRecord
   has_one_attached :image_description
 
   has_many :plan_details, class_name: 'Plan', foreign_key: :plan_parent_id, dependent: :destroy
-  accepts_nested_attributes_for :plan_details, allow_destroy:true
+  accepts_nested_attributes_for :plan_details, allow_destroy: true
 
   has_many :comments, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
@@ -46,7 +46,7 @@ class Plan < ApplicationRecord
 
   validates_numericality_of :amount
 
-  scope :plan_parent, ->{where plan_parent_id: nil}
+  scope :plan_parent, -> { where plan_parent_id: nil }
 
   after_create_commit :broadcast_notifications
 
@@ -62,9 +62,8 @@ class Plan < ApplicationRecord
 
   def broadcast_notifications
     PlanNotification.with(
-      plan: self,
+      plan: plan_parent? ? self : Plan.find(plan_parent_id),
       user: user
     ).deliver_later(user.followers)
   end
-
 end

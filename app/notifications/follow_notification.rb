@@ -1,7 +1,6 @@
 class FollowNotification < BaseNotification
-
   def message
-    " followed you."
+    ' followed you.'
   end
 
   def url
@@ -9,5 +8,4 @@ class FollowNotification < BaseNotification
     # users_index_path(@user.id)
     "/users/#{params[:relationship][:follower_id]}"
   end
-
 end

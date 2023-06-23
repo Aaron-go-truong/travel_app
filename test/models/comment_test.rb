@@ -22,10 +22,10 @@
 #  fk_rails_...  (plan_id => plans.id)
 #  fk_rails_...  (user_id => users.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
-  # test "the truth" do
+  # test 'the truth' do
   #   assert true
   # end
 end
