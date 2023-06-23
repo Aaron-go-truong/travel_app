@@ -3,13 +3,9 @@ class PlansController < ApplicationController
 
   def index
     @plans = Plan.plan_parent
-    # @plans = @plans.where(user_id: params[:user_id]) if params[:user_id].present?
-
   end
 
-  def show
-    mark_notifications_as_read if @plan.user_id === current_user.id
-  end
+  def show; end
 
   def new
     @plan = Plan.new(user_id: current_user.id)
@@ -93,12 +89,5 @@ class PlansController < ApplicationController
 
   def find_plan
     @plan = Plan.find(params[:id])
-  end
-
-  def mark_notifications_as_read
-    if current_user
-      notification_to_mark_as_read = @plan.notifications_as_plan.where(recipient: current_user)
-      notification_to_mark_as_read.update_all(read_at: Time.zone.now)
-    end
   end
 end

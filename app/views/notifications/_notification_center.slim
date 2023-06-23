@@ -3,14 +3,14 @@
 ul.notificator
   a#open_notification.position-relative[href="#"]
     = render 'notifications/counter', counter: @unread.count
-  #notificationContainer.d-none.card[style="padding: 0.5rem"]
+  #notificationContainer.d-none.card[style="padding: 0.5rem" data-controller="notification"]
     .d-flex.align-items-center.justify-content-between
       h5#notificationTitle[style="padding-left: 0.25rem;padding-right: 0.25rem"]
         | Notifications
       .position-relative
         .more-options.rounded-circle.d-flex.justify-content-center.align-items-center
           i.fa-solid.fa-ellipsis[type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
-        .mark-as-read.position-absolute.d-none
+        .mark-as-read.position-absolute.d-none[data-action="click->notification#mark_all_as_read"]
           .card[style="padding:0.25rem"]
             .option
               | Mark all as read

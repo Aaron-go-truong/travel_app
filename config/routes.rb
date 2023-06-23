@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   post '/like_new', to:'likes#create'
   delete '/like_destroy', to:'likes#destroy'
 
+  patch '/notification_read', to:'notifications#update'
+  patch '/notification_read_all', to:'notifications#mark_all_as_read'
+
   root 'home#index'
   get 'home/index'
 

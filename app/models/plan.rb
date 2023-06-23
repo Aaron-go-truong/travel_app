@@ -44,7 +44,6 @@ class Plan < ApplicationRecord
 
   has_noticed_notifications model_name: 'Notification'
 
-
   validates_numericality_of :amount
 
   scope :plan_parent, ->{where plan_parent_id: nil}
@@ -63,7 +62,7 @@ class Plan < ApplicationRecord
 
   def broadcast_notifications
     PlanNotification.with(
-      plan: plan_parent? ? self : Plan.find(plan_parent_id),
+      plan: self,
       user: user
     ).deliver_later(user.followers)
   end
