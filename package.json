@@ -23,6 +23,7 @@
     "material-icons": "^1.13.7",
     "sass": "^1.62.1",
     "stimulus": "^3.2.1",
+    "stimulus-use": "^0.52.0",
     "turbolinks": "^5.2.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"

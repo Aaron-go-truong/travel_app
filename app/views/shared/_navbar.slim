@@ -6,7 +6,7 @@ nav#main-navbar.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top[data-con
       img[src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="25" alt="MDB Logo" loading="lazy"]
     .d-flex.align-items-center.justify-content-center.gap-3
       = render 'notifications/notification_center', notifications: current_user.notifications.newest_first if current_user
-      .position-relative
+      .position-relative[data-action="navbar:click:outside->navbar#close"]
         a.d-flex.align-items-center[data-action="click->navbar#show_options"]
           img.rounded-circle[src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" height="35" alt="Black and White Portrait of a Man" loading="lazy"]
         ul.position-absolute.user-options.card.d-none
