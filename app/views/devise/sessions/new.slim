@@ -1,16 +1,20 @@
-.container-registration[data-controller='registration']
+.registration-container[data-controller='registration']
   .forms-container
     .signin-signup
-      form.sign-in-form[action="#"]
+      = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class:"sign-in-form"}) do |f|
         h2.title
           | Sign in
-        .input-field
+        .input-field[class="#{flash.blank? ? '' : 'input-warning'}"]
           i.fas.fa-user
-          input[type="email" placeholder="Email"]
-        .input-field
+          = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email"
+        .input-field[class="#{flash.blank? ? '' : 'input-warning'}"]
           i.fas.fa-lock
-          input[type="password" placeholder="Password"]
-        input.btnn.solid[type="submit" value="Login" data-action="click->registration#login"]
+          = f.password_field :password, autocomplete: "current-password", placeholder: "Password"
+        - flash.each do |type, msg|
+          .validates-message[id="#{type}"]
+            .text-small.text-danger
+              = msg
+        = f.submit 'Login', class: 'btnn solid'
         p.social-text
           | Or Sign in with social platforms
         .social-media
@@ -22,19 +26,20 @@
             i.fab.fa-google
           a.social-icon[href="#"]
             i.fab.fa-linkedin-in
-      form.sign-up-form[action="#"]
+
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'sign-up-form needs-validation'}) do |f|
         h2.title
           | Sign up
         .input-field
           i.fas.fa-user
-          input[type="text" placeholder="Username"]
+          = f.text_field :user_name, autofocus: true, autocomplete: "user_name", placeholder: "Username"
         .input-field
           i.fas.fa-envelope
-          input[type="email" placeholder="Email"]
+          = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email"
         .input-field
           i.fas.fa-lock
-          input[type="password" placeholder="Password"]
-        input.btnn[type="submit" value="Sign up"]
+          = f.password_field :password, autocomplete: "current-password", placeholder: "Password"
+        = f.submit 'Sign Up', class: 'btnn'
         p.social-text
           | Or Sign up with social platforms
         .social-media

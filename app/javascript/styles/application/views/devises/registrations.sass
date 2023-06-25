@@ -1,15 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap")
-
-*
-  margin: 0
-  padding: 0
-  box-sizing: border-box
-
-body,
-input
-  font-family: "Poppins", sans-serif
-
-.container-registration
+.registration-container
   position: relative
   width: 100%
   background-color: #fff
@@ -56,6 +45,17 @@ form.sign-in-form
   font-size: 2.2rem
   color: #444
   margin-bottom: 10px
+
+.validates-message
+  max-width: 380px
+  width: 100%
+  height: fit-content
+  display: grid
+  padding: 0 0.4rem
+  position: relative
+
+.input-warning
+  border: 1px solid $warning
 
 .input-field
   max-width: 380px
@@ -141,7 +141,7 @@ form.sign-in-form
   display: grid
   grid-template-columns: repeat(2, 1fr)
 
-.container-registration:before
+.registration-container:before
   content: ""
   position: absolute
   height: 2000px
@@ -204,37 +204,37 @@ form.sign-in-form
 
 /* ANIMATION */
 
-.container-registration.sign-up-mode:before
+.registration-container.sign-up-mode:before
   transform: translate(100%, -50%)
   right: 52%
 
-.container-registration.sign-up-mode .left-panel .image,
-.container-registration.sign-up-mode .left-panel .content
+.registration-container.sign-up-mode .left-panel .image,
+.registration-container.sign-up-mode .left-panel .content
   transform: translateX(-800px)
 
-.container-registration.sign-up-mode .signin-signup
+.registration-container.sign-up-mode .signin-signup
   left: 25%
 
-.container-registration.sign-up-mode form.sign-up-form
+.registration-container.sign-up-mode form.sign-up-form
   opacity: 1
   z-index: 2
 
-.container-registration.sign-up-mode form.sign-in-form
+.registration-container.sign-up-mode form.sign-in-form
   opacity: 0
   z-index: 1
 
-.container-registration.sign-up-mode .right-panel .image,
-.container-registration.sign-up-mode .right-panel .content
+.registration-container.sign-up-mode .right-panel .image,
+.registration-container.sign-up-mode .right-panel .content
   transform: translateX(0%)
 
-.container-registration.sign-up-mode .left-panel
+.registration-container.sign-up-mode .left-panel
   pointer-events: none
 
-.container-registration.sign-up-mode .right-panel
+.registration-container.sign-up-mode .right-panel
   pointer-events: all
 
 @media (max-width: 870px)
-  .container-registration
+  .registration-container
     min-height: 800px
     height: 100vh
 
@@ -245,7 +245,7 @@ form.sign-in-form
     transition: 1s 0.8s ease-in-out
 
   .signin-signup,
-  .container-registration.sign-up-mode .signin-signup
+  .registration-container.sign-up-mode .signin-signup
     left: 50%
 
   .panels-container
@@ -287,7 +287,7 @@ form.sign-in-form
     height: 35px
     font-size: 0.7rem
 
-  .container-registration:before
+  .registration-container:before
     width: 1500px
     height: 1500px
     transform: translateX(-50%)
@@ -297,24 +297,24 @@ form.sign-in-form
     top: initial
     transition: 2s ease-in-out
 
-  .container-registration.sign-up-mode:before
+  .registration-container.sign-up-mode:before
     transform: translate(-50%, 100%)
     bottom: 32%
     right: initial
 
-  .container-registration.sign-up-mode .left-panel .image,
-  .container-registration.sign-up-mode .left-panel .content
+  .registration-container.sign-up-mode .left-panel .image,
+  .registration-container.sign-up-mode .left-panel .content
     transform: translateY(-300px)
 
-  .container-registration.sign-up-mode .right-panel .image,
-  .container-registration.sign-up-mode .right-panel .content
+  .registration-container.sign-up-mode .right-panel .image,
+  .registration-container.sign-up-mode .right-panel .content
     transform: translateY(0px)
 
   .right-panel .image,
   .right-panel .content
     transform: translateY(300px)
 
-  .container-registration.sign-up-mode .signin-signup
+  .registration-container.sign-up-mode .signin-signup
     top: 5%
     transform: translate(-50%, 0)
 
@@ -328,13 +328,13 @@ form.sign-in-form
   .panel .content
     padding: 0.5rem 1rem
 
-  .container-registration
+  .registration-container
     padding: 1.5rem
 
-  .container-registration:before
+  .registration-container:before
     bottom: 72%
     left: 50%
 
-  .container-registration.sign-up-mode:before
+  .registration-container.sign-up-mode:before
     bottom: 28%
     left: 50%

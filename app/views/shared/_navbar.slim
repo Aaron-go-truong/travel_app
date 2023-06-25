@@ -1,39 +1,19 @@
-nav#main-navbar.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top
+nav#main-navbar.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top[data-controller="navbar"]
   .container-fluid
     button.navbar-toggler[type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"]
       i.fas.fa-bars
-    a.navbar-brand[href="#"]
+    => link_to root_path, class: 'navbar-brand'
       img[src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="25" alt="MDB Logo" loading="lazy"]
-    / ul.navbar-nav
-    /   = render 'notifications/notifications'
-    = render 'notifications/notification_center', notifications: current_user.notifications.newest_first if current_user
-    / ul.navbar-nav.ms-auto.d-flex.flex-row
-      / li.nav-item.dropdown
-      /   a#navbarDropdownMenuLink.nav-link.me-3.me-lg-0.dropdown-toggle.hidden-arrow[href="#" role="button" data-mdb-toggle="dropdown" aria-expanded="false"]
-      /     i.fas.fa-bell
-      /     span.badge.rounded-pill.badge-notification.bg-danger
-      /       | 1
-      /   ul.dropdown-menu.dropdown-menu-end[aria-labelledby="navbarDropdownMenuLink"]
-      /     li
-      /       a.dropdown-item[href="#"]
-      /         | Some news
-      /     li
-      /       a.dropdown-item[href="#"]
-      /         | Another news
-      /     li
-      /       a.dropdown-item[href="#"]
-      /         | Something else here
-
-      / li.nav-item.dropdown
-      /   a#navbarDropdownMenuLink.nav-link.dropdown-toggle.hidden-arrow.d-flex.align-items-center[href="#" role="button" data-mdb-toggle="dropdown" aria-expanded="false"]
-      /     img.rounded-circle[src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" height="22" alt="Avatar" loading="lazy"]
-      /   ul.dropdown-menu.dropdown-menu-end[aria-labelledby="navbarDropdownMenuLink"]
-      /     li
-      /       a.dropdown-item[href="#"]
-      /         | My profile
-      /     li
-      /       a.dropdown-item[href="#"]
-      /         | Settings
-      /     li
-      /       a.dropdown-item[href="#"]
-      /         | Logout
+    .d-flex.align-items-center.justify-content-center.gap-3
+      = render 'notifications/notification_center', notifications: current_user.notifications.newest_first if current_user
+      .position-relative
+        a.d-flex.align-items-center[data-action="click->navbar#show_options"]
+          img.rounded-circle[src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" height="35" alt="Black and White Portrait of a Man" loading="lazy"]
+        ul.position-absolute.user-options.card.d-none
+          li.user-options-item
+            => link_to 'Profile', edit_user_registration_path
+          li.user-options-item
+            a
+              | Setting
+          li.user-options-item
+            => link_to "Logout", destroy_user_session_path

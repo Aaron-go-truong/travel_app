@@ -11,12 +11,12 @@
 #  date_of_birth          :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  full_name              :string
 #  gender                 :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  unconfirmed_email      :string
+#  user_name              :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

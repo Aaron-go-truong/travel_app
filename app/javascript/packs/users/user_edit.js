@@ -78,7 +78,7 @@ $(() => {
   });
 
   $("#fullname-tool-save").on("click", () => {
-    saveInfo(`fullname`, { full_name: $("#fullname-value").val() });
+    saveInfo(`fullname`, { user_name: $("#fullname-value").val() });
   });
 
   $("#birthday-tool-save").on("click", () => {

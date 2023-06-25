@@ -6,7 +6,7 @@ li[data-controller="notification"]
     #noti-item[class="#{notification.unread? ? 'noti-content' : 'noti-content--readed'}" data-notification-target="noti_content"]
       span
         strong
-          = notification.params[:user].full_name
+          = notification.params[:user].user_name
         span
           = notification.to_notification.message
       div[class="#{notification.unread? ? 'time--unread' : 'time'}"]
