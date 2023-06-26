@@ -2,7 +2,7 @@ class PlansController < ApplicationController
   before_action :find_plan, only: %i[show update destroy]
 
   def index
-    @plans = Plan.plan_parent
+    @plans = Plan.where.not(user_id: current_user.id).plan_parent
   end
 
   def show; end

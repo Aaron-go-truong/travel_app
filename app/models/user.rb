@@ -56,7 +56,6 @@ class User < ApplicationRecord
       io:  File.open(File.join(Rails.root,'app/javascript/images/avatar_default.jpg')),
       filename: 'avatar_default.jpg'
     )
-    byebug
   end
 
   # Follows a user.

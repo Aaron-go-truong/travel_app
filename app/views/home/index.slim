@@ -1,17 +1,27 @@
-h1.mt-3
-  | Hello, Rails
-- if user_signed_in?
-  | Logged in as
-  strong
-        | #{current_user.email}
-  => link_to 'Edit profile', edit_user_registration_path, class: 'navbar-link'
-  | |
-  => link_to "Logout", destroy_user_session_path, class: 'navbar-link'
-  | |
-  => link_to "List Users", users_index_path, class: 'navbar-link'
-  | |
-  => link_to "List Plans", plans_path(user_id: current_user.id), class: 'navbar-link'
-- else
-  => link_to "Sign up", new_user_registration_path, class: 'navbar-link'
-  | |
-  => link_to "Login", new_user_session_path, class: 'navbar-link'
+= javascript_pack_tag 'plans/plan_index'
+
+.container.mt-7
+  .row
+    .col-2
+      = render 'shared/sidebar'
+    .col-10
+      .workpage.w-100
+        h4.text-muted
+          span
+            | YOUR WORKSPACES
+        .row.row-cols-3.w-100.g-2
+          - @plans.each do |plan|
+            .col.mb-2[data-controller="plan"]
+              .position-relative.g-2.card-plan.rounded-3
+                = image_tag plan.image_description, class: "w-100 card-height rounded-3 position-relative", id: plan.id.to_s, data: { plan_target: 'plancard', action: "click->plan#navigate"}
+                .position-absolute.bottom-0.title-plan.rounded-bottom-3
+                .position-absolute.bottom-0.p-2.w-100
+                  .d-flex.justify-content-between.align-items-center.w-100
+                    span.text-title--bold
+                      | #{plan.title}
+                    i.fa-solid.fa-heart[id= "like_#{plan.id}" data-plan-target="likebtn" data-action="click->plan#like_action" class="#{ plan.likes.where(user_id:current_user.id).blank? ? 'heart' : 'heart--active'}" ]
+          #create-plan.col.mb-2
+            .w-100.h-100.addplan-card.rounded-3.d-flex.align-items-center.justify-content-center.gap-2
+              i.fa-solid.fa-plus.addplan
+              span.addplan
+                => link_to "Create new plan", new_plan_path, class: 'navbar-link'
