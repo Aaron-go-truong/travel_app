@@ -31,7 +31,7 @@
               .flex-grow-1.ms-3
                 = hidden_field_tag :followed_id, user.id
                 #userName.text-medium--bold.mb-1
-                  | #{user.full_name}
+                  | #{user.user_name}
 
                 .d-flex.justify-content-start.rounded-3.p-2.mb-2[style="background-color: #efefef"]
                   div
@@ -46,7 +46,7 @@
                       | 976
                 .d-flex.pt-1[data-controller="follow"]
                   button.btn.btn-sm.btn-outline-primary.me-1.flex-grow-1.text-small[type="button"]
-                    a[href="/users/#{user.id}"]
+                    a[href="/users/index/#{user.id}"]
                       | Details
                   button.btn.btn-sm.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-light' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
                     - if current_user.following?(user)

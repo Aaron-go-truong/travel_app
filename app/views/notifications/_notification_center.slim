@@ -1,6 +1,6 @@
 = javascript_pack_tag 'notifications/notifications'
 
-ul.notificator
+.notificator
   a#open_notification.position-relative[href="#"]
     = render 'notifications/counter', counter: @unread.count
   #notificationContainer.d-none.card[style="padding: 0.5rem" data-controller="notification"]

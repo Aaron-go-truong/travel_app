@@ -61,7 +61,7 @@
               = I18n.t("devise.registrations.fullname")
             .col-7
               #fullname.text-small
-                = current_user.full_name
+                = current_user.user_name
               #fullname-input
                 div
                   span.text-small
@@ -69,7 +69,7 @@
                   span.text-danger
                     | *
                 |  <input id='fullname-value' value="
-                = current_user.full_name
+                = current_user.user_name
                 | " type="text" class="form-control mt-2 text-small" placeholder="Full name" />
             .col.text-primary.d-flex.justify-content-end
               #fullname-edit-button.p-2.rounded.text-primary.hover-button.text-small

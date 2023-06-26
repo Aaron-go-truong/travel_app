@@ -1,27 +1,72 @@
-section.vh-100
-  .container.py-5.h-100
-    .row.d-flex.align-items-center.justify-content-center.h-100
-      .col-md-8.col-lg-7.col-xl-6
-        img.img-fluid[src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" alt="Phone image"]
-      .col-md-7.col-lg-5.col-xl-5.offset-xl-1
-        = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-          .form-outline.mb-4
-            = f.label :email, I18n.t("devise.sessions.email"), class:'form-label'
-            = f.email_field :email, autofocus: true, autocomplete: "email", class:'form-control form-control-lg'
-          .form-outline.mb-4
-            = f.label :password, I18n.t("devise.sessions.password"), class:'form-label'
-            br
-            = f.password_field :password, autocomplete: "current-password", class:'form-control form-control-lg'
-          .d-flex.justify-content-around.align-items-center.mb-4
-            - if devise_mapping.rememberable?
-              .form-check
-                = f.check_box :remember_me, class: 'form-check-input'
-                = f.label :remember_me, I18n.t("devise.sessions.remember"), class: 'form-check-label'
-            = link_to "Forgot password?", new_password_path(resource_name)
-          = f.submit I18n.t("devise.sessions.sign_in"), class:'btn btn-primary btn-lg btn-block w-100'
-          .divider.d-flex.align-items-center.my-4
-            p.text-center.fw-bold.mx-3.mb-0.text-muted
-              | OR
-          a.btn.btn-primary.btn-lg.btn-block.w-100[style="background-color: #3b5998" href="#!" role="button"]
-            i.fab.fa-facebook-f.me-2
-            = I18n.t("devise.sessions.facebook_login")
+.registration-container[data-controller='registration']
+  .forms-container
+    .signin-signup
+      = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class:"sign-in-form"}) do |f|
+        h2.title
+          | Sign in
+        .input-field[class="#{flash.blank? ? '' : 'input-warning'}"]
+          i.fas.fa-user
+          = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email"
+        .input-field[class="#{flash.blank? ? '' : 'input-warning'}"]
+          i.fas.fa-lock
+          = f.password_field :password, autocomplete: "current-password", placeholder: "Password"
+        - flash.each do |type, msg|
+          .validates-message[id="#{type}"]
+            .text-small.text-danger
+              = msg
+        = f.submit 'Login', class: 'btnn solid'
+        p.social-text
+          | Or Sign in with social platforms
+        .social-media
+          a.social-icon[href="#"]
+            i.fab.fa-facebook-f
+          a.social-icon[href="#"]
+            i.fab.fa-twitter
+          a.social-icon[href="#"]
+            i.fab.fa-google
+          a.social-icon[href="#"]
+            i.fab.fa-linkedin-in
+
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'sign-up-form needs-validation'}) do |f|
+        h2.title
+          | Sign up
+        .input-field
+          i.fas.fa-user
+          = f.text_field :user_name, autofocus: true, autocomplete: "user_name", placeholder: "Username"
+        .input-field
+          i.fas.fa-envelope
+          = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email"
+        .input-field
+          i.fas.fa-lock
+          = f.password_field :password, autocomplete: "current-password", placeholder: "Password"
+        = f.submit 'Sign Up', class: 'btnn'
+        p.social-text
+          | Or Sign up with social platforms
+        .social-media
+          a.social-icon[href="#"]
+            i.fab.fa-facebook-f
+          a.social-icon[href="#"]
+            i.fab.fa-twitter
+          a.social-icon[href="#"]
+            i.fab.fa-google
+          a.social-icon[href="#"]
+            i.fab.fa-linkedin-in
+  .panels-container
+    .panel.left-panel
+      .content
+        h3
+          | New here ?
+        p
+          |  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis, ex ratione. Aliquid!
+        button#sign-up-btn.btnn.transparent[data-action="click->registration#swap"]
+          | Sign up
+      = image_pack_tag 'log.svg', class: 'image'
+    .panel.right-panel
+      .content
+        h3
+          | One of us ?
+        p
+          |  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum laboriosam ad deleniti.
+        button#sign-in-btn.btnn.transparent[data-action="click->registration#swap"]
+          | Sign in
+      = image_pack_tag 'register.svg', class: 'image'

@@ -11,12 +11,12 @@
 #  date_of_birth          :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  full_name              :string
 #  gender                 :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  unconfirmed_email      :string
+#  user_name              :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -49,6 +49,15 @@ class User < ApplicationRecord
 
   has_noticed_notifications model_name: 'Notification'
   has_many :notifications, as: :recipient, dependent: :destroy
+  before_create :set_default_avatar
+
+  def set_default_avatar
+    avatar.attach(
+      io:  File.open(File.join(Rails.root,'app/javascript/images/avatar_default.jpg')),
+      filename: 'avatar_default.jpg'
+    )
+    byebug
+  end
 
   # Follows a user.
   def follow(other_user)

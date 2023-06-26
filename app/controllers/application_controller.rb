@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[avt])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[avatar])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[user_name avatar])
   end
 
   def set_notifications
