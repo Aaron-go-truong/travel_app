@@ -1,0 +1,13 @@
+li[data-controller="notification"]
+  .d-flex.align-items-center.noti-card[id= "#{notification.id}" data-notification-target="notification"  data-action="click->notification#navigate"]
+    = hidden_field_tag "url_#{notification.id}", value: notification.to_notification.url
+    .noti-avt
+      img.rounded-circle.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
+    #noti-item[class="#{notification.unread? ? 'noti-content' : 'noti-content--readed'}" data-notification-target="noti_content"]
+      span
+        strong
+          = notification.params[:user].full_name
+        span
+          = notification.to_notification.message
+      div[class="#{notification.unread? ? 'time--unread' : 'time'}"]
+        = notification.created_at.strftime("%H:%M %d/%m/%Y")

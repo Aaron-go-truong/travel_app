@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_15_091501) do
+ActiveRecord::Schema.define(version: 2023_06_22_031352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,28 @@ ActiveRecord::Schema.define(version: 2023_06_15_091501) do
     t.index ["cmt_parent_id"], name: "index_comments_on_cmt_parent_id"
     t.index ["plan_id"], name: "index_comments_on_plan_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "likeable_type"
+    t.bigint "likeable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "recipient_type", null: false
+    t.bigint "recipient_id", null: false
+    t.string "type", null: false
+    t.jsonb "params"
+    t.datetime "read_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["read_at"], name: "index_notifications_on_read_at"
+    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
   create_table "plans", force: :cascade do |t|
@@ -107,6 +129,7 @@ ActiveRecord::Schema.define(version: 2023_06_15_091501) do
   add_foreign_key "comments", "comments", column: "cmt_parent_id"
   add_foreign_key "comments", "plans"
   add_foreign_key "comments", "users"
+  add_foreign_key "likes", "users"
   add_foreign_key "plans", "plans", column: "plan_parent_id"
   add_foreign_key "plans", "users"
 end

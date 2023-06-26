@@ -1,0 +1,72 @@
+ul
+  padding: 0 !important
+  list-style-type: none
+
+li
+  list-style: none
+
+.noti-avt
+  height: 3.5rem
+  width: 3.5rem
+
+.time
+  font-size: 12px
+  font-weight: 400
+  &--unread
+      @extend .time
+      color:  #1b74e4
+      font-weight: 700
+
+.noti-card:hover
+  background: #f2f3f4
+  cursor: pointer
+
+.noti-card
+  padding: 0.25rem
+  border-radius: 0.5rem
+
+.filter-noti
+  padding: 0.5rem 1rem
+  border-radius: 1rem
+  &--active
+      @extend .filter-noti
+      color:  #1b74e4
+      background: #e7f3ff
+
+.filter-noti:hover
+  background: #f2f3f4
+  cursor: pointer
+
+.notificator
+  max-width: 75%
+
+#notificationContainer
+  position: absolute
+  right: 0
+  width: 22.5rem
+  margin-top: 0.5rem
+
+.notificator
+  position: relative
+
+.noti-content
+  font-size: 15px
+  &--readed
+      @extend .noti-content
+      opacity: 0.75
+
+#notification_count
+  top: -0.5rem
+  left: 0.5rem
+  position: absolute
+  padding: 0.25rem
+  background: #ff0f22
+  color: $white
+  font-size: 8px
+
+.mark-as-read
+  right: 0
+  min-width: 8rem
+.option:hover
+  background: #f2f3f4
+  cursor: pointer

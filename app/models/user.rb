@@ -45,6 +45,10 @@ class User < ApplicationRecord
 
   has_many :plans, dependent: :destroy
   has_many :comments, through: :plans
+  has_many :likes, dependent: :destroy
+
+  has_noticed_notifications model_name: 'Notification'
+  has_many :notifications, as: :recipient, dependent: :destroy
 
   # Follows a user.
   def follow(other_user)

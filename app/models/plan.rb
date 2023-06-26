@@ -34,22 +34,36 @@ class Plan < ApplicationRecord
   has_one_attached :image_description
 
   has_many :plan_details, class_name: 'Plan', foreign_key: :plan_parent_id, dependent: :destroy
-  accepts_nested_attributes_for :plan_details, allow_destroy:true
+  accepts_nested_attributes_for :plan_details, allow_destroy: true
 
   has_many :comments, dependent: :destroy
+  has_many :likes, as: :likeable, dependent: :destroy
 
   belongs_to :plan_parent, class_name: 'Plan', optional: true
   belongs_to :user
 
+  has_noticed_notifications model_name: 'Notification'
+
   validates_numericality_of :amount
 
-  scope :plan_parent, ->{where plan_parent_id: nil}
+  scope :plan_parent, -> { where plan_parent_id: nil }
+
+  after_create_commit :broadcast_notifications
 
   def include_plan?(other_plan)
     plan_details.include?(other_plan)
   end
 
-  def is_plan_parent?
+  def plan_parent?
     plan_parent_id.nil?
+  end
+
+  private
+
+  def broadcast_notifications
+    PlanNotification.with(
+      plan: plan_parent? ? self : Plan.find(plan_parent_id),
+      user: user
+    ).deliver_later(user.followers)
   end
 end

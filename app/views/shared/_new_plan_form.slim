@@ -1,5 +1,6 @@
 .w-100
   = form_with model: plan do |form|
+    = hidden_field_tag :parent_id, value: plan.plan_parent_id
     .form-create.d-flex.w-100.align-items-start.justify-content-around[data-controller="filepond"]
       .left-form.w-100.p-2
         .form-group

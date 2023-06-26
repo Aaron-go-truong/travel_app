@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    mark_notifications_as_read
   end
 
   def follow
@@ -24,5 +25,12 @@ class UsersController < ApplicationController
 
   def find_user
     @user = User.find(params[:user_id])
+  end
+
+  def mark_notifications_as_read
+    if current_user
+      notification_to_mark_as_read = @user.notifications_as_user.where(recipient: current_user)
+      notification_to_mark_as_read.update_all(read_at: Time.zone.now)
+    end
   end
 end

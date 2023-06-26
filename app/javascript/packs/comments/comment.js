@@ -1,8 +1,8 @@
 import $ from "jquery";
 
 $(() => {
-
   let input_cmt = $("#input-cmt");
+
 
   $("#edit-cmt").hide();
 
@@ -34,4 +34,6 @@ $(() => {
     $("#cmt").addClass("d-none");
     $("#edit-cmt").show();
   });
+
+
 });
