@@ -8,7 +8,7 @@
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
-#  date_of_birth          :string
+#  date_of_birth          :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  gender                 :string
@@ -56,7 +56,6 @@ class User < ApplicationRecord
       io:  File.open(File.join(Rails.root,'app/javascript/images/avatar_default.jpg')),
       filename: 'avatar_default.jpg'
     )
-    byebug
   end
 
   # Follows a user.
