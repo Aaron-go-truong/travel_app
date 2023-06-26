@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @plans = Plan.all
+    @plans = Plan.where(user_id: current_user.id).plan_parent
   end
 end
