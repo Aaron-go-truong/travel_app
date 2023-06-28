@@ -38,10 +38,7 @@ class Comment < ApplicationRecord
   private
 
   def broadcast_notifications
-    CommentNotification.with(
-      user: user,
-      comment: self,
-      plan: plan).deliver_later(plan.user) if plan.user.id != user.id
+    CommentNotification.with(user: user, comment: self, plan: plan).deliver_later(plan.user) if plan.user.id != user.id
   end
 
   def cleanup_notifications
