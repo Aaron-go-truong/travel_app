@@ -1,35 +1,48 @@
-= javascript_pack_tag 'comments/comment';
-
-- unless !comment.persisted?
+- if comment.persisted?
   = hidden_field_tag :plan_id, value: comment.plan.id
-  #cmt.d-flex.flex-start
-    img.rounded-circle.shadow-1-strong.me-3[src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65" height="65"]
-    .right-block
-      .flex-grow-1.flex-shrink-1
-        .d-flex.align-items-center
-          .card-cmt
-            .d-flex.justify-content-between.align-items-center
-              p.mb-1.text-medium--bold
-                | #{comment.user.user_name}
-                span.small
-                  |  - #{comment.created_at}
-            p.small.mb-0
-              |  #{comment.content}
-          #options.d-none
-            .more-options.rounded-circle.d-flex.justify-content-center.align-items-center
-              .dropdown
-                i.fa-solid.fa-ellipsis[type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
-                .dropdown-menu[aria-labelledby="dropdownMenu2"]
-                  #edit-cmt-btn.dd-item
-                    | Edit
-                  .dd-item
-                    = link_to 'Delete', [comment.plan, comment], method: :delete, data: { confirm: 'Are you sure?' }
-        .d-flex.gap-4.mt-1[data-controller="comment"]
-          a#like-cmt[style='margin-left:1rem']
-            span.like-cmt.small.text-small--bold[ id = "cmt_#{comment.id}" class="#{ comment.likes.where(user_id:current_user.id).blank? ? 'text-grey' : 'btn-blue'}"  data-comment-target="likebtn" data-action="click->comment#like_action"]
-              |  Like
-          a#reply-cmt
-            span.small.text-small--bold.text-grey
-              |  Reply
-      - if comment.replies.any?
-        = render partial: 'comments/reply', collection: comment.replies
+  .comment-container.mb-2[data-controller="comment"]
+    .comment.d-flex.flex-start[id="comment_#{comment.id}"]
+      = image_tag comment.user.avatar, class: "rounded-circle shadow-1-strong me-2 avt-cmt"
+      .right-block
+        .flex-grow-1.flex-shrink-1
+          .d-flex.align-items-center
+            .card-cmt
+              .d-flex.justify-content-between.align-items-center
+                p.mb-1.text-small--bold
+                  | #{comment.user.user_name}
+              span.text-small.mb-0
+                |  #{comment.content}
+            #options
+              .more-options.rounded-circle.d-flex.justify-content-center.align-items-center
+                .dropdown
+                  i.fa-solid.fa-ellipsis[type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+                  .dropdown-menu[aria-labelledby="dropdownMenu2"]
+                    .dd-item[id="edit_cmt_btn_#{comment.id}" data-comment-target="edit_comment" data-action="click->comment#edit_action"]
+                      span.text-medium[style="color: #666666"]
+                        | Edit
+                    .dd-item[id="delete_cmt_btn_#{comment.id}" data-action="click->comment#delete_action"]
+                      span.text-medium[style="color: #666666"]
+                        | Delete
+                      = link_to 'Delete', [comment.plan, comment], class: "d-none"
+
+          .d-flex.align-items-center.justify-content-start.gap-4.mt-1
+            a#like-cmt[style='margin-left:1rem']
+              span.like-cmt.small.text-small--bold[ id = "cmt_#{comment.id}" class="#{ comment.likes.where(user_id:current_user.id).blank? ? 'text-grey' : 'btn-blue'}"  data-comment-target="likebtn" data-action="click->comment#like_action"]
+                |  Like
+            a[id="reply_#{comment.id}" data-comment-target="reply_comment" data-action="click->comment#reply_action"]
+              span.small.text-small--bold.text-grey
+                |  Reply
+            span.text-small.text-grey
+              | #{comment.created_at.strftime("%H:%M %d/%m/%Y")}
+    .edit-comment.d-none[id="edit_cmt_#{comment.id}"]
+      = render 'comments/comment_input', comment: comment, cmt_id: "cmt_#{comment.id}"
+      .d-flex.flex-start.mb-1
+        .rounded-circle.shadow-1-strong.me-2.avt-cmt[style="height: fit-content"]
+        span.text-small.text-primary.text-underline-hover[id="cancel_edit_cmt_#{comment.id}" data-comment-target="cancel_edit" data-action="click->comment#cancel_edit"]
+          | Cancel
+    - comment.replies.each do |reply|
+      .d-flex.flex-start.mt-2
+        .rounded-circle.shadow-1-strong.me-2.avt-cmt
+        = render 'comments/comment', comment: reply, cmt_id: "cmt_#{comment.id}"
+    .reply-comment.d-none[id="reply_cmt_#{comment.id}"]
+      = render 'comments/reply', comment_parent: comment.cmt_parent_id.nil? ? comment.replies.new : Comment.new(cmt_parent_id: comment.cmt_parent_id), child: comment.cmt_parent_id.nil? ? false : true, cmt_id: "reply_#{comment.id}"

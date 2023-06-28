@@ -3,7 +3,7 @@
 .container.mt-7[data-controller="user"]
   .row
     .col-2
-      = render 'shared/sidebar'
+      = render 'shared/sidebar', selected: "Plans"
     .col-10
       #show-page
         .w-100
@@ -20,18 +20,17 @@
                   span
                     | Like
               #exampleModal.modal.fade[tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"]
-                .modal-dialog[role="document" style="min-width: 60%"]
+                .modal-dialog[role="document" style="min-width: 50%;"]
                   .modal-content
                     .modal-header
                       h5#exampleModalLabel.modal-title
                         | #{@plan.title}
                       i.fa-solid.fa-xmark[type="button" data-dismiss="modal" aria-label="Close"]
-                    .modal-body
-                      .w-100
-                        = render @plan.comments
-                    .modal-footer.w-100
-                      = render 'comments/form', comment: @plan.comments.new
-
+                    .modal-body[style="max-height: calc(100vh - 210px); overflow-y: auto;"]
+                      #modal-body-cmt.w-100
+                        = render @plan.comments.comment_parent.sort_by(&:created_at)
+                    .modal-footer.w-100.py-0
+                      = render 'comments/comment_input', comment:@plan.comments.new, cmt_id: "create_cmt"
             .col.mb-2.rounded-3
               .card.position-relative
                 .d-flex.justify-content-between

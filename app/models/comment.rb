@@ -30,6 +30,8 @@ class Comment < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   validates :content, presence: true
 
+  scope :comment_parent, -> { where cmt_parent_id: nil }
+
   has_noticed_notifications model_name: 'Notification'
   after_create_commit :broadcast_notifications
 

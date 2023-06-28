@@ -6,9 +6,9 @@
   border-radius: 50%
 
 .card-cmt
-  padding: 1rem
+  padding: 0.5rem
   background: #f0f2f5
-  border-radius: 1.5rem
+  border-radius: 1rem
 
 .more-options:hover
   background: #f0f2f5
@@ -40,7 +40,27 @@
 .btn-blue
   color: #0570e7
 
+.btn-disabled
+  color: #666666
+
 .button-cmt
   bottom: 1.5rem
   right: 0.5rem
   z-index: 2
+  &--disabled
+    @extend .button-cmt
+    color: #666666
+    cursor: not-allowed
+.text-area
+  text-indent: 0px
+  background: $white
+  border-radius: 0.75rem
+  cols: 20
+  rows: 4
+
+#options
+  display: none
+
+.comment:hover
+  #options
+    display: block

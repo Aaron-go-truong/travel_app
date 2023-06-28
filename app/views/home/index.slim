@@ -3,7 +3,7 @@
 .container.mt-7
   .row
     .col-2
-      = render 'shared/sidebar'
+      = render 'shared/sidebar', selected: 'Home'
     .col-10
       .workpage.w-100
         h4.text-muted
@@ -19,10 +19,31 @@
                   .d-flex.justify-content-between.align-items-center.w-100
                     span.text-title--bold
                       | #{plan.title}
-                    .d-flex.align-items-center.justify-conten-center.gap-1
+                    .d-flex.align-items-center.justify-conten-center.gap-1[data-controller="plan" type="button" data-toggle="modal" data-target="#exampleModal"]
                       i.fa-solid.fa-heart.heart[id= "like_#{plan.id}" ]
-                      span.text-medium[style="color: white; font-weight: 600"]
+                      span.text-underline-hover.text-medium[style="color: white; font-weight: 600"]
                         | #{plan.likes.count}
+                  #exampleModal.modal.fade[tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"]
+                    .modal-dialog[role="document" style="min-width: 40%"]
+                      .modal-content
+                        .modal-header
+                          h5#exampleModalLabel.modal-title
+                            | #{plan.title}
+                          i.fa-solid.fa-xmark[type="button" data-dismiss="modal" aria-label="Close"]
+                        .modal-body
+                          .w-100
+                            - plan.likes.each do |like|
+                              .d-flex.align-items-center.justify-content-between[data-controller="follow"]
+                                .d-flex.align-items-center.gap-2
+                                  = image_tag like.user.avatar, class: "rounded-circle avt-circle"
+                                  => link_to users_index_path(like.user) do
+                                    .text-medium--bold.text-underline-hover
+                                      | #{like.user.user_name}
+                                button.btn[id = like.user.id type="button" class="#{ current_user.following?(like.user) ? 'btn-light' : 'btn-primary'} #{current_user.id == like.user.id ? 'd-none' : ''}"  data-follow-target="flbutton" data-action="click->follow#follow_action"]
+                                  - if current_user.following?(like.user)
+                                    | Unfollow
+                                  - else
+                                    | Follow
           #create-plan.col.mb-2
             .w-100.h-100.addplan-card.rounded-3.d-flex.align-items-center.justify-content-center.gap-2
               i.fa-solid.fa-plus.addplan

@@ -1,7 +1,12 @@
 .item-sidebar
   padding: 0.4rem
-
   color: #666666
+  &--active
+    @extend .item-sidebar
+    background-color: #e6f2ff
+    color: #2980b9
+    pointer-events: none
+
 
 .item-sidebar:hover
   cursor: pointer
