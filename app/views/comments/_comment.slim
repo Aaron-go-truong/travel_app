@@ -1,17 +1,28 @@
 - if comment.persisted?
   = hidden_field_tag :plan_id, value: comment.plan.id
-  .comment-container.mb-2[data-controller="comment"]
+  .comment-container.w-100.mb-2[data-controller="comment"]
     .comment.d-flex.flex-start[id="comment_#{comment.id}"]
       = image_tag comment.user.avatar, class: "rounded-circle shadow-1-strong me-2 avt-cmt"
-      .right-block
+      .right-block.w-100
         .flex-grow-1.flex-shrink-1
           .d-flex.align-items-center
-            .card-cmt
-              .d-flex.justify-content-between.align-items-center
-                p.mb-1.text-small--bold
-                  | #{comment.user.user_name}
-              span.text-small.mb-0
-                |  #{comment.content}
+            .w-100
+              .card-cmt.w-100
+                .d-flex.justify-content-between.align-items-center
+                  p.mb-1.text-small--bold
+                    | #{comment.user.user_name}
+                span.text-small.mb-0
+                  |  #{comment.content}
+              .d-flex.align-items-center.justify-content-between.mt-1
+                  .d-flex.align-items-center.justify-content-start.gap-4
+                    a#like-cmt
+                      span.like-cmt.small.text-small--bold[ id = "cmt_#{comment.id}" class="#{ comment.likes.where(user_id:current_user.id).blank? ? 'text-grey' : 'btn-blue'}"  data-comment-target="likebtn" data-action="click->comment#like_action"]
+                        |  Like
+                    a[id="reply_#{comment.id}" data-comment-target="reply_comment" data-action="click->comment#reply_action"]
+                      span.small.text-small--bold.text-grey
+                        |  Reply
+                  span.text-small.text-grey
+                    | #{comment.created_at.strftime("%H:%M %d/%m/%Y")}
             #options
               .more-options.rounded-circle.d-flex.justify-content-center.align-items-center
                 .dropdown
@@ -25,15 +36,6 @@
                         | Delete
                       = link_to 'Delete', [comment.plan, comment], class: "d-none"
 
-          .d-flex.align-items-center.justify-content-start.gap-4.mt-1
-            a#like-cmt[style='margin-left:1rem']
-              span.like-cmt.small.text-small--bold[ id = "cmt_#{comment.id}" class="#{ comment.likes.where(user_id:current_user.id).blank? ? 'text-grey' : 'btn-blue'}"  data-comment-target="likebtn" data-action="click->comment#like_action"]
-                |  Like
-            a[id="reply_#{comment.id}" data-comment-target="reply_comment" data-action="click->comment#reply_action"]
-              span.small.text-small--bold.text-grey
-                |  Reply
-            span.text-small.text-grey
-              | #{comment.created_at.strftime("%H:%M %d/%m/%Y")}
     .edit-comment.d-none[id="edit_cmt_#{comment.id}"]
       = render 'comments/comment_input', comment: comment, cmt_id: "cmt_#{comment.id}"
       .d-flex.flex-start.mb-1
@@ -44,5 +46,6 @@
       .d-flex.flex-start.mt-2
         .rounded-circle.shadow-1-strong.me-2.avt-cmt
         = render 'comments/comment', comment: reply, cmt_id: "cmt_#{comment.id}"
-    .reply-comment.d-none[id="reply_cmt_#{comment.id}"]
-      = render 'comments/reply', comment_parent: comment.cmt_parent_id.nil? ? comment.replies.new : Comment.new(cmt_parent_id: comment.cmt_parent_id), child: comment.cmt_parent_id.nil? ? false : true, cmt_id: "reply_#{comment.id}"
+    - if comment.replies.count == 0
+      .reply-comment.d-none[id="reply_cmt_#{comment.id}"]
+        = render 'comments/reply', comment_parent: comment.cmt_parent_id.nil? ? comment.replies.new : Comment.new(cmt_parent_id: comment.cmt_parent_id), child: comment.cmt_parent_id.nil? ? false : true, cmt_id: "reply_#{comment.id}"

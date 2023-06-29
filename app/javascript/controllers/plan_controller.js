@@ -55,4 +55,8 @@ export default class extends Controller {
       },
     });
   }
+
+  search(event) {
+    alert(1)
+  }
 }
