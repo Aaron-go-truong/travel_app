@@ -7,20 +7,18 @@ class PlansController < ApplicationController
     @plans = @plans.includes(:user).filter_by_title(params[:search_content]).or(@plans.includes(:user).filter_by_username(params[:search_content])) if params[:search_content].present?
     if params[:sort_type].present?
       @plans =
-      case params[:sort_type]
-      when "most_recent"
-        @plans.sort_most_recent()
-      when "oldest"
-        @plans.sort_oldest()
-      when "most_like"
-        @plans.sort_most_like()
-      else
-        @plans
-      end
-
+        case params[:sort_type]
+        when 'most_recent'
+          @plans.sort_most_recent
+        when 'oldest'
+          @plans.sort_oldest
+        when 'most_like'
+          @plans.sort_most_like
+        else
+          @plans
+        end
     end
-
-    respond_index_json
+    respond_index_json('plan')
   end
 
   def show; end

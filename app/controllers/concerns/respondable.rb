@@ -1,9 +1,9 @@
 module Respondable
   extend ActiveSupport::Concern
 
-  def render_to_string_html(partial = 'plan', **options)
+  def render_to_string_html(partial, **options)
     render_to_string(
-      partial:, layout: false, locals: options
+      partial: partial, layout: false, locals: options
     )
   end
 
@@ -17,11 +17,7 @@ module Respondable
     end
   end
 
-  def respond_index_json(partial = 'plan')
+  def respond_index_json(partial)
     respond_include_json(html: render_to_string_html(partial))
-  end
-
-  def render_json_success(hash, status = :ok)
-    render json: hash, status:
   end
 end

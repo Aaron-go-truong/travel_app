@@ -30,7 +30,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Plan < ApplicationRecord
-
   enum plan_audience: %i[Public Followers Only]
 
   has_one_attached :image_description
@@ -49,12 +48,11 @@ class Plan < ApplicationRecord
   validates_numericality_of :amount
 
   scope :plan_parent, -> { where plan_parent_id: nil }
-  scope :filter_by_title, -> (title) { where("title ILIKE ?", "%#{title}%")}
-  scope :filter_by_username, -> (username) { where(id: self.joins(:user).where("user_name ILIKE ? ", "%#{username}%").ids)}
+  scope :filter_by_title, ->(title) { where('title ILIKE ?', "%#{title}%") }
+  scope :filter_by_username, ->(username) { where(id: joins(:user).where('user_name ILIKE ? ', "%#{username}%").ids) }
   scope :sort_most_recent, -> { reorder(created_at: :desc) }
   scope :sort_oldest, -> { reorder(created_at: :asc) }
   scope :sort_most_like, -> { reorder(likes_count: :desc) }
-
   after_create_commit :broadcast_notifications
 
   def include_plan?(other_plan)
