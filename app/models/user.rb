@@ -8,7 +8,7 @@
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
-#  date_of_birth          :string
+#  date_of_birth          :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  gender                 :string

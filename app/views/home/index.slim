@@ -20,12 +20,23 @@
                 | Oldest
               option[value="most_like"]
                 | Most Like
+            / .dropdown
+            /   i.fa-solid.fa-ellipsis[type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+            /   .dropdown-menu[aria-labelledby="dropdownMenu2"]
+            /     .dd-item
+            /       span.text-medium[style="color: #666666"]
+            /         | Edit
+            /     .dd-item
+            /       span.text-medium[style="color: #666666"]
+            /         | Delete
           .text-muted.text-small.d-none
             .d-flex.align-items-center.gap-1
               i.fa-solid.fa-xmark
               span
                 | Clear filters
-        h4.text-muted.mt-2
+
+
+        h4.text-muted
           span
             | YOUR WORKSPACES
         .row.row-cols-3.w-100.g-2
@@ -55,7 +66,7 @@
                               .d-flex.align-items-center.justify-content-between[data-controller="follow"]
                                 .d-flex.align-items-center.gap-2
                                   = image_tag like.user.avatar, class: "rounded-circle avt-circle"
-                                  => link_to users_index_path(like.user) do
+                                  => link_to users_path(like.user) do
                                     .text-medium--bold.text-underline-hover
                                       | #{like.user.user_name}
                                 button.btn[id = like.user.id type="button" class="#{ current_user.following?(like.user) ? 'btn-light' : 'btn-primary'} #{current_user.id == like.user.id ? 'd-none' : ''}"  data-follow-target="flbutton" data-action="click->follow#follow_action"]

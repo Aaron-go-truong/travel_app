@@ -94,6 +94,7 @@ export default class extends Controller {
     let comment_id = this.reply_commentTarget.id.replace("reply_", "");
     let comment_reply_element = $(`#reply_cmt_${comment_id}`);
     comment_reply_element.removeClass("d-none");
+
   }
 
   delete_action(event) {

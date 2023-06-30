@@ -55,4 +55,50 @@ export default class extends Controller {
       },
     });
   }
+
+  search_input(event) {
+    if (event.keyCode === 13) this.filter_action();
+  }
+
+  filter_action() {
+    let filter_data = {
+      search_content: $("#search").val(),
+      sort_type: $("#select-sort").find(":selected").val(),
+    };
+    this.filter_method(filter_data);
+    $(".btn-clear").removeClass("d-none")
+  }
+
+  filter_method(filter_data) {
+
+    $.ajax({
+      type: "GET",
+      url: "/plans",
+      dataType: "JSON",
+      data: filter_data,
+      success(data) {
+        $("#plans_list").html("");
+        $("#plans_list").html(data.html);
+      },
+      error(data) {
+        return false;
+      },
+    });
+  }
+
+  clear_filter_action() {
+    let select_sort = $("#select-sort");
+    let search = $("#search");
+
+    select_sort.prop("selectedIndex", 0);
+    search.val("");
+
+    let filter_data = {
+      search_content: search.val(),
+      sort_type: select_sort.find(":selected").val(),
+    };
+
+    this.filter_method(filter_data);
+    $(".btn-clear").addClass("d-none")
+  }
 }
