@@ -5,8 +5,27 @@
     .col-2
       = render 'shared/sidebar', selected: 'Home'
     .col-10
-      .workpage.w-100
-        h4.text-muted
+      .workpage.w-100[data-controller="plan"]
+        .d-flex.align-items-center.w-100.gap-3
+          .inputs.w-75
+            i.fa.fa-search
+            input#search.form-control[type="text" placeholder="Search PLans..." data-action="keyup->plan#search"]
+          .sort
+            span.text-small.text-muted
+              | Sort by
+            select.form-select.form-select-sm[aria-label=".form-select-sm example"]
+              option[value="most_recent" selected]
+                | Most Recent
+              option[value="oldest"]
+                | Oldest
+              option[value="most_like"]
+                | Most Like
+          .text-muted.text-small.d-none
+            .d-flex.align-items-center.gap-1
+              i.fa-solid.fa-xmark
+              span
+                | Clear filters
+        h4.text-muted.mt-2
           span
             | YOUR WORKSPACES
         .row.row-cols-3.w-100.g-2
@@ -47,5 +66,15 @@
           #create-plan.col.mb-2
             .w-100.h-100.addplan-card.rounded-3.d-flex.align-items-center.justify-content-center.gap-2
               i.fa-solid.fa-plus.addplan
-              span.addplan
-                => link_to "Create new plan", new_plan_path, class: 'navbar-link'
+              span.addplan[data-toggle="modal" data-target="#create_planModal"]
+                | Create new plan
+            #create_planModal.modal.fade[tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"]
+              .modal-dialog[role="document" style="min-width: 70%"]
+                .modal-content
+                  .modal-header
+                    h5#exampleModalLabel.modal-title
+                      | New Plan
+                    i.fa-solid.fa-xmark[type="button" data-dismiss="modal" aria-label="Close"]
+                  .modal-body
+                    .w-100
+                      = render 'shared/new_plan_form', plan: Plan.new
