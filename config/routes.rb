@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   patch '/notification_read_all', to:'notifications#mark_all_as_read'
 
   root 'home#index'
-  get 'home/index'
+  get 'home/index', to: 'plan#index'
 
   mount ActionCable.server => '/cable'
 

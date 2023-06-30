@@ -1,8 +1,17 @@
 class PlansController < ApplicationController
+  include Respondable
   before_action :find_plan, only: %i[show update destroy]
 
   def index
-    @plans = Plan.where.not(user_id: current_user.id).plan_parent
+    @plans = Plan.where.not(user_id: current_user.id).plan_parent.sort_most_recent
+    @plans = @plans.filter_by_title(params[:search_content]) if params[:search_content].present?
+    if params[:sort_type].present?
+      @plans = @plans.sort_most_recent() if  params[:sort_type]=="most_recent"
+      @plans = @plans.sort_oldest() if  params[:sort_type]=="oldest"
+      @plans = @plans.sort_most_like() if  params[:sort_type]=="most_like"
+    end
+
+    respond_index_json
   end
 
   def show; end

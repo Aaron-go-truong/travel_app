@@ -7,6 +7,7 @@
 #  address        :string           not null
 #  amount         :integer          not null
 #  descriptions   :text
+#  likes_count    :integer          default(0), not null
 #  notes          :text
 #  plan_audience  :integer          default("Public"), not null
 #  time           :string           not null
@@ -29,6 +30,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Plan < ApplicationRecord
+
   enum plan_audience: %i[Public Followers Only]
 
   has_one_attached :image_description
@@ -47,6 +49,11 @@ class Plan < ApplicationRecord
   validates_numericality_of :amount
 
   scope :plan_parent, -> { where plan_parent_id: nil }
+  scope :filter_by_title, -> (title) { where("title ILIKE ?", "%#{title}%")}
+  scope :sort_most_recent, -> { reorder(created_at: :desc) }
+  scope :sort_oldest, -> { reorder(created_at: :asc) }
+  scope :sort_most_like, -> { reorder(likes_count: :desc) }
+
 
   after_create_commit :broadcast_notifications
 
