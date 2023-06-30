@@ -1,13 +1,34 @@
-.sidebar
+.d-flex.flex-column
+  .d-flex.flex-column.gap-1
+    => link_to root_path, class:"#{selected != "Home" ? 'item-sidebar' : 'item-sidebar--active'} rounded text-small--bold" do
+      i.fas.fa-house.fa-fw.me-3
+      span
+        | Home
+    a.item-sidebar.rounded.text-small--bold
+      i.fas.fa-globe.fa-fw.me-3
+      span
+        | International
+    a.item-sidebar.rounded.text-small--bold
+      i.fas.fa-building.fa-fw.me-3
+      span
+        | Partners
+  .line
+  .d-flex.flex-column
+    h5
+      | Explore
+    .d-flex.flex-column.pl-2.gap-1
+      => link_to plans_path, class:"#{selected != "Plans" ? 'item-sidebar' : 'item-sidebar--active'} rounded text-small--bold" do
+        .px-4
+          i.fas.fa-clipboard-list.fa-fw.me-3
+          span
+            | Plans
       a.item-sidebar.rounded.text-small--bold
-        i.fas.fa-chart-bar.fa-fw.me-3
-        span
-          | Orders
-      a.item-sidebar.rounded.text-small--bold
-        i.fas.fa-globe.fa-fw.me-3
-        span
-          | International
-      a.item-sidebar.rounded.text-small--bold
-        i.fas.fa-building.fa-fw.me-3
-        span
-          | Partners
+        .px-4
+          i.fas.fa-heart.fa-fw.me-3
+          span
+            | Favorite
+      => link_to users_index_path, class:"#{selected!="Users" ? 'item-sidebar' : 'item-sidebar--active'} rounded text-small--bold" do
+        .px-4
+          i.fas.fa-users.fa-fw.me-3
+          span
+            | Users

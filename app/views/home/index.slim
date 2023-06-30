@@ -1,17 +1,51 @@
-h1.mt-3
-  | Hello, Rails
-- if user_signed_in?
-  | Logged in as
-  strong
-        | #{current_user.email}
-  => link_to 'Edit profile', edit_user_registration_path, class: 'navbar-link'
-  | |
-  => link_to "Logout", destroy_user_session_path, class: 'navbar-link'
-  | |
-  => link_to "List Users", users_index_path, class: 'navbar-link'
-  | |
-  => link_to "List Plans", plans_path(user_id: current_user.id), class: 'navbar-link'
-- else
-  => link_to "Sign up", new_user_registration_path, class: 'navbar-link'
-  | |
-  => link_to "Login", new_user_session_path, class: 'navbar-link'
+= javascript_pack_tag 'plans/plan_index'
+
+.container.mt-7
+  .row
+    .col-2
+      = render 'shared/sidebar', selected: 'Home'
+    .col-10
+      .workpage.w-100
+        h4.text-muted
+          span
+            | YOUR WORKSPACES
+        .row.row-cols-3.w-100.g-2
+          - @plans.each do |plan|
+            .col.mb-2[data-controller="plan"]
+              .position-relative.g-2.card-plan.rounded-3
+                = image_tag plan.image_description, class: "w-100 card-height rounded-3 position-relative", id: plan.id.to_s, data: { plan_target: 'plancard', action: "click->plan#navigate"}
+                .position-absolute.bottom-0.title-plan.rounded-bottom-3
+                .position-absolute.bottom-0.p-2.w-100
+                  .d-flex.justify-content-between.align-items-center.w-100
+                    span.text-title--bold
+                      | #{plan.title}
+                    .d-flex.align-items-center.justify-conten-center.gap-1[data-controller="plan" type="button" data-toggle="modal" data-target="#exampleModal"]
+                      i.fa-solid.fa-heart.heart[id= "like_#{plan.id}" ]
+                      span.text-underline-hover.text-medium[style="color: white; font-weight: 600"]
+                        | #{plan.likes.count}
+                  #exampleModal.modal.fade[tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"]
+                    .modal-dialog[role="document" style="min-width: 40%"]
+                      .modal-content
+                        .modal-header
+                          h5#exampleModalLabel.modal-title
+                            | #{plan.title}
+                          i.fa-solid.fa-xmark[type="button" data-dismiss="modal" aria-label="Close"]
+                        .modal-body
+                          .w-100
+                            - plan.likes.each do |like|
+                              .d-flex.align-items-center.justify-content-between[data-controller="follow"]
+                                .d-flex.align-items-center.gap-2
+                                  = image_tag like.user.avatar, class: "rounded-circle avt-circle"
+                                  => link_to users_index_path(like.user) do
+                                    .text-medium--bold.text-underline-hover
+                                      | #{like.user.user_name}
+                                button.btn[id = like.user.id type="button" class="#{ current_user.following?(like.user) ? 'btn-light' : 'btn-primary'} #{current_user.id == like.user.id ? 'd-none' : ''}"  data-follow-target="flbutton" data-action="click->follow#follow_action"]
+                                  - if current_user.following?(like.user)
+                                    | Unfollow
+                                  - else
+                                    | Follow
+          #create-plan.col.mb-2
+            .w-100.h-100.addplan-card.rounded-3.d-flex.align-items-center.justify-content-center.gap-2
+              i.fa-solid.fa-plus.addplan
+              span.addplan
+                => link_to "Create new plan", new_plan_path, class: 'navbar-link'

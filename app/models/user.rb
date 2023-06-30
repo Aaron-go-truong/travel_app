@@ -53,10 +53,9 @@ class User < ApplicationRecord
 
   def set_default_avatar
     avatar.attach(
-      io:  File.open(File.join(Rails.root,'app/javascript/images/avatar_default.jpg')),
+      io: File.open(File.join(Rails.root, 'app/javascript/images/avatar_default.jpg')),
       filename: 'avatar_default.jpg'
     )
-    byebug
   end
 
   # Follows a user.
