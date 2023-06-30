@@ -4,11 +4,20 @@ class PlansController < ApplicationController
 
   def index
     @plans = Plan.where.not(user_id: current_user.id).plan_parent.sort_most_recent
-    @plans = @plans.filter_by_title(params[:search_content]).or(@plans.filter_by_username(params[:search_content])) if params[:search_content].present?
+    @plans = @plans.includes(:user).filter_by_title(params[:search_content]).or(@plans.includes(:user).filter_by_username(params[:search_content])) if params[:search_content].present?
     if params[:sort_type].present?
-      @plans = @plans.sort_most_recent() if  params[:sort_type]=="most_recent"
-      @plans = @plans.sort_oldest() if  params[:sort_type]=="oldest"
-      @plans = @plans.sort_most_like() if  params[:sort_type]=="most_like"
+      @plans =
+      case params[:sort_type]
+      when "most_recent"
+        @plans.sort_most_recent()
+      when "oldest"
+        @plans.sort_oldest()
+      when "most_like"
+        @plans.sort_most_like()
+      else
+        @plans
+      end
+
     end
 
     respond_index_json

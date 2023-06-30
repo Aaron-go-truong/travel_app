@@ -44,7 +44,7 @@ class Like < ApplicationRecord
   def sub_likes_count
     if likeable_type == 'Plan'
       @plan = Plan.find(likeable_id)
-      @plan .likes_count-=1
+      @plan.likes_count-=1
       @plan.save
     end
   end

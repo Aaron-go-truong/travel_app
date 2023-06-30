@@ -70,6 +70,7 @@ export default class extends Controller {
   }
 
   filter_method(filter_data) {
+
     $.ajax({
       type: "GET",
       url: "/plans",
@@ -78,7 +79,6 @@ export default class extends Controller {
       success(data) {
         $("#plans_list").html("");
         $("#plans_list").html(data.html);
-
       },
       error(data) {
         return false;
