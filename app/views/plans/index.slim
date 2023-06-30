@@ -7,20 +7,26 @@
     .col-10
       .explore.w-100[data-controller="plan"]
         .d-flex.align-items-center.w-100.gap-3
-          .inputs.w-75
+          .inputs[style="width: 70%"]
             i.fa.fa-search[data-action="click->plan#filter_action" ]
             input#search.form-control[type="text" placeholder="Search PLans..." data-action="keydown->plan#search_input"]
-          .sort
-            span.text-small.text-muted
-              | Sort by
-            select#select-sort.form-select.form-select-sm[aria-label=".form-select-sm example" data-action="change->plan#filter_action"]
-              option[value="most_recent" selected]
-                | Most Recent
-              option[value="oldest"]
-                | Oldest
-              option[value="most_like"]
-                | Most Like
-        h4.text-muted
+          .d-flex.align-items-end.gap-2
+            .sort
+              span.text-small.text-muted
+                | Sort by
+              select#select-sort.form-select.form-select-sm[aria-label=".form-select-sm example" data-action="change->plan#filter_action"]
+                option[value="most_recent" selected]
+                  | Most Recent
+                option[value="oldest"]
+                  | Oldest
+                option[value="most_like"]
+                  | Most Like
+            .text-muted.text-small.btn-clear.p-1.d-none[data-action="click->plan#clear_filter_action"]
+              .d-flex.align-items-center.gap-1
+                i.fa-solid.fa-xmark
+                span
+                  | Clear filters
+        h4.text-muted.mt-2
           span
             | Explore Plans
         #plans_list.row.row-cols-3.w-100.g-2
