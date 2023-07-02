@@ -16,7 +16,7 @@ en:
       des-security: "Adjust your security settings and set up two-factor authentication."
       email-address: "Email Address"
       des-email: "We'll send a verification link to your new email address – check your inbox."
-      fullname: "Full Name"
+      username: "Full Name"
       birthday: "Date of birth"
       des-birthday: "Enter your date of birth"
       gender: "Gender"

@@ -1,4 +1,4 @@
-.container.mt-4[data-controller="useredit"]
+.container.mt-7[data-controller="useredit"]
   .row
     .col-3
       .card
@@ -21,7 +21,7 @@
               span.text-medium
                 = I18n.t("devise.registrations.des-details")
 
-          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, style: 'padding:0' }, remote: true) do |f|
             .d-flex.position-relative.align-items-end[data-controller="filepond"]
               #btn-cancel-img.d-none.p-2.rounded.btn-cancel[data-filepond-target="buttoncancel" data-action="click->filepond#recover"]
                   span.text-primary.text-small
@@ -49,47 +49,47 @@
               #email-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#show_edit"]
                 = I18n.t("devise.registrations.edit-btn")
               #email-tool.d-none
-                #email-tool-cancel.p-2.rounded.hover-button[data-action="click->useredit#hide_edit"]
-                  span.text-primary.text-small
+                #email-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hide_edit"]
                     = I18n.t("devise.registrations.cancel-btn")
-                button.btn.btn-primary.mt-5.text-small[type="submit"]
+                button#email-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#save_action"]
                   = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top.mt-2
           .row
             .col-3.text-medium
-              = I18n.t("devise.registrations.fullname")
+              = I18n.t("devise.registrations.username")
             .col-7
-              #fullname.text-small
+              #username.text-small
                 = current_user.user_name
-              #fullname-input.d-none
+              #username-input.d-none
                 div
                   span.text-small
-                    = I18n.t("devise.registrations.fullname")
+                    = I18n.t("devise.registrations.username")
                   span.text-danger
                     | *
-                |  <input id='fullname-value' value="
+                |  <input id='username-value' value="
                 = current_user.user_name
                 | " type="text" class="form-control mt-2 text-small" placeholder="Full name" />
+                .invalid-feedback
+                  | Please choose a username.
             .col.text-primary.d-flex.justify-content-end
-              #fullname-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#show_edit"]
+              #username-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#show_edit"]
                 = I18n.t("devise.registrations.edit-btn")
-              #fullname-tool.d-none
-                #fullname-tool-cancel.p-2.rounded.hover-button[data-action="click->useredit#hide_edit"]
-                  span.text-primary.text-small
-                    = I18n.t("devise.registrations.cancel-btn")
-                button#fullname-tool-save.btn.btn-primary.mt-5.text-small[type="submit"]
+              #username-tool.d-none
+                #username-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hide_edit"]
+                  = I18n.t("devise.registrations.cancel-btn")
+                button#username-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#save_action"]
                   = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top
+          = hidden_field_tag "birthday_user", value: current_user.date_of_birth
           .row
             .col-3.text-medium
               = I18n.t("devise.registrations.birthday")
             .col-6
-              - if !current_user.date_of_birth.nil?
-                #birthday.text-small
-                  = current_user.date_of_birth
-              - else
-                .text-small
-                  = I18n.t("devise.registrations.des-birthday")
+              #birthday.text-small
+                - unless current_user.date_of_birth.nil?
+                    = current_user.date_of_birth.strftime("%d/%m/%Y")
+                - else
+                    = I18n.t("devise.registrations.des-birthday")
               #birthday-input.d-none
                 div
                   span.text-small
@@ -99,25 +99,25 @@
                 .row.mt-2
                   .col-6
                     select#birthday-month-value.form-select.text-small[aria-label="Default select example"]
-                      option[value="0" selected]
+                      option[value="" selected]
                         | Month
-                      option[value="1"]
+                      option[value="01"]
                         | January
-                      option[value="2"]
+                      option[value="02"]
                         | February
-                      option[value="3"]
+                      option[value="03"]
                         | March
-                      option[value="4"]
+                      option[value="04"]
                         | April
-                      option[value="5"]
+                      option[value="05"]
                         | May
-                      option[value="6"]
+                      option[value="06"]
                         | June
-                      option[value="7"]
+                      option[value="07"]
                         | July
-                      option[value="8"]
+                      option[value="08"]
                         | August
-                      option[value="9"]
+                      option[value="09"]
                         | September
                       option[value="10"]
                         | October
@@ -133,10 +133,9 @@
               #birthday-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#show_edit"]
                 = I18n.t("devise.registrations.edit-btn")
               #birthday-tool.d-none
-                #birthday-tool-cancel.p-2.rounded.hover-button[data-action="click->useredit#hide_edit"]
-                  span.text-primary.text-small
-                    = I18n.t("devise.registrations.cancel-btn")
-                button#birthday-tool-save.btn.btn-primary.mt-5.text-small[type="submit"]
+                #birthday-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hide_edit"]
+                  = I18n.t("devise.registrations.cancel-btn")
+                button#birthday-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#save_action"]
                   = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top
           .row
@@ -165,22 +164,21 @@
                   span.text-danger
                     | *
                   select#gender-select.form-select.mt-2.text-small[aria-label="Default select example"]
-                    = options_for_select([['Select your gender', 0], ["I'm a man", 'male'], ["I'm a woman", 'female'],["I'm non-binary","non-binary"],["I prefer not to say",'others']], current_user.gender||0)
+                    = options_for_select([['Select your gender', ""], ["I'm a man", 'male'], ["I'm a woman", 'female'],["I'm non-binary","non-binary"],["I prefer not to say",'others']], current_user.gender||0)
             .col-3.text-primary.d-flex.justify-content-end
               #gender-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#show_edit"]
                 = I18n.t("devise.registrations.edit-btn")
               #gender-tool.d-none
-                #gender-tool-cancel.p-2.rounded.hover-button[data-action="click->useredit#hide_edit"]
-                  span.text-primary.text-small
-                    = I18n.t("devise.registrations.cancel-btn")
-                button#gender-tool-save.btn.btn-primary.mt-5.text-small[type="submit"]
+                #gender-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hide_edit"]
+                  = I18n.t("devise.registrations.cancel-btn")
+                button#gender-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#save_action"]
                   = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top.border-bottom
           .row
             .col-3.text-medium
               = I18n.t("devise.registrations.address")
             .col-6
-              - if !current_user.address.nil?
+              - if !current_user.address.blank?
                 #address.text-small
                   = current_user.address
               - else
@@ -199,10 +197,9 @@
               #address-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#show_edit"]
                 = I18n.t("devise.registrations.edit-btn")
               #address-tool.d-none
-                #address-tool-cancel.p-2.rounded.hover-button[data-action="click->useredit#hide_edit"]
-                  span.text-primary.text-small
-                    = I18n.t("devise.registrations.cancel-btn")
-                button#address-tool-save.btn.btn-primary.mt-5.text-small[type="submit"]
+                #address-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hide_edit"]
+                  = I18n.t("devise.registrations.cancel-btn")
+                button#address-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#save_action"]
                   = I18n.t("devise.registrations.save-btn")
     #security.col-9.d-none
       .container
@@ -226,7 +223,7 @@
                 #reset-cancel.p-2.rounded.hover-button
                   span.text-primary.text-small
                     = I18n.t("devise.registrations.cancel-btn")
-                button.btn.btn-primary.mt-5.text-small[type="submit"]
+                button.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#save_action"]
                   = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top.mt-2
           .row
@@ -243,5 +240,5 @@
                   #delete-cancel.p-2.rounded.hover-button.fit-content
                     span.text-small.text-primary
                       = I18n.t("devise.registrations.cancel-btn")
-                  button.text-small.btn.btn-primary.mt-5[type="submit"]
+                  button.text-small.btn.btn-primary.mt-5[type="submit" data-action="click->useredit#save_action"]
                     | Delete account
