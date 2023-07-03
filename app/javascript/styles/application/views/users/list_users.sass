@@ -32,9 +32,9 @@ body
   position: relative
 
 .form-control
-  text-indent: 15px
+  text-indent: 2rem
   border: none
-  height: 45px
+  height: 55px
   border-radius: 0px
   border-bottom: 1px solid #eee
 
@@ -52,8 +52,9 @@ body
 .inputs i
 
   position: absolute
-  top: 14px
-  left: 4px
+  top: 50%
+  transform: translateY(-50%)
+  left: 1rem
   color: #b8b9bc
 
 .flex-container
@@ -84,5 +85,8 @@ body
 a
   text-decoration: none !important
 
+.btn-outline-primary a
+  &:hover
+    color: $white
 // a:hover
 //   color: $white !important

@@ -7,6 +7,7 @@
 #  address        :string           not null
 #  amount         :integer          not null
 #  descriptions   :text
+#  likes_count    :integer          default(0), not null
 #  notes          :text
 #  plan_audience  :integer          default("Public"), not null
 #  time           :string           not null
@@ -47,7 +48,11 @@ class Plan < ApplicationRecord
   validates_numericality_of :amount
 
   scope :plan_parent, -> { where plan_parent_id: nil }
-
+  scope :filter_by_title, ->(title) { where('title ILIKE ?', "%#{title}%") }
+  scope :filter_by_username, ->(username) { where(id: joins(:user).where('user_name ILIKE ? ', "%#{username}%").ids) }
+  scope :sort_most_recent, -> { reorder(created_at: :desc) }
+  scope :sort_oldest, -> { reorder(created_at: :asc) }
+  scope :sort_most_like, -> { reorder(likes_count: :desc) }
   after_create_commit :broadcast_notifications
 
   def include_plan?(other_plan)

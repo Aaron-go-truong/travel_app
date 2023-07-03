@@ -1,0 +1,11 @@
+.w-100[data-controller="comment"]
+  = form_with model: [ @plan, comment ], html: {id:"form_#{cmt_id}", style: 'padding: 0; width: 100%' } do |form|
+    = hidden_field_tag :cmt_parent_id, value: comment.cmt_parent_id
+    .card-footer.border-0.w-100.position-relative
+      .d-flex.flex-start.w-100
+        = image_tag current_user.avatar, class: "rounded-circle shadow-1-strong me-2 avt-cmt"
+        .form-outline.w-100
+          = form.text_area :content, id: "input_cmt_#{cmt_id}", rows: "2", cols: "50", class: "form-control", placeholder: "Enter your Message",style: "text-indent:0px ;background: #fff; border-radius: 0.75rem", data:{action: "keyup->comment#cmt_typing"}
+      .float-end.mt-2.pt-1.position-absolute.button-cmt
+        .button-default[id="#{cmt_id}" data-comment-target="create_comment" data-action="click->comment#comment_action"]
+          i.fa-solid.fa-paper-plane.btn-blue

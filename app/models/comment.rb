@@ -30,13 +30,15 @@ class Comment < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   validates :content, presence: true
 
+  scope :comment_parent, -> { where cmt_parent_id: nil }
+
   has_noticed_notifications model_name: 'Notification'
   after_create_commit :broadcast_notifications
 
   private
 
   def broadcast_notifications
-    CommentNotification.with(user: user, comment: self, plan: plan).deliver_later(plan.user)
+    CommentNotification.with(user: user, comment: self, plan: plan).deliver_later(plan.user) if plan.user.id != user.id
   end
 
   def cleanup_notifications
