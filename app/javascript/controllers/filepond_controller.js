@@ -43,7 +43,7 @@ const imgExtraOptions = {
 };
 
 export default class extends Controller {
-  static targets = ["input", "img", "buttonsave", "buttoncancel"];
+  static targets = ["input", "img", "buttonsave"];
 
   inputTargetConnected(inputTarget) {
     this.setupFilePond(inputTarget);

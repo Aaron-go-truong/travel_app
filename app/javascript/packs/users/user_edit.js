@@ -1,7 +1,7 @@
 import $, { data } from "jquery";
 
 $(() => {
-  initialPage();
+  // initialPage();
 
   $("#email-edit-button").on("click", () => {
     showInput("email");
