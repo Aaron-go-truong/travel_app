@@ -7,9 +7,13 @@ Rails.application.routes.draw do
     get '/users/:id', to: "users#show"
     post '/users/index_follow', to:'users#follow'
     delete '/users/index_unfollow', to:'users#unfollow'
-    get '/users/sign_out', to: 'devise/sessions#destroy'
     patch '/users/edit_profile', to: 'users/registrations#update'
   end
+
+  scope '/admin' do
+    get '/users', to: 'admin#index'
+  end
+
 
   resources :plans do
     resources :comments

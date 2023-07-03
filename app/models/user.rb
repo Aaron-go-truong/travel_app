@@ -8,13 +8,14 @@
 #  confirmation_token     :string
 #  confirmed_at           :datetime
 #  date_of_birth          :datetime
+#  deactivated            :boolean          default(FALSE), not null
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  gender                 :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  role                   :integer          default(0), not null
+#  role                   :integer          default("user"), not null
 #  unconfirmed_email      :string
 #  user_name              :string
 #  created_at             :datetime         not null
@@ -31,9 +32,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
-  scope :search, ->(search_string) { where('lower(email) LIKE ?', "%#{search_string.downcase}%") }
 
-  enum role: { employee: 0, admin: 1 }
+  enum role: { user: 0, admin: 1 }
 
   has_one_attached :avatar
 
@@ -79,5 +79,13 @@ class User < ApplicationRecord
   # Returns true if the current user is following the other user.
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def destroy
+    update_attributes(deactivated: true) unless deactivated
+  end
+
+  def active_for_authentication?
+    super && !deactivated
   end
 end

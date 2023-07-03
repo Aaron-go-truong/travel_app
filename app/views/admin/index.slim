@@ -1,0 +1,36 @@
+.mt-7.container[data-controller="admin"]
+  table#table-users[
+    data-toggle="table"
+    data-pagination="true"
+    data-page-size="5"
+    data-search="true"
+    data-sticky-header="true"]
+
+    thead
+      tr
+        th[data-checkbox="true"]
+        th[data-sortable="true" data-field="id"]
+          | ID
+        th[data-sortable="true" data-field="name"]
+          | Name
+        th[data-sortable="true" data-field="email"]
+          | Email
+        th[data-align="center" data-sortable="true" data-field="status"]
+          | Status
+        th[data-align="center"]
+          | Action
+    tbody
+      - @users.each_with_index do |user, index|
+        tr
+          td
+          td
+            | #{index+1}
+          td
+            | #{user.user_name}
+          td
+            | #{user.email}
+          td
+            span.badge.badge-success.rounded-pill.d-inline
+              | #{user.deactivated ? 'DeActive' : 'Active'}
+          td
+            | Edit

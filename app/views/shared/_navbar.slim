@@ -16,4 +16,4 @@ nav#main-navbar.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top[data-con
             a
               | Setting
           li.user-options-item
-            => link_to "Logout", destroy_user_session_path
+            => link_to "Logout", destroy_user_session_path, method: :delete
