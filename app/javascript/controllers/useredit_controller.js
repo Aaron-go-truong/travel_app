@@ -1,5 +1,4 @@
 import { Controller } from "@hotwired/stimulus";
-import { file } from "@rails/webpacker/package/rules";
 import $ from "jquery";
 
 export default class extends Controller {
