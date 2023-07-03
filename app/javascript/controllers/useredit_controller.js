@@ -11,12 +11,12 @@ export default class extends Controller {
     $("#birthday-year-value").val(date[2]);
   }
 
-  show_edit(event) {
+  showEditAction(event) {
     let target = event.target.id.replace("-edit-button", "");
-    if (this.is_editing()) this.showInput(target);
+    if (this.isEditing()) this.showInput(target);
   }
 
-  hide_edit(event) {
+  hideEditAction(event) {
     let target = event.target.id.replace("-tool-cancel", "");
     this.hideInput(target);
     $(`#${target}-input`).children(".text-danger").addClass("d-none");
@@ -38,7 +38,7 @@ export default class extends Controller {
     return date instanceof Date && !isNaN(date);
   }
 
-  save_action(event) {
+  saveAction(event) {
     let data = {};
     let field = event.target.id.replace("-tool-save", "");
     if (field != "birthday") data[`${field}`] = $(`#${field}-value`).val();
@@ -50,7 +50,7 @@ export default class extends Controller {
     }
 
     if (this.validates(Object.values(data)[0], field))
-      this.ajax_update_user_profile(field, data);
+      this.ajaxUpdateUserProfile(field, data);
     else {
       $(`#${field}-input`).children(".text-danger").removeClass("d-none");
 
@@ -62,7 +62,7 @@ export default class extends Controller {
     }
   }
 
-  ajax_update_user_profile(field, data) {
+  ajaxUpdateUserProfile(field, data) {
     $.ajax({
       type: "PATCH",
       url: "/users/edit_profile",
@@ -94,9 +94,10 @@ export default class extends Controller {
     $(`#${target}-input`).addClass("d-none");
     $(`#${target}-edit-button`).removeClass("d-none");
     $(`#${target}`).removeClass("d-none");
+    $("span:contains(Edit)").removeClass("disabled-button")
   }
 
-  is_editing() {
+  isEditing() {
     if ($("span:contains(Edit)").hasClass("d-none")) return false;
     return true;
   }

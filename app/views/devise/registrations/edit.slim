@@ -20,7 +20,6 @@
             .text-muted
               span.text-medium
                 = I18n.t("devise.registrations.des-details")
-
           = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, style: 'padding:0' }, remote: true) do |f|
             .d-flex.position-relative.align-items-end[data-controller="filepond"]
               #btn-cancel-img.d-none.p-2.rounded.btn-cancel[data-filepond-target="buttoncancel" data-action="click->filepond#recover"]
@@ -46,12 +45,12 @@
                   span.text-small.text-gray
                     = I18n.t("devise.registrations.des-email")
             .col.text-primary.d-flex.justify-content-end
-              span#email-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#show_edit"]
+              span#email-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#showEditAction"]
                 = I18n.t("devise.registrations.edit-btn")
               #email-tool.d-none
-                #email-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hide_edit"]
+                #email-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hideEditAction"]
                     = I18n.t("devise.registrations.cancel-btn")
-                button#email-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#save_action"]
+                button#email-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#saveAction"]
                   = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top.mt-2
           .row
@@ -72,12 +71,12 @@
                 .text-danger.mt-1.text-small.d-none
                   | Please choose a username.
             .col.text-primary.d-flex.justify-content-end
-              span#username-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#show_edit"]
+              span#username-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#showEditAction"]
                 = I18n.t("devise.registrations.edit-btn")
               #username-tool.d-none
-                #username-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hide_edit"]
+                #username-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hideEditAction"]
                   = I18n.t("devise.registrations.cancel-btn")
-                button#username-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#save_action"]
+                button#username-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#saveAction"]
                   = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top
           = hidden_field_tag "birthday_user", value: current_user.date_of_birth
@@ -132,12 +131,12 @@
                 .text-danger.mt-1.text-small.d-none
                   | Enter your valid birthday.
             .col.text-primary.d-flex.justify-content-end
-              span#birthday-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#show_edit"]
+              span#birthday-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#showEditAction"]
                 = I18n.t("devise.registrations.edit-btn")
               #birthday-tool.d-none
-                #birthday-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hide_edit"]
+                #birthday-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hideEditAction"]
                   = I18n.t("devise.registrations.cancel-btn")
-                button#birthday-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#save_action"]
+                button#birthday-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#saveAction"]
                   = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top
           .row
@@ -170,12 +169,12 @@
                 .text-danger.mt-1.text-small.d-none
                   | Select your gender from the list.
             .col-3.text-primary.d-flex.justify-content-end
-              span#gender-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#show_edit"]
+              span#gender-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#showEditAction"]
                 = I18n.t("devise.registrations.edit-btn")
               #gender-tool.d-none
-                #gender-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hide_edit"]
+                #gender-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hideEditAction"]
                   = I18n.t("devise.registrations.cancel-btn")
-                button#gender-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#save_action"]
+                button#gender-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#saveAction"]
                   = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top.border-bottom
           .row
@@ -200,12 +199,12 @@
                 .text-danger.mt-1.text-small.d-none
                   | Please provide a valid address.
             .col-3.text-primary.d-flex.justify-content-end
-              span#address-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#show_edit"]
+              span#address-edit-button.p-2.rounded.text-primary.hover-button.text-small[data-action="click->useredit#showEditAction"]
                 = I18n.t("devise.registrations.edit-btn")
               #address-tool.d-none
-                #address-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hide_edit"]
+                #address-tool-cancel.p-2.rounded.hover-button.text-primary.text-small[data-action="click->useredit#hideEditAction"]
                   = I18n.t("devise.registrations.cancel-btn")
-                button#address-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#save_action"]
+                button#address-tool-save.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#saveAction"]
                   = I18n.t("devise.registrations.save-btn")
     #security.col-9.d-none
       .container
@@ -229,7 +228,7 @@
                 #reset-cancel.p-2.rounded.hover-button
                   span.text-primary.text-small
                     = I18n.t("devise.registrations.cancel-btn")
-                button.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#save_action"]
+                button.btn.btn-primary.mt-5.text-small[type="submit" data-action="click->useredit#saveAction"]
                   = I18n.t("devise.registrations.save-btn")
         .py-4.px-3.border-top.mt-2
           .row
@@ -246,5 +245,5 @@
                   #delete-cancel.p-2.rounded.hover-button.fit-content
                     span.text-small.text-primary
                       = I18n.t("devise.registrations.cancel-btn")
-                  button.text-small.btn.btn-primary.mt-5[type="submit" data-action="click->useredit#save_action"]
+                  button.text-small.btn.btn-primary.mt-5[type="submit" data-action="click->useredit#saveAction"]
                     | Delete account
