@@ -4,7 +4,6 @@
 #
 #  id                     :bigint           not null, primary key
 #  address                :string
-#  avatar                 :string
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
@@ -15,6 +14,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :integer          default(0), not null
 #  unconfirmed_email      :string
 #  user_name              :string
 #  created_at             :datetime         not null
@@ -31,6 +31,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
+  scope :search, ->(search_string) { where('lower(email) LIKE ?', "%#{search_string.downcase}%") }
+
+  enum role: { employee: 0, admin: 1 }
+
   has_one_attached :avatar
 
   has_many :active_relationships, class_name: 'Relationship',
