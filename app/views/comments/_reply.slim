@@ -1,12 +1,3 @@
- .d-flex.flex-start.mt-4
-  a.me-3[href="#"]
-    img.rounded-circle.shadow-1-strong[src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp" alt="avatar" width="65" height="65"]
-  .flex-grow-1.flex-shrink-1
-    div
-    .d-flex.justify-content-between.align-items-center
-      p.mb-1
-        |  #{reply.user.user_name}
-        span.small
-          | #{reply.content}
-    p.small.mb-0
-      |  letters, as opposed to using 'Content here, content here', making it look like readable English.
+.d-flex.flex-start.mt-2
+  .rounded-circle.shadow-1-strong.me-2.avt-cmt[class="#{child ? 'd-none' : '' }"]
+  = render 'comments/comment_input', comment: comment_parent, cmt_id: cmt_id

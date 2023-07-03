@@ -7,6 +7,7 @@
 #  address        :string           not null
 #  amount         :integer          not null
 #  descriptions   :text
+#  likes_count    :integer          default(0), not null
 #  notes          :text
 #  plan_audience  :integer          default("Public"), not null
 #  time           :string           not null
