@@ -1,17 +1,13 @@
-.modal[tabindex="-1" role="dialog"]
-  .modal-dialog[role="document"]
-    .modal-content
-      .modal-header
-        h5.modal-title
-          | Modal title
-        button.close[type="button" data-dismiss="modal" aria-label="Close"]
-          span[aria-hidden="true"]
-            | ×
-      .modal-body
-        p
-          | Modal body text goes here.
-      .modal-footer
-        button.btn.btn-primary[type="button"]
-          | Save changes
-        button.btn.btn-secondary[type="button" data-dismiss="modal"]
-          | Close
+ul.nav.nav-tabs
+  li.nav-item
+    a.nav-link.active[aria-current="page" href="#"]
+      | Active
+  li.nav-item
+    a.nav-link[href="#"]
+      | Link
+  li.nav-item
+    a.nav-link[href="#"]
+      | Link
+  li.nav-item
+    a.nav-link.disabled[href="#" tabindex="-1" aria-disabled="true"]
+      | Disabled

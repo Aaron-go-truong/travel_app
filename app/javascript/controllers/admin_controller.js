@@ -5,16 +5,19 @@ export default class extends Controller {
   static targets = [];
   connect() {}
   updateStatusAction(event) {
-    let status_element = $(`#status_${event.target.id}`);
+    let type = event.target.id.split("_")[0];
+    let target_id = event.target.id.split("_")[1];
     $.ajax({
       type: "PATCH",
-      url: "/users/update_status",
+      url: `/${type}s/${target_id}/update_status`,
       dataType: "json",
       data: {
-        user_id: event.target.id,
+        plan_id: target_id,
+        user_id: target_id
       },
       success(data) {
-        $(`#td_${event.target.id}`).load(` #status_${event.target.id}`);
+        console.log(data);
+        $(`#${type}_td_${target_id}`).load(` #${type}_status_${target_id}`);
       },
       error(data) {
         return false;

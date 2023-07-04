@@ -1,5 +1,6 @@
 class PlansController < ApplicationController
   include Respondable
+  skip_before_action :verify_authenticity_token
   before_action :find_plan, only: %i[show update destroy]
 
   def index
@@ -69,6 +70,11 @@ class PlansController < ApplicationController
     else
       redirect_to Plan.find(@plan.plan_parent_id)
     end
+  end
+
+  def update_status
+    @plan = Plan.find(params[:plan_id])
+    @plan.update(deactivated: !@plan.deactivated)
   end
 
   private

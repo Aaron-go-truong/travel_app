@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     post '/users/index_follow', to:'users#follow'
     delete '/users/index_unfollow', to:'users#unfollow'
     patch '/users/edit_profile', to: 'users/registrations#update'
-    patch '/users/update_status', to: 'users#update_status'
+    patch 'users/:id/update_status', to: 'users#update_status'
   end
 
   scope '/admin' do
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   resources :plans do
     resources :comments
+    patch '/update_status', to: 'plans#update_status'
   end
 
   post '/like_new', to:'likes#create'

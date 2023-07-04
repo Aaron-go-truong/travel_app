@@ -23,11 +23,6 @@ class UsersController < ApplicationController
 
   def update_status
     @user.update(deactivated: !@user.deactivated)
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @user.deactivated}
-     end
   end
 
   private
