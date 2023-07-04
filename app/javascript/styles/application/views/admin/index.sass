@@ -2,6 +2,71 @@
   flex: 0 0 0
 .search-input
   text-indent: 1rem
-  padding: 0
-.form-control
-  padding: 0
+
+.borderless td, .borderless tr, .borderless th
+  border: none
+
+.table thead th .th-inner
+  font-size: 0.75rem
+  font-weight: 600
+  padding: 1.25rem 0.75rem !important
+  background: $white
+
+.fixed-table-toolbar
+  background: #339eea
+  border-top-right-radius: 1rem
+  border-top-left-radius: 1rem
+
+table
+  border-left: 1px solid #e3e3e3 !important
+  border-right: 1px solid #e3e3e3 !important
+
+tbody tr:nth-child(even)
+  background: $white
+
+tbody tr:nth-child(odd)
+  background: #f9f9f9
+
+.fixed-table-pagination
+  padding: 0 1rem
+  border: 1px solid #e3e3e3
+  border-top: none
+  border-bottom-right-radius: 1rem
+  border-bottom-left-radius: 1rem
+
+.page-list .dropup button
+  all: unset
+  padding: 0.5rem 1rem
+  border: 1px solid #e3e3e3
+  border-radius: 2.5rem
+  &:active
+    all: unset
+    padding: 0.5rem 1rem
+    border: 1px solid #e3e3e3
+    border-radius: 2.5rem
+
+.active
+  font-size: 16px !important
+  background: #f2f2f2
+
+.caret
+  display: inline-block
+  width: 0
+  height: 0
+  margin-left: 2px
+  vertical-align: middle
+  border-top: 4px dashed
+  border-right: 4px solid transparent
+  border-left: 4px solid transparent
+
+.dropup .dropdown-toggle::after
+  display: none !important
+
+.pagination-info
+  display: none
+
+td i
+  color: #aaaaaa
+  &:hover
+    color: #f9f9f9 !important
+    cursor: pointer

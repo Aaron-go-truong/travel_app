@@ -1,14 +1,19 @@
 .mt-7.container[data-controller="admin"]
   table#table-users[
+    class="borderless table-borderless"
     data-toggle="table"
     data-pagination="true"
     data-page-size="5"
+    data-page-list="[5, 10, 25, 50, 100, All]"
     data-search="true"
-    data-sticky-header="true"]
-
+    data-sticky-header="true"
+    data-show-pagination-switch="true"
+    data-show-toggle="true"
+    data-show-fullscreen="true"
+    data-maintain-meta-data="true"
+    data-show-columns="true"]
     thead
       tr
-        th[data-checkbox="true"]
         th[data-sortable="true" data-field="id"]
           | ID
         th[data-sortable="true" data-field="name"]
@@ -23,14 +28,18 @@
       - @users.each_with_index do |user, index|
         tr
           td
-          td
             | #{index+1}
           td
             | #{user.user_name}
           td
             | #{user.email}
-          td
-            span.badge.badge-success.rounded-pill.d-inline
+          td[id="td_#{user.id}"]
+            span.status[id="status_#{user.id}" class="#{user.deactivated ? 'status-red' : 'status-green'}"]
+              span.status-dot
               | #{user.deactivated ? 'DeActive' : 'Active'}
           td
-            | Edit
+            .form-check.form-switch.d-flex.align-items-center.justify-content-center[data-toggle="modal" data-target="#statusModal" data-action="click->admin#updateStatusAction"]
+              - if user.deactivated
+                input.form-check-input[id="#{user.id}" style="width: 2.5rem" type="checkbox" role="switch"]
+              - else
+                input.form-check-input[id="#{user.id}" style="width: 2.5rem" type="checkbox" role="switch" checked]

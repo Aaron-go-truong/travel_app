@@ -9,6 +9,7 @@ import * as ActiveStorage from "@rails/activestorage";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@tabler/core/dist/js/tabler.min";
 import "@tabler/core/dist/css/tabler.min.css";
+import 'bootstrap-table'
 
 import "@/channels";
 import "@/controllers";

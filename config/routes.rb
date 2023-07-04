@@ -8,10 +8,12 @@ Rails.application.routes.draw do
     post '/users/index_follow', to:'users#follow'
     delete '/users/index_unfollow', to:'users#unfollow'
     patch '/users/edit_profile', to: 'users/registrations#update'
+    patch '/users/update_status', to: 'users#update_status'
   end
 
   scope '/admin' do
     get '/users', to: 'admin#index'
+    get '/plans', to: 'admin#index'
   end
 
 
