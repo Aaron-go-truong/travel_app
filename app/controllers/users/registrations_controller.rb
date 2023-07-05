@@ -6,7 +6,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   skip_before_action :verify_authenticity_token
   before_action :find_user, only: %i[update]
 
-
   def update
     if @user.update(user_params)
       flash[:notice] = 'Field successfully updated'
