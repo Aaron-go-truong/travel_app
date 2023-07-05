@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :find_user, only: %i[follow unfollow update_status]
+  before_action :find_user, only: %i[follow unfollow]
 
   def index
     @users = User.all
@@ -20,14 +20,9 @@ class UsersController < ApplicationController
     redirect_to users_index_path
   end
 
-
-  def update_status
-    @user.update(deactivated: !@user.deactivated)
-  end
-
   private
 
   def find_user
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:id])
   end
 end

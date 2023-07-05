@@ -3,7 +3,7 @@
 .container.mt-7[data-controller="user"]
   .row
     .col-2
-      = render 'shared/sidebar', selected: "Plans", role: current_user.role
+      = render 'shared/sidebar', selected: "Plans", isAdmin: current_user.has_role?(:admin)
     .col-10
       #show-page
         .w-100

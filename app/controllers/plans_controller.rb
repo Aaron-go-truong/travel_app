@@ -72,11 +72,6 @@ class PlansController < ApplicationController
     end
   end
 
-  def update_status
-    @plan = Plan.find(params[:plan_id])
-    @plan.update(deactivated: !@plan.deactivated)
-  end
-
   private
 
   def plan_params

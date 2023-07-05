@@ -15,7 +15,6 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  role                   :integer          default("user"), not null
 #  unconfirmed_email      :string
 #  user_name              :string
 #  created_at             :datetime         not null
@@ -27,13 +26,12 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
-
-  enum role: { user: 0, admin: 1 }
 
   has_one_attached :avatar
 
@@ -54,6 +52,11 @@ class User < ApplicationRecord
   has_noticed_notifications model_name: 'Notification'
   has_many :notifications, as: :recipient, dependent: :destroy
   before_create :set_default_avatar
+  after_create :assign_default_role
+
+  def assign_default_role
+    self.add_role(:user) if self.roles.blank?
+  end
 
   def set_default_avatar
     avatar.attach(

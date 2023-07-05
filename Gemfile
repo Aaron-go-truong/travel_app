@@ -67,3 +67,4 @@ gem 'noticed', '~> 1.6'
 gem 'redis', '~> 4.0'
 gem 'simple_form'
 gem "pundit"
+gem "rolify"

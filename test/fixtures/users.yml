@@ -15,7 +15,6 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  role                   :integer          default("user"), not null
 #  unconfirmed_email      :string
 #  user_name              :string
 #  created_at             :datetime         not null

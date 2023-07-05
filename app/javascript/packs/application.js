@@ -10,12 +10,6 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import "@tabler/core/dist/js/tabler.min";
 import "@tabler/core/dist/css/tabler.min.css";
 
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
-require("channels")
-require("jquery")
-
 import "@/channels";
 import "@/controllers";
 import "@/styles/index.sass";
@@ -24,3 +18,4 @@ Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
 require.context('@/images', true);
+require("jquery")

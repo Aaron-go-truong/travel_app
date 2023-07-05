@@ -1,7 +1,7 @@
 .mt-7.container[data-controller="admin"]
   .row
     .col-2
-      = render 'shared/sidebar', selected: 'Home', role: current_user.role
+      = render 'shared/sidebar', selected: 'Home', isAdmin: current_user.has_role?(:admin)
     .col-10
       table#table-users[
         class="borderless table-borderless"
@@ -17,7 +17,7 @@
 
         thead
           tr
-            th[data-sortable="true" data-field="id"]
+            th[data-align="center" data-sortable="true" data-field="id"]
               | ID
             th[data-sortable="true" data-field="name"]
               | Name

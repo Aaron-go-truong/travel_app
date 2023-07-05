@@ -1,16 +1,14 @@
 import { Controller } from "@hotwired/stimulus";
-import $ from "jquery";
 
 export default class extends Controller {
   static targets = [];
-  static flag = true;
 
   updateStatusAction(event) {
     let type = event.target.id.split("_")[0];
     let target_id = event.target.id.split("_")[1];
     $.ajax({
       type: "PATCH",
-      url: `/${type}s/${target_id}/update_status`,
+      url: `/admin/manage/${type}s/${target_id}/update_status`,
       dataType: "json",
       data: {
         plan_id: target_id,
