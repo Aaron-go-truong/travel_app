@@ -14,11 +14,13 @@ html
   body data-controller='flash'
     - if user_signed_in?
       = render 'shared/navbar'
-    / = render 'shared/flash'
-    .container.mt-7
-      .row
-        .col-2
-          = render 'shared/sidebar', isAdmin: current_user.has_role?(:admin)
-        .col-10
-          = yield
+      / = render 'shared/flash'
+      .container.mt-7
+        .row
+          .col-2
+            = render 'shared/sidebar', isAdmin: current_user.has_role?(:admin)
+          .col-10.scroll-view
+            = yield
+    - else
+      = yield
     script[src="https://unpkg.com/bootstrap-table@1.22.0/dist/bootstrap-table.min.js"]
