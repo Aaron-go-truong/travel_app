@@ -2,7 +2,7 @@
 .container.mt-7
   .row
     .col-2
-      = render 'shared/sidebar', selected: "Users"
+      = render 'shared/sidebar', selected: "Users", role: current_user.role
     .col-10
       .row.d-flex.justify-content-center
         .col-md-8

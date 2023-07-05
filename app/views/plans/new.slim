@@ -2,5 +2,5 @@
 
 .container
   .d-flex.mt-7.justify-content-between.w-100
-    = render 'shared/sidebar', selected: "Home"
+    = render 'shared/sidebar', selected: "Home", role: current_user.role
     = render 'shared/new_plan_form', plan: @plan

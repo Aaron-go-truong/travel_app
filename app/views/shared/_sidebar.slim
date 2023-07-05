@@ -32,3 +32,17 @@
           i.fas.fa-users.fa-fw.me-3
           span
             | Users
+    .management[class="#{role != "admin" ? 'd-none' : ''}"]
+      h5
+        | Manage
+      .d-flex.flex-column.pl-2.gap-1
+        a[class="#{selected != "manage_Plans" ? 'item-sidebar' : 'item-sidebar--active'} rounded text-small--bold"]
+          .px-4
+            i.fas.fa-clipboard-list.fa-fw.me-3
+            span
+              | Plans
+        => link_to management_path, class:"#{selected!="Users" ? 'item-sidebar' : 'item-sidebar--active'} rounded text-small--bold" do
+          .px-4
+            i.fas.fa-users.fa-fw.me-3
+            span
+              | Users

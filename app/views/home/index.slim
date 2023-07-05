@@ -3,7 +3,7 @@
 .container.mt-7
   .row
     .col-2
-      = render 'shared/sidebar', selected: 'Home'
+      = render 'shared/sidebar', selected: 'Home', role: current_user.role
     .col-10
       .workpage.w-100[data-controller="plan"]
         .d-flex.align-items-center.w-100.gap-3

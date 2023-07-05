@@ -12,8 +12,7 @@ Rails.application.routes.draw do
   end
 
   scope '/admin' do
-    get '/users', to: 'admin#index'
-    get '/plans', to: 'admin#index'
+    get '/management', to: 'admin#index'
   end
 
 

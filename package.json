@@ -13,7 +13,6 @@
     "@tabler/core": "^1.0.0-beta11",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
-    "bootstrap-table": "^1.22.0",
     "filepond": "^4.30.4",
     "filepond-plugin-file-poster": "^2.5.1",
     "filepond-plugin-file-validate-size": "^2.2.8",

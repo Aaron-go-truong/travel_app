@@ -27,7 +27,7 @@
           a.social-icon[href="#"]
             i.fab.fa-linkedin-in
 
-      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'sign-up-form needs-validation'}) do |f|
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'sign-up-form needs-validation'}, data:{remote: true}) do |f|
         h2.title
           | Sign up
         .input-field

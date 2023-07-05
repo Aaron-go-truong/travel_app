@@ -9,7 +9,12 @@ import * as ActiveStorage from "@rails/activestorage";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@tabler/core/dist/js/tabler.min";
 import "@tabler/core/dist/css/tabler.min.css";
-import 'bootstrap-table'
+
+require("@rails/ujs").start()
+require("turbolinks").start()
+require("@rails/activestorage").start()
+require("channels")
+require("jquery")
 
 import "@/channels";
 import "@/controllers";

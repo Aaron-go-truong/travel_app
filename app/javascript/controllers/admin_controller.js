@@ -3,7 +3,8 @@ import $ from "jquery";
 
 export default class extends Controller {
   static targets = [];
-  connect() {}
+  static flag = true;
+
   updateStatusAction(event) {
     let type = event.target.id.split("_")[0];
     let target_id = event.target.id.split("_")[1];
@@ -13,10 +14,9 @@ export default class extends Controller {
       dataType: "json",
       data: {
         plan_id: target_id,
-        user_id: target_id
+        user_id: target_id,
       },
       success(data) {
-        console.log(data);
         $(`#${type}_td_${target_id}`).load(` #${type}_status_${target_id}`);
       },
       error(data) {
