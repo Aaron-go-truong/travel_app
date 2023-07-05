@@ -17,7 +17,7 @@
     h5
       | Explore
     .d-flex.flex-column.pl-2.gap-1
-      => link_to plans_path, class:"#{selected != "Plans" ? 'item-sidebar' : 'item-sidebar--active'} rounded text-small--bold" do
+      => link_to plans_path, class:"item-sidebar rounded text-small--bold" do
         .px-4
           i.fas.fa-clipboard-list.fa-fw.me-3
           span
@@ -27,7 +27,7 @@
           i.fas.fa-heart.fa-fw.me-3
           span
             | Favorite
-      => link_to users_path, class:"#{selected!="Users" ? 'item-sidebar' : 'item-sidebar--active'} rounded text-small--bold" do
+      => link_to users_path, class:"item-sidebar rounded text-small--bold" do
         .px-4
           i.fas.fa-users.fa-fw.me-3
           span
@@ -36,12 +36,12 @@
       h5
         | Manage
       .d-flex.flex-column.pl-2.gap-1
-        => link_to admin_manage_plans_path, class:"#{selected!="Users" ? 'item-sidebar' : 'item-sidebar--active'} rounded text-small--bold" do
+        => link_to admin_manage_plans_path, class:"item-sidebar rounded text-small--bold" do
           .px-4
             i.fas.fa-clipboard-list.fa-fw.me-3
             span
               | Plans
-        => link_to admin_manage_users_path, class:"#{selected!="Users" ? 'item-sidebar' : 'item-sidebar--active'} rounded text-small--bold" do
+        => link_to admin_manage_users_path, class:"item-sidebar rounded text-small--bold" do
           .px-4
             i.fas.fa-users.fa-fw.me-3
             span

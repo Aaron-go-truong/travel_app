@@ -1,52 +1,47 @@
-.mt-7.container[data-controller="admin"]
-  .row
-    .col-2
-      = render 'shared/sidebar', selected: 'Home', isAdmin: current_user.has_role?(:admin)
-    .col-10
-      table#table-plans[
-        class="borderless table-borderless"
-        data-toggle="table"
-        data-pagination="true"
-        data-page-size="5"
-        data-page-list="[5, 10, 25, 50, 100, All]"
-        data-search="true"
-        data-sticky-header="true"
-        data-show-toggle="true"
-        data-show-fullscreen="true"
-        data-show-columns="true"]
+table#table-plans[
+  class="borderless table-borderless"
+  data-toggle="table"
+  data-pagination="true"
+  data-page-size="5"
+  data-page-list="[5, 10, 25, 50, 100, All]"
+  data-search="true"
+  data-sticky-header="true"
+  data-show-toggle="true"
+  data-show-fullscreen="true"
+  data-show-columns="true"]
 
-        thead
-          tr
-            th[data-align="center" data-sortable="true" data-field="id"]
-              | ID
-            th[data-sortable="true" data-field="title"]
-              | Title
-            th[data-sortable="true" data-field="author"]
-              | Author
-            th[data-sortable="true" data-field="email"]
-              | Email
-            th[data-align="center" data-sortable="true" data-field="status"]
-              | Status
-            th[data-align="center"]
-              | Action
-        tbody
-          - @plans.each_with_index do |plan, index|
-            tr
-              td
-                | #{plan.id}
-              td
-                | #{plan.title}
-              td
-                | #{plan.user.user_name}
-              td
-                | #{plan.user.email}
-              td[id="plan_td_#{plan.id}"]
-                span.status[id="plan_status_#{plan.id}" class="#{plan.deactivated ? 'status-red' : 'status-green'}"]
-                  span.status-dot
-                  | #{plan.deactivated ? 'DeActive' : 'Active'}
-              td
-                .form-check.form-switch.d-flex.align-items-center.justify-content-center[data-action="click->admin#updateStatusAction"]
-                  - if plan.deactivated
-                    input.form-check-input[id="plan_#{plan.id}" style="width: 2.5rem" type="checkbox" role="switch"]
-                  - else
-                    input.form-check-input[id="plan_#{plan.id}" style="width: 2.5rem" type="checkbox" role="switch" checked]
+  thead
+    tr
+      th[data-align="center" data-sortable="true" data-field="id"]
+        | ID
+      th[data-sortable="true" data-field="title"]
+        | Title
+      th[data-sortable="true" data-field="author"]
+        | Author
+      th[data-sortable="true" data-field="email"]
+        | Email
+      th[data-align="center" data-sortable="true" data-field="status"]
+        | Status
+      th[data-align="center"]
+        | Action
+  tbody
+    - @plans.each_with_index do |plan, index|
+      tr
+        td
+          | #{plan.id}
+        td
+          | #{plan.title}
+        td
+          | #{plan.user.user_name}
+        td
+          | #{plan.user.email}
+        td[id="plan_td_#{plan.id}"]
+          span.status[id="plan_status_#{plan.id}" class="#{plan.deactivated ? 'status-red' : 'status-green'}"]
+            span.status-dot
+            | #{plan.deactivated ? 'DeActive' : 'Active'}
+        td
+          .form-check.form-switch.d-flex.align-items-center.justify-content-center[data-action="click->admin#updateStatusAction"]
+            - if plan.deactivated
+              input.form-check-input[id="plan_#{plan.id}" style="width: 2.5rem" type="checkbox" role="switch"]
+            - else
+              input.form-check-input[id="plan_#{plan.id}" style="width: 2.5rem" type="checkbox" role="switch" checked]
