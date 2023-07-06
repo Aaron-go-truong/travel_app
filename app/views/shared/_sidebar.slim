@@ -1,8 +1,8 @@
-.d-flex.flex-column
+.d-flex.flex-column[data-controller="sidebar"]
   .d-flex.flex-column.gap-1
-    => link_to root_path, class:"#{selected != "Home" ? 'item-sidebar' : 'item-sidebar--active'} rounded text-small--bold" do
-      i.fas.fa-house.fa-fw.me-3
-      span
+    => link_to root_path, class:"item-sidebar rounded text-small--bold", data:{action: "click->sidebar#onClick"} do
+      i.fas.fa-house.fa-fw.me-3.noClick
+      span.noClick
         | Home
     a.item-sidebar.rounded.text-small--bold
       i.fas.fa-globe.fa-fw.me-3
@@ -17,18 +17,32 @@
     h5
       | Explore
     .d-flex.flex-column.pl-2.gap-1
-      => link_to plans_path, class:"#{selected != "Plans" ? 'item-sidebar' : 'item-sidebar--active'} rounded text-small--bold" do
-        .px-4
+      => link_to plans_path, class:"item-sidebar rounded text-small--bold", data:{action: "click->sidebar#onClick"} do
+        .px-4.noClick
           i.fas.fa-clipboard-list.fa-fw.me-3
           span
             | Plans
       a.item-sidebar.rounded.text-small--bold
-        .px-4
+        .px-4.noClick
           i.fas.fa-heart.fa-fw.me-3
           span
             | Favorite
-      => link_to users_path, class:"#{selected!="Users" ? 'item-sidebar' : 'item-sidebar--active'} rounded text-small--bold" do
-        .px-4
+      => link_to users_path, class:"item-sidebar rounded text-small--bold", data:{action: "click->sidebar#onClick"} do
+        .px-4.noClick
           i.fas.fa-users.fa-fw.me-3
           span
             | Users
+    .management[class="#{isAdmin ? '' : 'd-none'}"]
+      h5
+        | Manage
+      .d-flex.flex-column.pl-2.gap-1
+        => link_to admin_manage_plans_path, class:"item-sidebar rounded text-small--bold", data:{action: "click->sidebar#onClick"} do
+          .px-4.noClick
+            i.fas.fa-clipboard-list.fa-fw.me-3
+            span
+              | Plans
+        => link_to admin_manage_users_path, class:"item-sidebar rounded text-small--bold", data:{action: "click->sidebar#onClick"} do
+          .px-4.noClick
+            i.fas.fa-users.fa-fw.me-3
+            span
+              | Users

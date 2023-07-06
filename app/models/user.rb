@@ -4,11 +4,11 @@
 #
 #  id                     :bigint           not null, primary key
 #  address                :string
-#  avatar                 :string
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
 #  date_of_birth          :datetime
+#  deactivated            :boolean          default(FALSE), not null
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  gender                 :string
@@ -26,11 +26,13 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
+
   has_one_attached :avatar
 
   has_many :active_relationships, class_name: 'Relationship',
@@ -50,6 +52,11 @@ class User < ApplicationRecord
   has_noticed_notifications model_name: 'Notification'
   has_many :notifications, as: :recipient, dependent: :destroy
   before_create :set_default_avatar
+  after_create :assign_default_role
+
+  def assign_default_role
+    self.add_role(:user) if self.roles.blank?
+  end
 
   def set_default_avatar
     avatar.attach(
@@ -75,5 +82,9 @@ class User < ApplicationRecord
   # Returns true if the current user is following the other user.
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def active_for_authentication?
+    super && !deactivated
   end
 end

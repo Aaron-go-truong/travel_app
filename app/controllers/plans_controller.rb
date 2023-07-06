@@ -1,5 +1,6 @@
 class PlansController < ApplicationController
   include Respondable
+  skip_before_action :verify_authenticity_token
   before_action :find_plan, only: %i[show update destroy]
 
   def index

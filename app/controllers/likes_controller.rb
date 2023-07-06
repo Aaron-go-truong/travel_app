@@ -24,6 +24,6 @@ class LikesController < ApplicationController
   end
 
   def find_like
-    @like = Like.where(like_params.merge({user_id: current_user.id})).first
+    @like = Like.where(like_params.merge({ user_id: current_user.id })).first
   end
 end

@@ -4,11 +4,11 @@
 #
 #  id                     :bigint           not null, primary key
 #  address                :string
-#  avatar                 :string
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
 #  date_of_birth          :datetime
+#  deactivated            :boolean          default(FALSE), not null
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  gender                 :string

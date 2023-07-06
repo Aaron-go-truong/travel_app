@@ -7,12 +7,21 @@ Rails.application.routes.draw do
     get '/users/:id', to: "users#show"
     post '/users/index_follow', to:'users#follow'
     delete '/users/index_unfollow', to:'users#unfollow'
-    get '/users/sign_out', to: 'devise/sessions#destroy'
     patch '/users/edit_profile', to: 'users/registrations#update'
+
   end
+
+  namespace :admin do
+    get '/manage/users', to: 'users#index'
+    get '/manage/plans', to: 'plans#index'
+    patch '/manage/users/:id/update_status', to: 'users#update_status'
+    patch '/manage/plans/:id/update_status', to: 'plans#update_status'
+  end
+
 
   resources :plans do
     resources :comments
+    patch '/update_status', to: 'plans#update_status'
   end
 
   post '/like_new', to:'likes#create'

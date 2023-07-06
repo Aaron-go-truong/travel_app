@@ -6,6 +6,7 @@
 #  activities     :text
 #  address        :string           not null
 #  amount         :integer          not null
+#  deactivated    :boolean          default(FALSE), not null
 #  descriptions   :text
 #  likes_count    :integer          default(0), not null
 #  notes          :text
