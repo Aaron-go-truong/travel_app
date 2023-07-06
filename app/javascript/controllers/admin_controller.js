@@ -13,6 +13,8 @@ export default class extends Controller {
       data: {},
       success(data) {
         $(`#${type}_td_${target_id}`).load(` #${type}_status_${target_id}`);
+        $("#flash").html("");
+        $("#flash").html(data.html);
       },
       error(data) {
         return false;

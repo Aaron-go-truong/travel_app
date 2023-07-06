@@ -1,4 +1,4 @@
-class Admin::UsersManagementController < Admin::BaseController
+class Admin::UsersController < Admin::BaseController
   skip_before_action :verify_authenticity_token, only: %i[update_status]
   before_action :find_user, only: %i[update_status]
 
@@ -8,6 +8,8 @@ class Admin::UsersManagementController < Admin::BaseController
 
   def update_status
     @user.update(deactivated: !@user.deactivated)
+    flash.now[:notice] = 'Status changed successfully.'
+    respond_index_json('shared/flash')
   end
 
   private

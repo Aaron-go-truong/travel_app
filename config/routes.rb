@@ -12,10 +12,10 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    get '/manage/users', to: 'users_management#index'
-    get '/manage/plans', to: 'plans_management#index'
-    patch '/manage/users/:id/update_status', to: 'users_management#update_status'
-    patch '/manage/plans/:id/update_status', to: 'plans_management#update_status'
+    get '/manage/users', to: 'users#index'
+    get '/manage/plans', to: 'plans#index'
+    patch '/manage/users/:id/update_status', to: 'users#update_status'
+    patch '/manage/plans/:id/update_status', to: 'plans#update_status'
   end
 
 
