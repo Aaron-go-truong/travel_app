@@ -11,9 +11,9 @@ nav#main-navbar.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top[data-con
           img.rounded-circle[src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" height="35" alt="Black and White Portrait of a Man" loading="lazy"]
         ul.position-absolute.user-options.card.d-none
           li.user-options-item
-            => link_to 'Profile', edit_user_registration_path
+            => link_to 'Profile', edit_user_registration_path, class:"icon-default-color"
           li.user-options-item
-            a
+            a.icon-default-color
               | Setting
           li.user-options-item
-            => link_to "Logout", destroy_user_session_path, method: :delete
+            => link_to "Logout", destroy_user_session_path, method: :delete, class:"icon-default-color"
