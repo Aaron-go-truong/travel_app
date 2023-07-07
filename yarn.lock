@@ -1140,7 +1140,7 @@
     webpack-cli "^3.3.12"
     webpack-sources "^1.4.3"
 
-"@tabler/core@*":
+"@tabler/core@^1.0.0-beta17":
   version "1.0.0-beta17"
   resolved "https://registry.yarnpkg.com/@tabler/core/-/core-1.0.0-beta17.tgz#3c949342fa09ad86d3a44b3e545892906fb620b3"
   integrity sha512-tQpzw8oi7vjLJTyCWLHHXKyGTd0JA4bsgN3w7lifl6HhyNOQSsxIx9EpkE/ZT842MlFwy+2tXkxi5fghegHQBw==
