@@ -29,6 +29,7 @@ en:
       des-address: "Add your address"
       password: "Password"
       des-password: "Reset your password regularly to keep your account secure"
+      reset-password: "To change your password, we need to send a reset link to your email address"
       deleteaccount: "Delete account"
       des-deleteaccount: "Permanently delete your travel account"
       save-btn: "Save"
@@ -36,3 +37,5 @@ en:
       cancel-btn: "Cancel"
       delete-btn: "Delete account"
       reset-btn: "Reset"
+      send-email: "Send email"
+      delete-account: "Delete account"

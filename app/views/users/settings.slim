@@ -1,0 +1,43 @@
+#security.container[data-controller="setting"]
+  div
+    h2
+      = I18n.t("devise.registrations.title-security")
+    .text-muted
+      span.text-medium
+        = I18n.t("devise.registrations.des-security")
+  .py-4.px-3.border-top.mt-2
+    .row
+      .text-medium.col-3
+        = I18n.t("devise.registrations.password")
+      .col-6
+        #reset-text.span.text-small.text-gray
+          = I18n.t("devise.registrations.des-password")
+        #reset-des.span.text-small.text-gray.d-none
+          = I18n.t("devise.registrations.reset-password")
+      .col-3.text-primary.d-flex.justify-content-end
+        #reset-button.text-small.text-gray.p-2.rounded.text-primary.hover-button[data-action="click->setting#showAction"]
+          = I18n.t("devise.registrations.reset-btn")
+        #reset-tool.d-none
+          .d-flex.flex-column.align-items-end
+            #reset-cancel.p-2.rounded.hover-button.fit-content[data-action="click->setting#hideAction"]
+              span.text-small.text-primary.noClick
+                = I18n.t("devise.registrations.cancel-btn")
+            button.btn-sm.btn.btn-primary.mt-5
+              = I18n.t("devise.registrations.send-email")
+  .py-4.px-3.border-top.mt-2
+    .row
+      .col-3.text-medium
+        = I18n.t("devise.registrations.deleteaccount")
+      .col-6
+        span.text-small.text-gray
+          = I18n.t("devise.registrations.des-deleteaccount")
+      .col-3.text-primary.d-flex.justify-content-end
+        #delete-button.p-2.rounded.text-primary.hover-button.text-small.text-gray[type="submit" data-action="click->setting#showAction"]
+          = I18n.t("devise.registrations.delete-btn")
+        #delete-tool.d-none
+          .d-flex.flex-column.align-items-end
+            #delete-cancel.p-2.rounded.hover-button.fit-content[data-action="click->setting#hideAction"]
+              span.text-small.text-primary.noClick
+                = I18n.t("devise.registrations.cancel-btn")
+            button.btn-sm.btn.btn-primary.mt-5
+              = I18n.t("devise.registrations.delete-account")

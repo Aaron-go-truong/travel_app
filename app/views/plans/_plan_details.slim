@@ -27,7 +27,7 @@
       .d-flex.justify-content-between
         h5
           | #{plan.title}
-        .d-flex
+        .d-flex[class="#{current_user.id != plan.user_id ? 'd-none' : ''}"]
           #edit-plan.edit-plan.px-2.py-1.rounded-3[data-toggle="modal" data-target="#edit_plan_#{plan.id}_Modal"]
             i.fa-regular.fa-pen-to-square
           .delete-plan.px-2.py-1.rounded-3
