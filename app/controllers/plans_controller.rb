@@ -36,14 +36,13 @@ class PlansController < ApplicationController
 
     if @plan.save
       @plan.image_description.attach(plan_params[:image_description])
-
       if @plan.plan_parent?
-        redirect_to plans_path
+        redirect_to plan_path(@plan)
       else
         redirect_to Plan.find(@plan.plan_parent_id)
       end
     elsif @plan.plan_parent?
-      render plans_path
+      render :new
     else
       render :edit
     end
