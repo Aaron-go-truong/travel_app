@@ -23,7 +23,7 @@
         .card-body.p-2
           .d-flex.text-black
             .flex-shrink-0
-              = image_tag user.avatar, class: "user-image"
+              = image_tag url_for(user.avatar), class: "user-image"
             .flex-grow-1.ms-3
               = hidden_field_tag :followed_id, user.id
               #userName.text-medium--bold.mb-1

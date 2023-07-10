@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   end
 
   def unfollow
+    authorize @user
     current_user.unfollow(@user)
     redirect_to users_path
   end

@@ -1,6 +1,6 @@
 .row.row-cols-2.g-2
   .col.mb-2.rounded-3
-    = image_tag plan.image_description, class: "w-100 min-height-card rounded-3 position-relative"
+    = image_tag url_for(plan.image_description), class: "w-100 min-height-card rounded-3 position-relative"
     .d-flex.align-items-center.justify-content-start.gap-3[class="#{plan.plan_parent? ? '' : 'd-none'}"]
       .d-flex.align-items-center.justify-content-center.gap-1[data-controller="plan" type="button" data-toggle="modal" data-target="#exampleModal"]
         i.fa-regular.fa-comment

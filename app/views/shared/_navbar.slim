@@ -8,7 +8,7 @@ nav#main-navbar.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top[data-con
       = render 'notifications/notification_center', notifications: current_user.notifications.newest_first if current_user
       .position-relative[data-action="navbar:click:outside->navbar#close"]
         a.d-flex.align-items-center[data-action="click->navbar#show_options"]
-          = image_tag current_user.avatar, class: "rounded-circle", height: "35", alt: "avatar", loading: "lazy"
+          = image_tag url_for(current_user.avatar), class: "rounded-circle", height: "35", alt: "avatar", loading: "lazy"
         ul.position-absolute.user-options.card.d-none
           li.user-options-item
             => link_to 'Profile', edit_user_registration_path, class:"icon-default-color"
