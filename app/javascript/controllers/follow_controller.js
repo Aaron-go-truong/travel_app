@@ -13,7 +13,7 @@ export default class extends Controller {
       type: isFollow ? "POST" : "DELETE",
       url: url,
       dataType: "html",
-      data: { user_id: user_id },
+      data: { id: user_id },
       success(data) {
         if (isFollow) {
           followbtnElm.text("Unfollow");
