@@ -12,6 +12,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def unfollow?
-    user.has_role?(:admin) || user.id == record.follower_id
+    user.has_role?(:admin) || user.following?(record)
   end
 end

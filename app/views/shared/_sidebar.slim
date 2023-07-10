@@ -14,7 +14,7 @@
         | Partners
   .line
   .d-flex.flex-column
-    h5
+    h5.text-grey
       | Explore
     .d-flex.flex-column.pl-2.gap-1
       => link_to plans_path, class:"item-sidebar rounded text-small--bold", data:{action: "click->sidebar#onClick"} do
@@ -33,7 +33,7 @@
           span
             | Users
     .management[class="#{isAdmin ? '' : 'd-none'}"]
-      h5
+      h5.text-grey
         | Manage
       .d-flex.flex-column.pl-2.gap-1
         => link_to admin_manage_plans_path, class:"item-sidebar rounded text-small--bold", data:{action: "click->sidebar#onClick"} do

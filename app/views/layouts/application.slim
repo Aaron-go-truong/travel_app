@@ -12,11 +12,20 @@ html
     = stylesheet_link_tag "application"
     link[rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.0/dist/bootstrap-table.min.css"]
 
-  body data-controller='flash'
+  body.position-relative data-controller='flash'
+    = render 'shared/flash'
+    .preloader.preloader-deactivate
+      .loader
+        .loader-outter
+        .loader-inner
+        .indicator
+          svg[width="16px" height="12px"]
+            polyline#back[points="1 6 4 6 6 11 10 1 12 6 15 6"]
+            polyline#front[points="1 6 4 6 6 11 10 1 12 6 15 6"]
+
     - if user_signed_in?
       = render 'shared/navbar'
-      / = render 'shared/flash'
-      .container[style="margin-top: 5rem"]
+      .container[style="margin-top: 6rem"]
         .row
           .col-2
             = render 'shared/sidebar', isAdmin: current_user.has_role?(:admin)
@@ -24,7 +33,5 @@ html
             = yield
     - else
       = yield
+
     script[src="https://unpkg.com/bootstrap-table@1.22.0/dist/bootstrap-table.min.js"]
-    script[src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"]
-    script[src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"]
-    script[src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"]

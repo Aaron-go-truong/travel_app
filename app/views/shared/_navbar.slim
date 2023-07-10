@@ -3,7 +3,10 @@ nav#main-navbar.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top[data-con
     button.navbar-toggler[type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"]
       i.fas.fa-bars
     => link_to root_path, class: 'navbar-brand'
-      img[src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="25" alt="MDB Logo" loading="lazy"]
+      .d-flex.align-items-center.gap-1
+        = image_pack_tag 'logo.jpeg', class: 'image',height: "50", alt: "Travel Logo", loading: "lazy"
+        header[style="#1f618d"]
+          | Travel GO
     .d-flex.align-items-center.justify-content-center.gap-3
       = render 'notifications/notification_center', notifications: current_user.notifications.newest_first if current_user
       .position-relative[data-action="navbar:click:outside->navbar#close"]
