@@ -13,7 +13,34 @@
 ActiveRecord::Schema.define(version: 2023_07_05_074035) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "bloom"
+  enable_extension "btree_gin"
+  enable_extension "btree_gist"
+  enable_extension "citext"
+  enable_extension "cube"
+  enable_extension "dblink"
+  enable_extension "dict_int"
+  enable_extension "dict_xsyn"
+  enable_extension "earthdistance"
+  enable_extension "fuzzystrmatch"
+  enable_extension "hstore"
+  enable_extension "intagg"
+  enable_extension "intarray"
+  enable_extension "isn"
+  enable_extension "lo"
+  enable_extension "ltree"
+  enable_extension "pg_buffercache"
+  enable_extension "pg_prewarm"
+  enable_extension "pg_similarity"
+  enable_extension "pg_stat_statements"
+  enable_extension "pg_trgm"
+  enable_extension "pgcrypto"
+  enable_extension "pgrowlocks"
+  enable_extension "pgstattuple"
   enable_extension "plpgsql"
+  enable_extension "tablefunc"
+  enable_extension "unaccent"
+  enable_extension "uuid-ossp"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -103,6 +130,9 @@ ActiveRecord::Schema.define(version: 2023_07_05_074035) do
     t.integer "followed_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "roles", force: :cascade do |t|
