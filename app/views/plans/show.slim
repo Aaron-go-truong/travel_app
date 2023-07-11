@@ -5,7 +5,7 @@
     .w-100.mt-2.px-5
       - @plan.plan_details.each do |plan_detail|
         = render 'plan_details', plan: plan_detail
-  #add-details[data-toggle="modal" data-target="#create_detailsModal"]
+  #add-details[data-bs-toggle="modal" data-bs-target="#create_detailsModal"]
     h5.d-flex.align-items-center.gap-2
       i.fa-solid.fa-plus
       span
@@ -16,7 +16,7 @@
       .modal-header
         h5#exampleModalLabel.modal-title
           | New Plan Details
-        i.fa-solid.fa-xmark[type="button" data-dismiss="modal" aria-label="Close"]
+        i.fa-solid.fa-xmark[type="button" data-bs-dismiss="modal" aria-label="Close"]
       .modal-body
         .w-100
           = render 'shared/new_plan_form', plan: @plan.plan_details.new
