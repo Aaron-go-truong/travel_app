@@ -1,92 +1,142 @@
+= javascript_pack_tag 'users/user_show'
+
 section.h-100.gradient-custom-2
   .container.h-100.d-flex.align-items-start.justify-content-center
     .container-profile
       .img-bg
-        img.h-100.w-100.rounded-bottom[src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-craig-adderley-1563356.jpg&fm=jpg"]
+        = image_pack_tag 'bg.jpg', class: 'rounded-bottom h-100 w-100'
       .under-content.d-flex.px-4.align-items-end.justify-content-between
         .d-flex.align-items-end.justify-content-center
           .img-avt
-            img.h-100.w-100.rounded-circle.[src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/avt-cute-2022.jpg"]
+            = image_tag url_for(@user.avatar), class: "h-100 w-100 rounded-circle", style: "border: 2px solid  #1f618d"
           .ml-4
             h3
               span
-                | RuizHendrix
+                | #{@user.user_name}
             span.text-muted.text-small--bold
-              | 478 followers • 738 following
+              | #{@user.followers.count} followers • #{@user.following.count} following
             .d-flex.align-items-center
-              .img-icon.mt-2
-                img.h-100.w-100.rounded-circle.[src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/avt-cute-2022.jpg"]
-              .img-icon.mt-2
-                img.h-100.w-100.rounded-circle.[src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/avt-cute-2022.jpg"]
-              .img-icon.mt-2
-                img.h-100.w-100.rounded-circle.[src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/avt-cute-2022.jpg"]
-              .img-icon.mt-2
-                img.h-100.w-100.rounded-circle.[src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/avt-cute-2022.jpg"]
-              .img-icon.mt-2
-                img.h-100.w-100.rounded-circle.[src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/avt-cute-2022.jpg"]
-              .img-icon.mt-2
-                img.h-100.w-100.rounded-circle.[src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/avt-cute-2022.jpg"]
-              .img-icon.mt-2
-                img.h-100.w-100.rounded-circle.[src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/avt-cute-2022.jpg"]
+              - @user.followers.each do |follower|
+                .img-icon.mt-2
+                  = image_tag url_for(follower.avatar), class: "h-100 w-100 rounded-circle"
         .d-flex
           button.btn.btn-primary
               i.fa-regular.fa-eye
               |  Follow
       .card.mt-3
-        .d-flex.justify-content-between.align-items-center
+        .d-flex.justify-content-start.align-items-center
           span
             | People You May Know
-          span.text-primary
-            | See all
-        .d-flex.gap-3.mt-2
-          .card.p-0
-            .img-card
-              img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
-            .card-body
-              h5.card-title
+        .slide.position-relative.w-full.mt-2
+          .carousel-container
+            .inner-carousel
+              .track
+                - User.all
+                .card-container
+                  .card.p-0
+                    .img-card
+                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
+                    .card-body
+                      h5.card-title
+                        span
+                          | Dimarco
+                      button.w-100.btn.btn-primary
+                        i.fa-regular.fa-eye
+                        |  Follow
+                .card-container
+                  .card.p-0
+                    .img-card
+                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
+                    .card-body
+                      h5.card-title
+                        span
+                          | Dimarco
+                      button.w-100.btn.btn-primary
+                        i.fa-regular.fa-eye
+                        |  Follow
+                .card-container
+                  .card.p-0
+                    .img-card
+                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
+                    .card-body
+                      h5.card-title
+                        span
+                          | Dimarco
+                      button.w-100.btn.btn-primary
+                        i.fa-regular.fa-eye
+                        |  Follow
+                .card-container
+                  .card.p-0
+                    .img-card
+                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
+                    .card-body
+                      h5.card-title
+                        span
+                          | Dimarco
+                      button.w-100.btn.btn-primary
+                        i.fa-regular.fa-eye
+                        |  Follow
+                .card-container
+                  .card.p-0
+                    .img-card
+                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
+                    .card-body
+                      h5.card-title
+                        span
+                          | Dimarco
+                      button.w-100.btn.btn-primary
+                        i.fa-regular.fa-eye
+                        |  Follow
+                .card-container
+                  .card.p-0
+                    .img-card
+                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
+                    .card-body
+                      h5.card-title
+                        span
+                          | Dimarco
+                      button.w-100.btn.btn-primary
+                        i.fa-regular.fa-eye
+                        |  Follow
+                .card-container
+                  .card.p-0
+                    .img-card
+                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
+                    .card-body
+                      h5.card-title
+                        span
+                          | Dimarco
+                      button.w-100.btn.btn-primary
+                        i.fa-regular.fa-eye
+                        |  Follow
+
+          .prev.position-absolute
+            i.fa-solid.fa-chevron-left.fa-lg
+          .next.position-absolute
+            i.fa-solid.fa-chevron-right.fa-lg
+      .explore.w-100.mt-5[data-controller="plan"]
+        .d-flex.align-items-center.w-100.gap-3
+          .inputs[style="width: 70%"]
+            i.fa.fa-search[data-action="click->plan#filter_action" ]
+            input#search.form-control[type="text" placeholder="Search PLans..." data-action="keydown->plan#search_input"]
+          .d-flex.align-items-end.gap-2
+            .sort
+              span.text-small.text-muted
+                | Sort by
+              select#select-sort.form-select.form-select-sm[aria-label=".form-select-sm example" data-action="change->plan#filter_action"]
+                option[value="most_recent" selected]
+                  | Most Recent
+                option[value="oldest"]
+                  | Oldest
+                option[value="most_like"]
+                  | Most Like
+            .text-muted.text-small.btn-clear.p-1.d-none[data-action="click->plan#clear_filter_action"]
+              .d-flex.align-items-center.gap-1
+                i.fa-solid.fa-xmark
                 span
-                  | Dimarco
-              button.w-100.btn.btn-primary
-                i.fa-regular.fa-eye
-                |  Follow
-          .card.p-0
-            .img-card
-              img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
-            .card-body
-              h5.card-title
-                span
-                  | Dimarco
-              button.w-100.btn.btn-primary
-                i.fa-regular.fa-eye
-                |  Follow
-          .card.p-0
-            .img-card
-              img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
-            .card-body
-              h5.card-title
-                span
-                  | Dimarco
-              button.w-100.btn.btn-primary
-                i.fa-regular.fa-eye
-                |  Follow
-      .d-flex.align-items-end.justify-content-between
-        .mt-3.inputs.w-50
-          i.fa.fa-search
-          input#search.w-full.form-control[type="text" placeholder="Search Plans..."]
-        button.btn.btn-primary
-          i.fa-solid.fa-filter
-          |  Filters
-      .card-body.mt-4.text-black
-            .d-flex.justify-content-between.align-items-center.mb-4
-              p.lead.fw-normal.mb-0
-                | Recent plans
-              p.mb-0
-                a.text-muted[href="#!"]
-                  | Show all
-            .row.g-2
-              .col.mb-2
-                img.w-100.rounded-3[src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="image 1"]
-              .col.mb-2
-                img.w-100.rounded-3[src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="image 1"]
-              .col.mb-2
-                img.w-100.rounded-3[src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp" alt="image 1"]
+                  | Clear filters
+        h4.text-muted.mt-3
+          span
+            | #{@user.user_name}'s Plans
+        #plans_list.row.row-cols-3.w-100.g-2
+          = render 'plans/plan', plans: Plan.where(user_id: @user.id)
