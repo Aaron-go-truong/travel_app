@@ -1,51 +1,28 @@
 = javascript_pack_tag 'users/list_users'
 
-.row.d-flex.justify-content-center
-  .col-md-8
-    .card
-      .d-flex.justify-content-between.align-items-center
-        span.font-weight-bold
-          | Users List
-        button.btn.btn-primary.active
-          i.fa-regular.fa-eye
-          |  Followed
-      .mt-3.inputs
-        i.fa.fa-search
-        input#search.form-control[type="text" placeholder="Search Users..."]
+.d-flex.align-items-center.w-100.gap-3.mb-3[data-controller="user"]
+  .inputs[style="width: 55%"]
+    i.fa.fa-search
+    input#search.form-control[type="text" placeholder="Search Users..."]
+  .d-flex.align-items-end.gap-2
+    .sort
+      span.text-small.text-muted
+        | Sort by
+      select#select-sort.form-select.form-select-sm[aria-label=".form-select-sm example" data-action="change->user#filter_action"]
+        option[value="all" selected]
+          | All
+        option[value="followed"]
+          | Followed
+    .text-muted.text-small.btn-clear.py-1.px-2.d-none[data-action="click->user#clear_filter_action"]
+      .d-flex.align-items-center.gap-1
+        i.fa-solid.fa-xmark
+        span
+          | Clear filters
 - if @users.blank?
   p
     | There are not any users currently in the system.
 -else
 #listUsers.flex-container.wrap.w-100.align-items-center.gap-1
-  - @users.each do |user|
-    - if user.id != current_user.id
-      .fit-content.border.rounded.p-0.5.mt-2[id = user.id.to_s+'_usercard']
-        .card-body.p-2
-          .d-flex.text-black
-            .flex-shrink-0
-              = image_tag url_for(user.avatar), class: "user-image"
-            .flex-grow-1.ms-3
-              = hidden_field_tag :followed_id, user.id
-              #userName.text-medium--bold.mb-1
-                | #{user.user_name}
-              .d-flex.justify-content-start.rounded-3.p-2.mb-2[style="background-color: #efefef"]
-                div
-                  p.small.text-muted.mb-1
-                    | Plans
-                  p.mb-0
-                    | 41
-                .px-3
-                  p.small.text-muted.mb-1
-                    | Followers
-                  p.mb-0.text-medium
-                    | 976
-              .d-flex.pt-1[data-controller="follow"]
-                button.btn.btn-sm.btn-outline-primary.me-1.flex-grow-1.text-small[type="button"]
-                  => link_to 'Details', users_path(user.id)
-                button.btn.btn-sm.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-secondary' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
-                  - if current_user.following?(user)
-                    | Unfollow
-                  - else
-                    | Follow
+  = render 'user'
   p#notFound.d-none
     | Your search did not match any users

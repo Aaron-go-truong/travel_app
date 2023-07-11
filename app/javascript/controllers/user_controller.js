@@ -4,43 +4,46 @@ import $ from "jquery";
 export default class extends Controller {
   static targets = [];
 
-  connect() {
-    // var multipleCardCarousel = document.querySelector(
-    //   "#carouselExampleControls"
-    // );
-    // if (window.matchMedia("(min-width: 768px)").matches) {
-    //   var carousel = new bootstrap.Carousel(multipleCardCarousel, {
-    //     interval: false,
-    //   });
-    //   var carouselWidth = $(".carousel-inner")[0].scrollWidth;
-    //   var cardWidth = $(".carousel-item").width();
-    //   var scrollPosition = 0;
-    //   $("#carouselExampleControls .carousel-control-next").on(
-    //     "click",
-    //     function () {
-    //       if (scrollPosition < carouselWidth - cardWidth * 4) {
-    //         scrollPosition += cardWidth * 3;
-    //         $("#carouselExampleControls .carousel-inner").animate(
-    //           { scrollLeft: scrollPosition },
-    //           600
-    //         );
-    //       }
-    //     }
-    //   );
-    //   $("#carouselExampleControls .carousel-control-prev").on(
-    //     "click",
-    //     function () {
-    //       if (scrollPosition > 0) {
-    //         scrollPosition -= cardWidth;
-    //         $("#carouselExampleControls .carousel-inner").animate(
-    //           { scrollLeft: scrollPosition },
-    //           600
-    //         );
-    //       }
-    //     }
-    //   );
-    // } else {
-    //   $(multipleCardCarousel).addClass("slide");
-    // }
+  connect() {}
+
+  filter_action() {
+    let filter_data = {
+      sort_type: $("#select-sort").find(":selected").val(),
+    };
+
+    this.filter_method(filter_data);
+    $(".btn-clear").removeClass("d-none");
+  }
+
+  filter_method(filter_data) {
+    $.ajax({
+      type: "GET",
+      url: "/users",
+      dataType: "JSON",
+      data: filter_data,
+      success(data) {
+        $("#listUsers").html("");
+        $("#listUsers").html(data.html);
+      },
+      error(data) {
+        return false;
+      },
+    });
+  }
+
+  clear_filter_action() {
+    let select_sort = $("#select-sort");
+    let search = $("#search");
+
+    select_sort.prop("selectedIndex", 0);
+    search.val("");
+
+    let filter_data = {
+      search_content: search.val(),
+      sort_type: select_sort.find(":selected").val(),
+    };
+
+    this.filter_method(filter_data);
+    $(".btn-clear").addClass("d-none");
   }
 }

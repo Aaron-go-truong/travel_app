@@ -1,9 +1,13 @@
 class UsersController < ApplicationController
+  include Respondable
+
   skip_before_action :verify_authenticity_token
   before_action :find_user, only: %i[follow unfollow]
 
   def index
-    @users = User.all
+    @users = User.where.not(id: current_user.id)
+    @users = current_user.following if params[:sort_type] == 'followed'
+    respond_index_json('user','user')
   end
 
   def show
