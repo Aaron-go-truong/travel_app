@@ -70,11 +70,14 @@ export default class extends Controller {
   }
 
   filter_action() {
+    let page = $("#page").val().replace("value ", "");
     let filter_data = {
       search_content: $("#search").val(),
       sort_type: $("#select-sort").find(":selected").val(),
       status_type: $("#select-status").find(":selected").val(),
+      page: page,
     };
+
     this.filter_method(filter_data);
     $(".btn-clear").removeClass("d-none");
   }
@@ -88,6 +91,7 @@ export default class extends Controller {
       success(data) {
         $("#plans_list").html("");
         $("#plans_list").html(data.html);
+        $("#plans_list").append(data.sub_html);
       },
       error(data) {
         return false;
@@ -96,15 +100,20 @@ export default class extends Controller {
   }
 
   clear_filter_action() {
+    let page = $("#page").val().replace("value ", "");
     let select_sort = $("#select-sort");
+    let select_status = $("#select-status");
     let search = $("#search");
 
     select_sort.prop("selectedIndex", 0);
+    select_status.prop("selectedIndex", 0);
     search.val("");
 
     let filter_data = {
       search_content: search.val(),
       sort_type: select_sort.find(":selected").val(),
+      status_type: select_status.find(":selected").val(),
+      page: page,
     };
 
     this.filter_method(filter_data);

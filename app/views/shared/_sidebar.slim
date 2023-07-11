@@ -17,16 +17,16 @@
     h5.text-grey
       | Explore
     .d-flex.flex-column.pl-2.gap-1
-      => link_to plans_path(page: "myPlan"), class:"item-sidebar rounded text-small--bold", data:{action: "click->sidebar#onClick"} do
+      => link_to plans_path(page: "myPlans"), class:"item-sidebar rounded text-small--bold", data:{action: "click->sidebar#onClick"} do
         .noClick
           i.fas.fa-clipboard-list.fa-fw.me-3
           span
             | My Plans
-      a.item-sidebar.rounded.text-small--bold
+      => link_to plans_path(page: "favourite"), class:"item-sidebar rounded text-small--bold", data:{action: "click->sidebar#onClick"} do
         .noClick
-          i.fas.fa-heart.fa-fw.me-3
+          i.fas.fa-clipboard-list.fa-fw.me-3
           span
-            | Favorite
+            | Favourite
       => link_to users_path, class:"item-sidebar rounded text-small--bold", data:{action: "click->sidebar#onClick"} do
         .noClick
           i.fas.fa-users.fa-fw.me-3

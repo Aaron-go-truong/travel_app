@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   resources :plans do
     resources :comments
+    get '/favourites', to: 'plans#index'
     patch '/update_status', to: 'plans#update_status'
   end
 

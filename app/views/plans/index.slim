@@ -1,8 +1,9 @@
 = javascript_pack_tag 'plans/plan_index'
 
 .explore.w-100[data-controller="plan"]
+  = hidden_field_tag "page", value: params[:page]
   .d-flex.align-items-center.w-100.gap-3
-    .inputs[style="width: 70%"]
+    .inputs[style="width: 55%"]
       i.fa.fa-search[data-action="click->plan#filter_action" ]
       input#search.form-control[type="text" placeholder="Search PLans..." data-action="keydown->plan#search_input"]
     .d-flex.align-items-end.gap-2
@@ -16,40 +17,26 @@
             | Oldest
           option[value="most_like"]
             | Most Like
-      .status[class="#{params[:page].present? ? '' : 'd-none'}"]
+      .status-select[class="#{params[:page] == "myPlans" ? '' : 'd-none'}"]
         span.text-small.text-muted
           | Status
         select#select-status.form-select.form-select-sm[aria-label=".form-select-sm example" data-action="change->plan#filter_action"]
           option[value="all" selected]
             | All
-          option[value="public"]
+          option[value="0"]
             | Public
-          option[value="followers"]
+          option[value="1"]
             | Followers
-          option[value="only"]
+          option[value="2"]
             | Only
-      .text-muted.text-small.btn-clear.p-1.d-none[data-action="click->plan#clear_filter_action"]
+      .text-muted.text-small.btn-clear.py-1.px-2.d-none[data-action="click->plan#clear_filter_action"]
         .d-flex.align-items-center.gap-1
           i.fa-solid.fa-xmark
           span
             | Clear filters
   h4.text-muted.mt-2
     span
-      | Explore Plans
+      | #{params[:page].present? ? "Your Workspaces" : "Explore Plans"}
   #plans_list.row.row-cols-3.w-100.g-2
     = render 'plans/plan', plans: @plans
-    #create-plan.col.mb-2.card-height[class="#{params[:page].present? ? '' : 'd-none'}"]
-      .w-100.h-100.addplan-card.rounded-3.d-flex.align-items-center.justify-content-center.gap-2
-        i.fa-solid.fa-plus.addplan
-        span.addplan[data-toggle="modal" data-target="#create_planModal"]
-          | Create new plan
-      #create_planModal.modal.fade[tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"]
-        .modal-dialog[role="document" style="min-width: 70%"]
-          .modal-content
-            .modal-header
-              h5#exampleModalLabel.modal-title
-                | New Plan
-              i.fa-solid.fa-xmark[type="button" data-dismiss="modal" aria-label="Close"]
-            .modal-body
-              .w-100
-                = render 'shared/new_plan_form', plan: Plan.new
+    = render 'create_plan'
