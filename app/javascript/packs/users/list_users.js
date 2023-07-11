@@ -1,8 +1,6 @@
 import $ from "jquery";
 
 $(() => {
-  $("#notFound").hide();
-
   $("#search").on("keyup", function () {
     var value = $(this).val().toLowerCase();
     $("#listUsers .fit-content").filter(function () {
@@ -11,9 +9,9 @@ $(() => {
       );
     });
     if ($("#listUsers .fit-content:visible").length === 0) {
-      $("#notFound").show();
+      $("#notFound").removeClass("d-none");
     } else {
-      $("#notFound").hide();
+      $("#notFound").addClass("d-none");
     }
   });
 });

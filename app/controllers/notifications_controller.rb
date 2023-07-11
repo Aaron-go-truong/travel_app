@@ -2,7 +2,6 @@ class NotificationsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def update
-    authorize @notification
     @notification = Notification.find(params[:id])
     @notification.update(read_at: Time.zone.now)
     redirect_to params[:url]

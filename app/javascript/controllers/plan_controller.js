@@ -29,7 +29,7 @@ export default class extends Controller {
     let like_elm = $(`#${this.likebtnTarget.id}`);
     let plan_id = this.plancardTarget.id.replace("like_", "");
     let is_liked = like_elm.hasClass("heart--active");
-
+    let like_count = Number($(`#like-count-${plan_id}`).text());
     $.ajax({
       type: is_liked ? "DELETE" : "POST",
       url: is_liked ? url + "_destroy" : url + "_new",
@@ -43,9 +43,18 @@ export default class extends Controller {
       },
       success(data) {
         if (is_liked) {
+          if (like_count == 1) {
+            $(`#like-count-${plan_id}`).addClass("d-none");
+          } else {
+            $(`#like-count-${plan_id}`).text(like_count - 1);
+          }
           like_elm.removeClass("heart--active");
           like_elm.addClass("heart");
         } else {
+          if (like_count == 0) {
+            $(`#like-count-${plan_id}`).removeClass("d-none");
+          }
+          $(`#like-count-${plan_id}`).text(like_count + 1);
           like_elm.removeClass("heart");
           like_elm.addClass("heart--active");
         }
@@ -66,11 +75,10 @@ export default class extends Controller {
       sort_type: $("#select-sort").find(":selected").val(),
     };
     this.filter_method(filter_data);
-    $(".btn-clear").removeClass("d-none")
+    $(".btn-clear").removeClass("d-none");
   }
 
   filter_method(filter_data) {
-
     $.ajax({
       type: "GET",
       url: "/plans",
@@ -99,6 +107,6 @@ export default class extends Controller {
     };
 
     this.filter_method(filter_data);
-    $(".btn-clear").addClass("d-none")
+    $(".btn-clear").addClass("d-none");
   }
 }

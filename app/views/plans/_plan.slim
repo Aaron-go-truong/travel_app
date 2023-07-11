@@ -1,4 +1,4 @@
-- plans.each do |plan|
+- @plans.each do |plan|
   .col.mb-2[data-controller="plan" type="button"]
     .position-relative.g-2.card-plan.rounded-3
       => link_to plan_path(plan) do
@@ -8,4 +8,7 @@
         .d-flex.justify-content-between.align-items-center.w-100
           span.text-title--bold
             | #{plan.title}
-          i.fa-solid.fa-heart[id= "like_#{plan.id}" data-plan-target="likebtn" data-action="click->plan#like_action" class="#{ plan.likes.where(user_id:current_user.id).blank? ? 'heart' : 'heart--active'}" ]
+          .d-flex.align-items-center.justify-conten-center.gap-1
+            i.fa-solid.fa-heart[id= "like_#{plan.id}" data-plan-target="likebtn" data-action="click->plan#like_action" class="#{ plan.likes.where(user_id:current_user.id).blank? ? 'heart' : 'heart--active'}" ]
+            span.text-underline-hover.text-medium[id="like-count-#{plan.id}" class="#{plan.likes_count > 0 ? '' : 'd-none'}" style="color: white; font-weight: 600"]
+              | #{plan.likes_count}
