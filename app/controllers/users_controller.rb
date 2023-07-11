@@ -12,13 +12,16 @@ class UsersController < ApplicationController
 
   def follow
     current_user.follow(@user)
-    redirect_to users_index_path
+    redirect_to users_path
   end
 
   def unfollow
+    authorize @user
     current_user.unfollow(@user)
-    redirect_to users_index_path
+    redirect_to users_path
   end
+
+  def settings; end
 
   private
 

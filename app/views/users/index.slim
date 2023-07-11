@@ -23,7 +23,7 @@
         .card-body.p-2
           .d-flex.text-black
             .flex-shrink-0
-              = image_tag user.avatar, class: "user-image"
+              = image_tag url_for(user.avatar), class: "user-image"
             .flex-grow-1.ms-3
               = hidden_field_tag :followed_id, user.id
               #userName.text-medium--bold.mb-1
@@ -42,8 +42,8 @@
                     | 976
               .d-flex.pt-1[data-controller="follow"]
                 button.btn.btn-sm.btn-outline-primary.me-1.flex-grow-1.text-small[type="button"]
-                  => link_to 'Details', users_path(user)
-                button.btn.btn-sm.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-light' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
+                  => link_to 'Details', users_path(user.id)
+                button.btn.btn-sm.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-secondary' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
                   - if current_user.following?(user)
                     | Unfollow
                   - else

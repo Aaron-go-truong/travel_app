@@ -4,11 +4,11 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/users', to: 'users#index'
+    get '/users/settings', to: "users#settings"
     get '/users/:id', to: "users#show"
     post '/users/index_follow', to:'users#follow'
     delete '/users/index_unfollow', to:'users#unfollow'
     patch '/users/edit_profile', to: 'users/registrations#update'
-
   end
 
   namespace :admin do

@@ -9,6 +9,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
+    authorize @like
     @like.destroy
     redirect_to plan_path(@plan)
   end

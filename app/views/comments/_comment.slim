@@ -2,7 +2,7 @@
   = hidden_field_tag :plan_id, value: comment.plan.id
   .comment-container.w-100.mb-2[data-controller="comment"]
     .comment.d-flex.flex-start[id="comment_#{comment.id}"]
-      = image_tag comment.user.avatar, class: "rounded-circle shadow-1-strong me-2 avt-cmt"
+      = image_tag url_for(comment.user.avatar), class: "rounded-circle shadow-1-strong me-2 avt-cmt"
       .right-block.w-100
         .flex-grow-1.flex-shrink-1
           .d-flex.align-items-center

@@ -48,9 +48,12 @@ class PlansController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    authorize @plan
+  end
 
   def update
+    authorize @plan
     if @plan.update(plan_params)
       if @plan.plan_parent?
         redirect_to @plan
@@ -63,6 +66,7 @@ class PlansController < ApplicationController
   end
 
   def destroy
+    authorize @plan
     @plan.destroy
     if @plan.plan_parent?
       redirect_to plans_path

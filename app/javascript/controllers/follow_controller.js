@@ -13,14 +13,14 @@ export default class extends Controller {
       type: isFollow ? "POST" : "DELETE",
       url: url,
       dataType: "html",
-      data: { user_id: user_id },
+      data: { id: user_id },
       success(data) {
         if (isFollow) {
           followbtnElm.text("Unfollow");
-          followbtnElm.toggleClass("btn-primary btn-light");
+          followbtnElm.toggleClass("btn-primary btn-secondary");
         } else {
           followbtnElm.text("Follow");
-          followbtnElm.toggleClass("btn-light btn-primary ");
+          followbtnElm.toggleClass("btn-secondary btn-primary ");
         }
       },
       error(data) {

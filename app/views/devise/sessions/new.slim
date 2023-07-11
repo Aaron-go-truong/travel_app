@@ -32,13 +32,13 @@
           | Sign up
         .input-field
           i.fas.fa-user
-          = f.text_field :user_name, autofocus: true, autocomplete: "user_name", placeholder: "Username"
+          = f.text_field :user_name, id: "su_username", autofocus: true, autocomplete: "user_name", placeholder: "Username"
         .input-field
           i.fas.fa-envelope
-          = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email"
+          = f.email_field :email, id: "su_email", autofocus: true, autocomplete: "email", placeholder: "Email"
         .input-field
           i.fas.fa-lock
-          = f.password_field :password, autocomplete: "current-password", placeholder: "Password"
+          = f.password_field :password, id: "su_password", autocomplete: "current-password", placeholder: "Password"
 
         = f.submit 'Sign Up', class: 'btnn'
         p.social-text
