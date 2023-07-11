@@ -54,6 +54,7 @@ class Plan < ApplicationRecord
   scope :sort_most_recent, -> { reorder(created_at: :desc) }
   scope :sort_oldest, -> { reorder(created_at: :asc) }
   scope :sort_most_like, -> { reorder(likes_count: :desc) }
+  scope :filter_by_status, ->(status) { where(status: status) }
   after_create_commit :broadcast_notifications
 
   def include_plan?(other_plan)

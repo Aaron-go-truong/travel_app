@@ -73,6 +73,7 @@ export default class extends Controller {
     let filter_data = {
       search_content: $("#search").val(),
       sort_type: $("#select-sort").find(":selected").val(),
+      status_type: $("#select-status").find(":selected").val(),
     };
     this.filter_method(filter_data);
     $(".btn-clear").removeClass("d-none");
