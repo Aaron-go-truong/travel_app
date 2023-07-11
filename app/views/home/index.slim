@@ -34,7 +34,7 @@
             .d-flex.justify-content-between.align-items-center.w-100
               span.text-title--bold
                 | #{plan.title}
-              .d-flex.align-items-center.justify-conten-center.gap-1[data-controller="plan" type="button" data-toggle="modal" data-target="#exampleModal"]
+              .d-flex.align-items-center.justify-conten-center.gap-1[data-controller="plan" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"]
                 i.fa-solid.fa-heart.heart[id= "like_#{plan.id}" ]
                 span.text-underline-hover.text-medium[class="#{plan.likes.count > 0 ? '' : 'd-none'}" style="color: white; font-weight: 600"]
                   | #{plan.likes.count}
@@ -44,7 +44,7 @@
                   .modal-header
                     h5#exampleModalLabel.modal-title
                       | #{plan.title}
-                    .d-flex.align-items-center.justify-conten-center.gap-1[data-controller="plan" type="button" data-toggle="modal" data-target="#exampleModal"]
+                    .d-flex.align-items-center.justify-conten-center.gap-1[data-controller="plan" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"]
                       i.fa-solid.fa-heart.heart[id= "like_#{plan.id}" ]
                       span.text-underline-hover.text-medium[style="color: white; font-weight: 600"]
                         | #{plan.likes.count}
@@ -54,7 +54,7 @@
                         .modal-header
                           h5#exampleModalLabel.modal-title
                             | #{plan.title}
-                          i.fa-solid.fa-xmark[type="button" data-dismiss="modal" aria-label="Close"]
+                          i.fa-solid.fa-xmark[type="button" data-bs-dismiss="modal" aria-label="Close"]
                         .modal-body
                           .w-100
                             - plan.likes.each do |like|
@@ -72,7 +72,7 @@
     #create-plan.col.mb-2.card-height
       .w-100.h-100.addplan-card.rounded-3.d-flex.align-items-center.justify-content-center.gap-2
         i.fa-solid.fa-plus.addplan
-        span.addplan[data-toggle="modal" data-target="#create_planModal"]
+        span.addplan[data-bs-toggle="modal" data-bs-target="#create_planModal"]
           | Create new plan
       #create_planModal.modal.fade[tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"]
         .modal-dialog[role="document" style="min-width: 70%"]
@@ -80,7 +80,7 @@
             .modal-header
               h5#exampleModalLabel.modal-title
                 | New Plan
-              i.fa-solid.fa-xmark[type="button" data-dismiss="modal" aria-label="Close"]
+              i.fa-solid.fa-xmark[type="button" data-bs-dismiss="modal" aria-label="Close"]
             .modal-body
               .w-100
                 = render 'shared/new_plan_form', plan: Plan.new
