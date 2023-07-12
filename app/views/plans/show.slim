@@ -5,7 +5,7 @@
     .w-100.mt-2.px-5
       - @plan.plan_details.each do |plan_detail|
         = render 'plan_details', plan: plan_detail
-  #add-details[data-bs-toggle="modal" data-bs-target="#create_detailsModal"]
+  #add-details[class="#{current_user.id != @plan.user_id ? 'd-none' : ''}" data-bs-toggle="modal" data-bs-target="#create_detailsModal"]
     h5.d-flex.align-items-center.gap-2
       i.fa-solid.fa-plus
       span
