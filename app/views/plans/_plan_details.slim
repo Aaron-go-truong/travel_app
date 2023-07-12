@@ -42,16 +42,18 @@
               i.fa-solid.fa-xmark[type="button" data-bs-dismiss="modal" aria-label="Close"]
             .modal-body
               .w-100
-                = render 'shared/new_plan_form', plan: plan
+                = render 'shared/new_plan_form', plan: plan, type: "edit"
       .text-medium.text-muted
         | #{plan.descriptions}
-      .text-small.mt-2.d-flex.gap-2
-        div
+      .text-small.mt-2.d-flex.gap-2.align-items-center
+        .d-flex.gap-1.align-items-center
+          i.fa-regular.fa-clock
           | Time:
         span.text-muted.ml-2
           | #{plan.time}
       .text-small.mt-2.d-flex.gap-2
-        div
+        .d-flex.gap-1.align-items-center
+          i.fa-solid.fa-money-check-dollar
           | Budget:
         span.text-muted.ml-2
           | #{plan.amount} VND
@@ -59,28 +61,3 @@
         i.fa-solid.fa-location-dot
         span.text-muted.ml-2
           | #{plan.address}
-      .row.gy-2.gx-4.mb-4
-        .col-sm-6
-          p.mb-0
-            i.fa.fa-arrow-right.text-primary.me-2
-            | First Class Flights
-        .col-sm-6
-          p.mb-0
-            i.fa.fa-arrow-right.text-primary.me-2
-            | Handpicked Hotels
-        .col-sm-6
-          p.mb-0
-            i.fa.fa-arrow-right.text-primary.me-2
-            | 5 Star Accommodations
-        .col-sm-6
-          p.mb-0
-            i.fa.fa-arrow-right.text-primary.me-2
-            | Latest Model Vehicles
-        .col-sm-6
-          p.mb-0
-            i.fa.fa-arrow-right.text-primary.me-2
-            | 150 Premium City Tours
-        .col-sm-6
-          p.mb-0
-            i.fa.fa-arrow-right.text-primary.me-2
-            | 24/7 Service

@@ -23,7 +23,7 @@
                         |  Reply
                   span.text-small.text-grey
                     | #{comment.created_at.strftime("%H:%M %d/%m/%Y")}
-            #options
+            #options[class="#{current_user.id != comment.user_id ? 'd-none' : ''}"]
               .more-options.rounded-circle.d-flex.justify-content-center.align-items-center
                 .dropdown
                   i.fa-solid.fa-ellipsis[type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]

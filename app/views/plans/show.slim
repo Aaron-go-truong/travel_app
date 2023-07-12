@@ -19,6 +19,6 @@
         i.fa-solid.fa-xmark[type="button" data-bs-dismiss="modal" aria-label="Close"]
       .modal-body
         .w-100
-          = render 'shared/new_plan_form', plan: @plan.plan_details.new
+          = render 'shared/new_plan_form', plan: @plan.plan_details.new, type: "new"
   / = render 'comments/form', comment: @plan.comments.build
   / = render @plan.comments

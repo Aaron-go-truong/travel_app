@@ -77,9 +77,8 @@ export default class extends Controller {
       status_type: $("#select-status").find(":selected").val(),
       page: page,
     };
-    if(page=="userProfile")
-    {
-      filter_data.user_id=$("#user_id").val().replace("value ", "");
+    if (page == "userProfile") {
+      filter_data.user_id = $("#user_id").val().replace("value ", "");
     }
     this.filterMethod(filter_data);
     $(".btn-clear").removeClass("d-none");
@@ -118,12 +117,36 @@ export default class extends Controller {
       status_type: select_status.find(":selected").val(),
       page: page,
     };
-    if(page=="userProfile")
-    {
-      filter_data.user_id=$("#user_id").val().replace("value ", "");
+    if (page == "userProfile") {
+      filter_data.user_id = $("#user_id").val().replace("value ", "");
     }
 
     this.filterMethod(filter_data);
     $(".btn-clear").addClass("d-none");
   }
+
+  addActivities(event) {
+    let type = event.target.id.replace("_add_activities","")
+    let activities_group = $(`#${type}_activities_group`);
+    let input = $("#plan_activities").prop("outerHTML");
+    let last_input = activities_group.find("input:last")
+    if(last_input.val()!=""){
+      activities_group.append(input);
+      $("#close_activities").removeClass("d-none");
+      $("#warning").addClass("d-none");
+    }
+    else{
+      $("#warning").removeClass("d-none");
+    }
+  }
+
+  removeActivities() {
+    let type = $("#type").val().replace("value ","")
+    let activities_group = $(`#${type}_activities_group`);
+    activities_group.find("input:last").remove();
+    if (activities_group.children().length < 3) {
+      $("#close_activities").addClass("d-none");
+    }
+  }
+
 }
