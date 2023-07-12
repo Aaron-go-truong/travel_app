@@ -66,10 +66,10 @@ export default class extends Controller {
   }
 
   search_input(event) {
-    if (event.keyCode === 13) this.filter_action();
+    if (event.keyCode === 13) this.filterAction();
   }
 
-  filter_action() {
+  filterAction() {
     let page = $("#page").val().replace("value ", "");
     let filter_data = {
       search_content: $("#search").val(),
@@ -77,12 +77,15 @@ export default class extends Controller {
       status_type: $("#select-status").find(":selected").val(),
       page: page,
     };
-
-    this.filter_method(filter_data);
+    if(page=="userProfile")
+    {
+      filter_data.user_id=$("#user_id").val().replace("value ", "");
+    }
+    this.filterMethod(filter_data);
     $(".btn-clear").removeClass("d-none");
   }
 
-  filter_method(filter_data) {
+  filterMethod(filter_data) {
     $.ajax({
       type: "GET",
       url: "/plans",
@@ -99,7 +102,7 @@ export default class extends Controller {
     });
   }
 
-  clear_filter_action() {
+  clearFilterAction() {
     let page = $("#page").val().replace("value ", "");
     let select_sort = $("#select-sort");
     let select_status = $("#select-status");
@@ -115,8 +118,12 @@ export default class extends Controller {
       status_type: select_status.find(":selected").val(),
       page: page,
     };
+    if(page=="userProfile")
+    {
+      filter_data.user_id=$("#user_id").val().replace("value ", "");
+    }
 
-    this.filter_method(filter_data);
+    this.filterMethod(filter_data);
     $(".btn-clear").addClass("d-none");
   }
 }
