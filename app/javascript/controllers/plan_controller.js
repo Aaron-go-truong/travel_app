@@ -157,9 +157,60 @@ export default class extends Controller {
     let image = $("#plan_image_description")
     let address = $("#plan_address")
     let budget = $("#plan_amount")
+    if(!title.val() || !time.val() ||  !address.val() || !budget.val())
+    {
+      if(!title.val())
+      {
+        $("#plan_title").addClass("input-warning")
+        $("#title-warning").removeClass("d-none")
+      }
+      else{
+        $("#plan_title").removeClass("input-warning")
+        $("#title-warning").addClass("d-none")
+      }
 
-    if(!title.val())
-      alert(1)
-    // form.submit();
+      if(!time.val())
+      {
+        $("#plan_time").addClass("input-warning")
+        $("#time-warning").removeClass("d-none")
+      }
+      else{
+        $("#plan_time").removeClass("input-warning")
+        $("#time-warning").addClass("d-none")
+      }
+
+      if(!address.val())
+      {
+        $("#plan_address").addClass("input-warning")
+        $("#address-warning").removeClass("d-none")
+      }
+      else{
+        $("#plan_address").removeClass("input-warning")
+        $("#address-warning").addClass("d-none")
+      }
+
+      if(!budget.val())
+      {
+        $("#plan_budget").addClass("input-warning")
+        $("#budget-warning").removeClass("d-none")
+      }
+      else{
+        $("#plan_budget").removeClass("input-warning")
+        $("#budget-warning").addClass("d-none")
+      }
+
+      if(!title.val())
+      {
+        $("#plan_title").addClass("input-warning")
+        $("#title-warning").removeClass("d-none")
+      }
+      else{
+        $("#plan_title").removeClass("input-warning")
+        $("#title-warning").addClass("d-none")
+      }
+    }
+    else{
+      form.submit();
+    }
   }
 }

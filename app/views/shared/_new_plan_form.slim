@@ -10,6 +10,10 @@
             span.text-danger
               | *
           = form.text_field :title, class:'form-control'
+          #title-warning.validates-message.d-none
+            .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
+              | #{} Title can't be blank.
         .form-group
           = form.label :descriptions, class:'col-form-label'
           = form.text_area :descriptions, class:"form-control h-100",  rows: "3", cols: "50"
@@ -22,6 +26,10 @@
             span.text-danger
               | *
           = form.text_field :time, class:'form-control'
+          #time-warning.validates-message.d-none
+            .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
+              | #{} Time can't be blank.
       .right-form.w-100.p-2
         .form-group[data-controller="filepond"]
           .d-flex.align-items-center.gap-1
@@ -29,18 +37,30 @@
             span.text-danger
               | *
           = form.file_field :image_description, class:'filepond-bg',data: {filepond_target:'img', files: filepond_initial_files(plan.image_description)}
+          #image-warning.validates-message.d-none
+            .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
+              | #{} Image description can't be blank.
         .form-group
           .d-flex.align-items-center.gap-1
             = form.label :address, class:'col-form-label'
             span.text-danger
               | *
           = form.text_field :address, class:'form-control'
+          #address-warning.validates-message.d-none
+            .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
+              | #{} Address can't be blank.
         .form-group
           .d-flex.align-items-center.gap-1
             = form.label :budget, class:'col-form-label'
             span.text-danger
               | *
           = form.text_field :amount, class:"form-control"
+          #budget-warning.validates-message.d-none
+            .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
+              | #{} Budget can't be blank.
         .activities
           .form-group[id = "#{type}_activities_group"]
             = form.label :activities, class:'col-form-label'
