@@ -30,17 +30,28 @@
       = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'sign-up-form needs-validation'}, data:{remote: true}) do |f|
         h2.title
           | Sign up
-        .input-field
+        #input-field-username.input-field
           i.fas.fa-user
           = f.text_field :user_name, id: "su_username", autofocus: true, autocomplete: "user_name", placeholder: "Username"
-        .input-field
+        #username-message.validates-message.d-none
+          .text-small.text-danger
+            | User Name can't be empty
+        #input-field-email.input-field
           i.fas.fa-envelope
           = f.email_field :email, id: "su_email", autofocus: true, autocomplete: "email", placeholder: "Email"
-        .input-field
+        #email-message.validates-message.d-none
+          .text-small.text-danger
+            | Email can't be empty
+        #input-field-password.input-field
           i.fas.fa-lock
           = f.password_field :password, id: "su_password", autocomplete: "current-password", placeholder: "Password"
+        #password-message.validates-message.d-none
+          .text-small.text-danger
+            | Password can't be empty
 
-        = f.submit 'Sign Up', class: 'btnn'
+        .btnn.d-flex.align-items-center.justify-content-center[data-action="click->registration#formSubmit"]
+          | Sign Up
+
         p.social-text
           | Or Sign up with social platforms
         .social-media

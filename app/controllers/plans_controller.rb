@@ -45,10 +45,9 @@ class PlansController < ApplicationController
       else
         redirect_to Plan.find(@plan.plan_parent_id)
       end
-    elsif @plan.plan_parent?
-      render :new
     else
-      render :edit
+      redirect_to plan_path(@plan)
+
     end
   end
 

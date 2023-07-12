@@ -149,4 +149,17 @@ export default class extends Controller {
     }
   }
 
+  formSubmit(){
+    let type = $("#type").val().replace("value ","")
+    let form = $(`#plan_${type}`)
+    let title = $("#plan_title")
+    let time = $("#plan_time")
+    let image = $("#plan_image_description")
+    let address = $("#plan_address")
+    let budget = $("#plan_amount")
+
+    if(!title.val())
+      alert(1)
+    // form.submit();
+  }
 }

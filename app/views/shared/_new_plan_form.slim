@@ -1,5 +1,5 @@
-.w-100
-  = form_with model: plan, data: {remote: true}, id: type do |form|
+.w-100[data-controller="plan"]
+  = form_with model: plan, data: {remote: true}, id: "plan_#{type}" do |form|
     = hidden_field_tag :parent_id, value: plan.plan_parent_id
     = hidden_field_tag :type, value: type
     .form-create.d-flex.w-100.align-items-start.justify-content-around
@@ -41,7 +41,7 @@
             span.text-danger
               | *
           = form.text_field :amount, class:"form-control"
-        .activities[data-controller="plan"]
+        .activities
           .form-group[id = "#{type}_activities_group"]
             = form.label :activities, class:'col-form-label'
             = form.text_field :activities, class:"form-control mt-1"
@@ -53,4 +53,5 @@
             span#close_activities.btn.btn-sm.btn-secondary.mt-2.d-none[data-action="click->plan#removeActivities"]
               | Close
     .form-group.mt-2.d-flex.justify-content-end.w-100
-      = form.submit "Save", class:"btn btn-primary"
+      span.btn.btn-primary[data-action="click->plan#formSubmit"]
+        | Save

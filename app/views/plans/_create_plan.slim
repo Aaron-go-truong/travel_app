@@ -9,7 +9,7 @@
         .modal-header
           h5#exampleModalLabel.modal-title
             | New Plan
-          i.fa-solid.fa-xmark[type="button" data-dismiss="modal" aria-label="Close"]
+          i.fa-solid.fa-xmark[type="button" data-bs-dismiss="modal" aria-label="Close"]
         .modal-body
           .w-100
             = render 'shared/new_plan_form', plan: Plan.new, type: "new"
