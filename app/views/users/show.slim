@@ -42,18 +42,22 @@ section.h-100.gradient-custom-2
                   -if user.id != current_user.id
                     .card-container
                       .card.p-0
-                        .img-card
-                          = image_tag user.avatar, class: "h-100 w-100"
+                        => link_to "/users/#{user.id}" do
+                          .img-card
+                            = image_tag user.avatar, class: "h-100 w-100"
                         .card-body
                           h5.card-title
                             span
                               | #{user.user_name}
-                          button.w-100.btn.btn-primary
-                            i.fa-regular.fa-eye
-                            |  Follow
+                          .follow[data-controller="follow"]
+                            button.btn.btn-sm.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-secondary' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
+                              - if current_user.following?(user)
+                                | Unfollow
+                              - else
+                                | Follow
           .prev.position-absolute.d-none[data-action="click->user#prevAction"]
             i.fa-solid.fa-chevron-left.fa-lg
-          .next.position-absolute.d-none[data-action="click->user#nextAction"]
+          .next.position-absolute[data-action="click->user#nextAction"]
             i.fa-solid.fa-chevron-right.fa-lg
       .explore.mt-4.w-100[data-controller="plan"]
         = hidden_field_tag "page", value: "userProfile"

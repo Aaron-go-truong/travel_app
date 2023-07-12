@@ -4,9 +4,9 @@ FactoryBot.define do
     password { '123456' }
     password_confirmation { '123456' }
     confirmed_at { DateTime.now }
-    user_name { Faker::Name.full_name }
+    user_name { Faker::Name.name }
     address { Faker::Address.street_address }
-    birth_date { Faker::Date.birthday(min_age: 18, max_age: 65) }
+    date_of_birth { Faker::Date.birthday(min_age: 18, max_age: 65) }
     gender { ['male', 'female', 'non-binary', 'other'].sample }
     deactivated { false }
 

@@ -13,6 +13,7 @@
         - flash.each do |type, msg|
           .validates-message[id="#{type}"]
             .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
               = msg
         = f.submit 'Login', class: 'btnn solid'
         p.social-text
@@ -35,19 +36,22 @@
           = f.text_field :user_name, id: "su_username", autofocus: true, autocomplete: "user_name", placeholder: "Username"
         #username-message.validates-message.d-none
           .text-small.text-danger
-            | User Name can't be empty
+            i.fa-solid.fa-circle-exclamation
+            | #{} User Name can't be empty
         #input-field-email.input-field
           i.fas.fa-envelope
           = f.email_field :email, id: "su_email", autofocus: true, autocomplete: "email", placeholder: "Email"
         #email-message.validates-message.d-none
           .text-small.text-danger
-            | Email can't be empty
+            i.fa-solid.fa-circle-exclamation
+            | #{} Email can't be empty
         #input-field-password.input-field
           i.fas.fa-lock
           = f.password_field :password, id: "su_password", autocomplete: "current-password", placeholder: "Password"
         #password-message.validates-message.d-none
           .text-small.text-danger
-            | Password can't be empty
+            i.fa-solid.fa-circle-exclamation
+            | #{} Password can't be empty
 
         .btnn.d-flex.align-items-center.justify-content-center[data-action="click->registration#formSubmit"]
           | Sign Up
