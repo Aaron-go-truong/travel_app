@@ -42,7 +42,7 @@
               i.fa-solid.fa-xmark[type="button" data-bs-dismiss="modal" aria-label="Close"]
             .modal-body
               .w-100
-                = render 'shared/new_plan_form', plan: plan, type: "edit"
+                = render 'shared/new_plan_form', plan: plan, type: "edit_#{plan.id}"
       .text-medium.text-muted
         | #{plan.descriptions}
       .text-small.mt-2.d-flex.gap-2.align-items-center

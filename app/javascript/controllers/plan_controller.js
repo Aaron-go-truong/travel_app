@@ -126,90 +126,81 @@ export default class extends Controller {
   }
 
   addActivities(event) {
-    let type = event.target.id.replace("_add_activities","")
+    let type = event.target.id.replace("_add_activities", "");
     let activities_group = $(`#${type}_activities_group`);
-    let input = $("#plan_activities").prop("outerHTML");
-    let last_input = activities_group.find("input:last")
-    if(last_input.val()!=""){
+    let input = $(`#plan_${type}_activities_item`).prop("outerHTML");
+    let last_input = activities_group.find("input:last");
+    if (last_input.val() != "") {
       activities_group.append(input);
-      $("#close_activities").removeClass("d-none");
-      $("#warning").addClass("d-none");
-    }
-    else{
-      $("#warning").removeClass("d-none");
+      activities_group.find("input:last").val("")
+      $(`#${type}_close_activities`).removeClass("d-none");
+      $(`#warning_${type}`).addClass("d-none");
+    } else {
+      $(`#warning_${type}`).removeClass("d-none");
     }
   }
 
-  removeActivities() {
-    let type = $("#type").val().replace("value ","")
+  removeActivities(event) {
+    let type = event.target.id.replace("_close_activities", "");
     let activities_group = $(`#${type}_activities_group`);
     activities_group.find("input:last").remove();
-    if (activities_group.children().length < 3) {
-      $("#close_activities").addClass("d-none");
+    if (activities_group.children().length < 4) {
+      $(`#${event.target.id}`).addClass("d-none");
     }
   }
 
-  formSubmit(){
-    let type = $("#type").val().replace("value ","")
-    let form = $(`#plan_${type}`)
-    let title = $("#plan_title")
-    let time = $("#plan_time")
-    let image = $("#plan_image_description")
-    let address = $("#plan_address")
-    let budget = $("#plan_amount")
-    if(!title.val() || !time.val() ||  !address.val() || !budget.val())
-    {
-      if(!title.val())
-      {
-        $("#plan_title").addClass("input-warning")
-        $("#title-warning").removeClass("d-none")
-      }
-      else{
-        $("#plan_title").removeClass("input-warning")
-        $("#title-warning").addClass("d-none")
+  formSubmit(event) {
+    let type = event.target.id.replace("btn-save-", "");
+    let form = $(`#plan_${type}`);
+    let title = $(`#plan_${type}_title`);
+    let time = $(`#plan_${type}_time`);
+    let image = $("#plan_image_description");
+    let address = $(`#plan_${type}_address`);
+    let budget = $(`#plan_${type}_budget`);
+    let activities = $(`.input-activities-${type}`);
+    let list_activities = [];
+    let activities_group = $(`#plan_activities_${type}`)
+
+    activities.map((i, element) => {
+      list_activities.push(element.value);
+    });
+    console.log(list_activities)
+    if (!title.val() || !time.val() || !address.val() || !budget.val()) {
+      if (!title.val()) {
+        title.addClass("input-warning");
+        $(`#${type}_title_warning`).removeClass("d-none");
+      } else {
+        title.removeClass("input-warning");
+        $(`#${type}_title_warning`).addClass("d-none");
       }
 
-      if(!time.val())
-      {
-        $("#plan_time").addClass("input-warning")
-        $("#time-warning").removeClass("d-none")
-      }
-      else{
-        $("#plan_time").removeClass("input-warning")
-        $("#time-warning").addClass("d-none")
+      if (!time.val()) {
+        time.addClass("input-warning");
+        $(`#${type}_time_warning`).removeClass("d-none");
+      } else {
+        time.removeClass("input-warning");
+        $(`#${type}_time_warning`).addClass("d-none");
       }
 
-      if(!address.val())
-      {
-        $("#plan_address").addClass("input-warning")
-        $("#address-warning").removeClass("d-none")
-      }
-      else{
-        $("#plan_address").removeClass("input-warning")
-        $("#address-warning").addClass("d-none")
+      if (!address.val()) {
+        address.addClass("input-warning");
+        $(`#${type}_address_warning`).removeClass("d-none");
+      } else {
+        address.removeClass("input-warning");
+        $(`#${type}_address_warning`).addClass("d-none");
       }
 
-      if(!budget.val())
-      {
-        $("#plan_budget").addClass("input-warning")
-        $("#budget-warning").removeClass("d-none")
-      }
-      else{
-        $("#plan_budget").removeClass("input-warning")
-        $("#budget-warning").addClass("d-none")
-      }
-
-      if(!title.val())
-      {
-        $("#plan_title").addClass("input-warning")
-        $("#title-warning").removeClass("d-none")
-      }
-      else{
-        $("#plan_title").removeClass("input-warning")
-        $("#title-warning").addClass("d-none")
+      if (!budget.val()) {
+        budget.addClass("input-warning");
+        $(`#${type}_budget_warning`).removeClass("d-none");
+      } else {
+        budget.removeClass("input-warning");
+        $(`#${type}_budget_warning`).addClass("d-none");
       }
     }
     else{
+      activities_group.val(list_activities)
+      console.log(activities_group.val())
       form.submit();
     }
   }
