@@ -56,6 +56,8 @@ class Plan < ApplicationRecord
   scope :sort_most_like, -> { reorder(likes_count: :desc) }
   scope :filter_by_status, ->(status) { where(plan_audience: status) }
   scope :favourite_plans, ->(user_id) { where(id: Like.where(user_id: user_id, likeable_type: "Plan").map(&:likeable_id)) }
+  scope :plan_active, -> { where deactivated: false }
+
   after_create_commit :broadcast_notifications
 
   def include_plan?(other_plan)

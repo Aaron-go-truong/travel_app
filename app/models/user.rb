@@ -53,6 +53,7 @@ class User < ApplicationRecord
   has_many :notifications, as: :recipient, dependent: :destroy
   before_create :set_default_avatar
   after_create :assign_default_role
+  scope :user_active, -> { where deactivated: false }
 
   def assign_default_role
     self.add_role(:user) if self.roles.blank?

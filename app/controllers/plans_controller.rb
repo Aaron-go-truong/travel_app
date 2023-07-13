@@ -23,6 +23,7 @@ class PlansController < ApplicationController
         end
     end
     @plans = @plans.filter_by_status(params[:status_type]) if params[:status_type].present? && params[:status_type]!='all'
+    @plans = @plans.plan_active
     respond_index_json('plan', 'create_plan')
   end
 
@@ -37,7 +38,6 @@ class PlansController < ApplicationController
     @plan = Plan.new(plan_params.merge(user_id: current_user.id))
     @plan.plan_details.map { |detail| detail.user_id = @plan.user_id }
     @plan.plan_parent_id = params[:parent_id].delete('value ') if params[:parent_id].delete('value ').present?
-
     if @plan.save
       @plan.image_description.attach(plan_params[:image_description])
       if @plan.plan_parent?
@@ -47,7 +47,6 @@ class PlansController < ApplicationController
       end
     else
       redirect_to plan_path(@plan)
-
     end
   end
 

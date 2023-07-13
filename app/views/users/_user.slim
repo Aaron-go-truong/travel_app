@@ -1,29 +1,30 @@
 - @users.each do |user|
-  .fit-content.border.rounded.p-0.5.mt-2[id = user.id.to_s+'_usercard']
-    .card-body.p-2
-      .d-flex.text-black
-        .flex-shrink-0
-          = image_tag url_for(user.avatar), class: "user-image"
-        .flex-grow-1.ms-3
-          = hidden_field_tag :followed_id, user.id
-          #userName.text-medium--bold.mb-1
-            | #{user.user_name}
-          .d-flex.justify-content-start.rounded-3.p-2.mb-2[style="background-color: #efefef"]
-            div
-              p.small.text-muted.mb-1
-                | Plans
-              p.mb-0[id="#{user.id}-plans-count"]
-                | #{user.plans.count}
-            .px-3
-              p.small.text-muted.mb-1
-                | Followers
-              p.mb-0.text-medium[id="#{user.id}-followers-count"]
-                | #{user.followers.count}
-          .d-flex.pt-1[data-controller="follow"]
-            button.btn.btn-sm.btn-outline-primary.me-1.flex-grow-1.text-small[type="button"]
-              => link_to 'Details', "/users/#{user.id}"
-            button.btn.btn-sm.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-secondary' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
-              - if current_user.following?(user)
-                | Unfollow
-              - else
-                | Follow
+  - unless user.deactivated
+    .fit-content.border.rounded.p-0.5.mt-2[id = user.id.to_s+'_usercard']
+      .card-body.p-2
+        .d-flex.text-black
+          .flex-shrink-0
+            = image_tag url_for(user.avatar), class: "user-image"
+          .flex-grow-1.ms-3
+            = hidden_field_tag :followed_id, user.id
+            #userName.text-medium--bold.mb-1
+              | #{user.user_name}
+            .d-flex.justify-content-start.rounded-3.p-2.mb-2[style="background-color: #efefef"]
+              div
+                p.small.text-muted.mb-1
+                  | Plans
+                p.mb-0[id="#{user.id}-plans-count"]
+                  | #{user.plans.count}
+              .px-3
+                p.small.text-muted.mb-1
+                  | Followers
+                p.mb-0.text-medium[id="#{user.id}-followers-count"]
+                  | #{user.followers.count}
+            .d-flex.pt-1[data-controller="follow"]
+              button.btn.btn-sm.btn-outline-primary.me-1.flex-grow-1.text-small[type="button"]
+                => link_to 'Details', "/users/#{user.id}"
+              button.btn.btn-sm.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-secondary' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
+                - if current_user.following?(user)
+                  | Unfollow
+                - else
+                  | Follow
