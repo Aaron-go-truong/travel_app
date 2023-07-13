@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def index
     @users = User.where.not(id: current_user.id)
     @users = current_user.following if params[:sort_type] == 'followed'
-    respond_index_json('user','user')
+    respond_index_json('user', 'user')
   end
 
   def show

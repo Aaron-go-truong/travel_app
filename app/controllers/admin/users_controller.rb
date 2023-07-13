@@ -10,7 +10,7 @@ class Admin::UsersController < Admin::BaseController
   def update_status
     @user.update(deactivated: !@user.deactivated)
     flash.now[:notice] = 'Status changed successfully.'
-    respond_index_json('shared/flash','shared/flash')
+    respond_index_json('shared/flash', 'shared/flash')
   end
 
   private

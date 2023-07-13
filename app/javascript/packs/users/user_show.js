@@ -20,7 +20,6 @@ $(() => {
     }
   });
   prev.addEventListener("click", function () {
-    console.log(index);
     index = index - 1;
     next.classList.remove("hide");
     if (index === 0) {

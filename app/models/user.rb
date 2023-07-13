@@ -56,7 +56,7 @@ class User < ApplicationRecord
   scope :user_active, -> { where deactivated: false }
 
   def assign_default_role
-    self.add_role(:user) if self.roles.blank?
+    add_role(:user) if roles.blank?
   end
 
   def set_default_avatar

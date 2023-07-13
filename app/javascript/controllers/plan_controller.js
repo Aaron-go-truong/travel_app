@@ -164,7 +164,6 @@ export default class extends Controller {
     activities.map((i, element) => {
       list_activities.push(element.value);
     });
-    console.log(list_activities)
     if (!title.val() || !time.val() || !address.val() || !budget.val()) {
       if (!title.val()) {
         title.addClass("input-warning");
@@ -200,7 +199,6 @@ export default class extends Controller {
     }
     else{
       activities_group.val(list_activities)
-      console.log(activities_group.val())
       form.submit();
     }
   }
