@@ -1,9 +1,13 @@
 FactoryBot.define do
   factory :like do
     association :user
+  end
+
+  trait :like_comment do
     association :likeable, factory: :comment
+  end
+
+  trait :like_plan do
     association :likeable, factory: :plan
-    created_at { DateTime.now }
-    updated_at { DateTime.now }
   end
 end
