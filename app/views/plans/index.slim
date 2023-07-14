@@ -2,6 +2,7 @@
 
 .explore.w-100[data-controller="plan"]
   = hidden_field_tag "page", value: params[:page]
+  = hidden_field_tag "user_id", value: params[:user_id]
   .d-flex.align-items-center.w-100.gap-3
     .inputs[style="width: 55%"]
       i.fa.fa-search[data-action="click->plan#filterAction" ]

@@ -4,9 +4,8 @@ class PlansController < ApplicationController
   before_action :find_plan, only: %i[show update destroy]
 
   def index
-    @plans = Plan.where(user_id: current_user.id).plan_parent if params[:page] == 'myPlans'
-    @plans = Plan.where.not(user_id: current_user.id).plan_parent.sort_most_recent if params[:page] != 'myPlans'
-    @plans = Plan.where(user_id: params[:user_id]).plan_parent.sort_most_recent if params[:page] == 'userProfile'
+    @plans = Plan.plan_parent.plan_active.sort_most_recent
+    @plans = @plans.where(user_id: params[:user_id]).plan_parent if params[:user_id].present?
     @plans = @plans.favourite_plans(current_user.id) if params[:page] == 'favourite'
     @plans = @plans.includes(:user).filter_by_title(params[:search_content]).or(@plans.includes(:user).filter_by_username(params[:search_content])) if params[:search_content].present?
     if params[:sort_type].present?
@@ -23,7 +22,6 @@ class PlansController < ApplicationController
         end
     end
     @plans = @plans.filter_by_status(params[:status_type]) if params[:status_type].present? && params[:status_type] != 'all'
-    @plans = @plans.plan_active
     respond_index_json('plan', 'create_plan')
   end
 

@@ -75,11 +75,9 @@ export default class extends Controller {
       search_content: $("#search").val(),
       sort_type: $("#select-sort").find(":selected").val(),
       status_type: $("#select-status").find(":selected").val(),
+      user_id: $("#user_id").val().replace("value ", ""),
       page: page,
     };
-    if (page == "userProfile") {
-      filter_data.user_id = $("#user_id").val().replace("value ", "");
-    }
     this.filterMethod(filter_data);
     $(".btn-clear").removeClass("d-none");
   }
@@ -115,11 +113,9 @@ export default class extends Controller {
       search_content: search.val(),
       sort_type: select_sort.find(":selected").val(),
       status_type: select_status.find(":selected").val(),
+      user_id: $("#user_id").val().replace("value ", ""),
       page: page,
     };
-    if (page == "userProfile") {
-      filter_data.user_id = $("#user_id").val().replace("value ", "");
-    }
 
     this.filterMethod(filter_data);
     $(".btn-clear").addClass("d-none");
@@ -132,7 +128,7 @@ export default class extends Controller {
     let last_input = activities_group.find("input:last");
     if (last_input.val() != "") {
       activities_group.append(input);
-      activities_group.find("input:last").val("")
+      activities_group.find("input:last").val("");
       $(`#${type}_close_activities`).removeClass("d-none");
       $(`#warning_${type}`).addClass("d-none");
     } else {
@@ -159,7 +155,7 @@ export default class extends Controller {
     let budget = $(`#plan_${type}_budget`);
     let activities = $(`.input-activities-${type}`);
     let list_activities = [];
-    let activities_group = $(`#plan_activities_${type}`)
+    let activities_group = $(`#plan_activities_${type}`);
 
     activities.map((i, element) => {
       list_activities.push(element.value);
@@ -196,9 +192,8 @@ export default class extends Controller {
         budget.removeClass("input-warning");
         $(`#${type}_budget_warning`).addClass("d-none");
       }
-    }
-    else{
-      activities_group.val(list_activities)
+    } else {
+      activities_group.val(list_activities);
       form.submit();
     }
   }
