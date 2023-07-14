@@ -40,8 +40,4 @@ class Comment < ApplicationRecord
   def broadcast_notifications
     CommentNotification.with(user: user, comment: self, plan: plan).deliver_later(plan.user) if plan.user.id != user.id
   end
-
-  def cleanup_notifications
-    notifications_as_comment.destroy_all
-  end
 end
