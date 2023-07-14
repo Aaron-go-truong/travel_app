@@ -46,7 +46,13 @@ class Plan < ApplicationRecord
 
   has_noticed_notifications model_name: 'Notification'
 
+  validates :title, presence: true
+  validates :amount, presence: true
+  validates :address, presence: true
+  validates :time, presence: true
+
   validates_numericality_of :amount
+
 
   scope :plan_parent, -> { where plan_parent_id: nil }
   scope :filter_by_title, ->(title) { where('title ILIKE ?', "%#{title}%") }
