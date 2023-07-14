@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   resources :plans do
     resources :comments
+    get '/favourites', to: 'plans#index'
     patch '/update_status', to: 'plans#update_status'
   end
 
@@ -30,7 +31,7 @@ Rails.application.routes.draw do
   patch '/notification_read', to:'notifications#update'
   patch '/notification_read_all', to:'notifications#mark_all_as_read'
 
-  root 'home#index'
+  root 'plans#index'
   get 'home/index', to: 'plan#index'
 
   mount ActionCable.server => '/cable'

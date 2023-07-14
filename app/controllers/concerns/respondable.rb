@@ -17,7 +17,7 @@ module Respondable
     end
   end
 
-  def respond_index_json(partial)
-    respond_include_json(html: render_to_string_html(partial))
+  def respond_index_json(partial, sub_partial)
+    respond_include_json(html: render_to_string_html(partial), sub_html: render_to_string_html(sub_partial))
   end
 end

@@ -1,11 +1,19 @@
-.w-100
-  = form_with model: plan, data: {remote: true} do |form|
+.w-100[data-controller="plan"]
+  = form_with model: plan, data: {remote: true}, id: "plan_#{type}" do |form|
     = hidden_field_tag :parent_id, value: plan.plan_parent_id
-    .form-create.d-flex.w-100.align-items-start.justify-content-around[data-controller="filepond"]
+    = hidden_field_tag :type, value: type
+    .form-create.d-flex.w-100.align-items-start.justify-content-around
       .left-form.w-100.p-2
         .form-group
-          = form.label :title, class:'col-form-label'
-          = form.text_field :title, class:'form-control'
+          .d-flex.align-items-center.gap-1
+            = form.label :title, class:'col-form-label'
+            span.text-danger
+              | *
+          = form.text_field :title, id: "plan_#{type}_title", class:'form-control'
+          .validates-message.d-none[id="#{type}_title_warning"]
+            .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
+              | #{} Title can't be blank.
         .form-group
           = form.label :descriptions, class:'col-form-label'
           = form.text_area :descriptions, class:"form-control h-100",  rows: "3", cols: "50"
@@ -13,17 +21,63 @@
           = form.label :plan_audience,"Plan audience", class:'col-form-label'
           = form.select(:plan_audience, Plan.plan_audiences.map { |plan_audience| plan_audience.first}, {}, { :class => 'form-select w-50' })
         .form-group
-          = form.label :time, class:'col-form-label'
-          = form.text_field :time, class:'form-control'
+          .d-flex.align-items-center.gap-1
+            = form.label :time, class:'col-form-label'
+            span.text-danger
+              | *
+          = form.text_field :time, id: "plan_#{type}_time", class:'form-control'
+          .validates-message.d-none[id="#{type}_time_warning"]
+            .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
+              | #{} Time can't be blank.
+        .activities
+          .form-group[id = "#{type}_activities_group"]
+            = form.label :activities, class:'col-form-label'
+            = form.text_field :activities, id: "plan_activities_#{type}", class:"form-control mt-1 d-none"
+            - if type == "new"
+              = form.text_field :activities_item, id: "plan_#{type}_activities_item", class:"form-control mt-1 input-activities-#{type}"
+            - else
+              - plan.activities.split(",").each do |activity|
+                  = form.text_field :activities_item,value: activity, class:"form-control mt-1 input-activities-#{type}"
+          span.text-danger.text-small.d-none[id="warning_#{type}"]
+            | Field can't be empty.
+          .d-flex.align-items-center.gap-2
+            span.btn.btn-sm.btn-primary.mt-2[id = "#{type}_add_activities" data-action="click->plan#addActivities"]
+              | Add Activity
+            span.btn.btn-sm.btn-secondary.mt-2.d-none[id="#{type}_close_activities" data-action="click->plan#removeActivities"]
+              | Close
       .right-form.w-100.p-2
-        .form-group
-          = form.label :image_description,"Image Description", class:'col-form-label'
+        .form-group[data-controller="filepond"]
+          .d-flex.align-items-center.gap-1
+            = form.label :image_description,"Image Description", class:'col-form-label'
+            span.text-danger
+              | *
           = form.file_field :image_description, class:'filepond-bg',data: {filepond_target:'img', files: filepond_initial_files(plan.image_description)}
+          #image-warning.validates-message.d-none
+            .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
+              | #{} Image description can't be blank.
         .form-group
-          = form.label :address, class:'col-form-label'
-          = form.text_field :address, class:'form-control'
+          .d-flex.align-items-center.gap-1
+            = form.label :address, class:'col-form-label'
+            span.text-danger
+              | *
+          = form.text_field :address, id: "plan_#{type}_address", class:'form-control'
+          .validates-message.d-none[id="#{type}_address_warning"]
+            .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
+              | #{} Address can't be blank.
         .form-group
-          = form.label :amount, class:'col-form-label'
-          = form.text_field :amount, class:"form-control"
+          .d-flex.align-items-center.gap-1
+            = form.label :budget, class:'col-form-label'
+            span.text-danger
+              | *
+          = form.text_field :amount, id: "plan_#{type}_budget", class:"form-control"
+          .validates-message.d-none[id="#{type}_budget_warning"]
+            .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
+              | #{} Budget can't be blank.
+
     .form-group.mt-2.d-flex.justify-content-end.w-100
-      = form.submit "Save", class:"btn btn-primary"
+      span.btn.btn-primary[id="btn-save-#{type}" data-action="click->plan#formSubmit"]
+        | Save

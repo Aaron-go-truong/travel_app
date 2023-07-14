@@ -53,8 +53,14 @@ export default class extends Controller {
     this.setupFilePond(imgTarget);
   }
 
-  showButton(target) {
-    target.classList.remove("d-none");
+  showButtonCancel() {
+    $("#btn-cancel-img").removeClass("d-none")
+    $("#btn_save_avt").addClass("d-none")
+  }
+
+  showButtonSave() {
+    $("#btn_save_avt").removeClass("d-none")
+    $("#btn-cancel-img").addClass("d-none")
   }
 
   setupFilePond(target) {
@@ -80,10 +86,10 @@ export default class extends Controller {
         inputElement?.remove();
       },
       onremovefile: (errRes, file) => {
-        this.showButton(this.buttoncancelTarget);
+        this.showButtonCancel();
       },
       onaddfilestart: (file) => {
-        this.showButton(this.buttonsaveTarget);
+        this.showButtonSave();
       },
     });
   }

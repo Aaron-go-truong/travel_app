@@ -4,7 +4,9 @@ class PlansController < ApplicationController
   before_action :find_plan, only: %i[show update destroy]
 
   def index
-    @plans = Plan.where.not(user_id: current_user.id).plan_parent.sort_most_recent
+    @plans = Plan.plan_parent.plan_active.sort_most_recent
+    @plans = @plans.where(user_id: params[:user_id]).plan_parent if params[:user_id].present?
+    @plans = @plans.favourite_plans(current_user.id) if params[:page] == 'favourite'
     @plans = @plans.includes(:user).filter_by_title(params[:search_content]).or(@plans.includes(:user).filter_by_username(params[:search_content])) if params[:search_content].present?
     if params[:sort_type].present?
       @plans =
@@ -19,7 +21,8 @@ class PlansController < ApplicationController
           @plans
         end
     end
-    respond_index_json('plan')
+    @plans = @plans.filter_by_status(params[:status_type]) if params[:status_type].present? && params[:status_type] != 'all'
+    respond_index_json('plan', 'create_plan')
   end
 
   def show; end
@@ -33,7 +36,6 @@ class PlansController < ApplicationController
     @plan = Plan.new(plan_params.merge(user_id: current_user.id))
     @plan.plan_details.map { |detail| detail.user_id = @plan.user_id }
     @plan.plan_parent_id = params[:parent_id].delete('value ') if params[:parent_id].delete('value ').present?
-
     if @plan.save
       @plan.image_description.attach(plan_params[:image_description])
       if @plan.plan_parent?
@@ -41,10 +43,8 @@ class PlansController < ApplicationController
       else
         redirect_to Plan.find(@plan.plan_parent_id)
       end
-    elsif @plan.plan_parent?
-      render :new
     else
-      render :edit
+      redirect_to plan_path(@plan)
     end
   end
 

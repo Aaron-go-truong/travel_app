@@ -13,7 +13,7 @@
             #btn-cancel-img.d-none.p-2.rounded.btn-cancel[data-filepond-target="buttoncancel" data-action="click->filepond#recover"]
                 span.text-primary.text-small
                   = I18n.t("devise.registrations.cancel-btn")
-            =f.submit "Save", class:'btn btn-primary text-small d-none',data: {filepond_target:'buttonsave'}
+            =f.submit "Save",id: "btn_save_avt", class:'btn btn-primary text-small d-none',data: {filepond_target:'buttonsave'}
             =f.file_field :avatar, class:'filepond-avatar',data: {filepond_target:'input',files: filepond_initial_files(@user.avatar)}
       .py-4.px-3.border-top.mt-2
         .row

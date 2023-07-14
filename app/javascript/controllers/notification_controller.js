@@ -7,7 +7,6 @@ export default class extends Controller {
   navigate() {
     let notification_id = this.notificationTarget.id;
     let url_target = $(`#url_${notification_id}`).val().replace("value ", "");
-
     if (this.noti_contentTarget.attributes.class.nodeValue == "noti-content") {
       $.ajax({
         type: "PATCH",

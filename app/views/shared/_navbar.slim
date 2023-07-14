@@ -11,11 +11,17 @@ nav#main-navbar.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top[data-con
       = render 'notifications/notification_center', notifications: current_user.notifications.newest_first if current_user
       .position-relative[data-action="navbar:click:outside->navbar#close"]
         a.d-flex.align-items-center[data-action="click->navbar#show_options"]
-          = image_tag url_for(current_user.avatar), class: "rounded-circle", height: "35", alt: "avatar", loading: "lazy"
+          = image_tag url_for(current_user.avatar), class: "rounded-circle", height: "40",width:"40", alt: "avatar", loading: "lazy"
         ul.position-absolute.user-options.card.d-none
-          li.user-options-item
-            => link_to 'Profile', edit_user_registration_path, class:"icon-default-color"
-          li.user-options-item
-            => link_to 'Setting', users_settings_path, class:"icon-default-color"
-          li.user-options-item
-            => link_to "Logout", destroy_user_session_path, method: :delete, class:"icon-default-color"
+          => link_to edit_user_registration_path do
+            li.user-options-item
+              span.icon-default-color
+                | Profile
+          => link_to users_settings_path do
+            li.user-options-item
+              span.icon-default-color
+                | Setting
+          => link_to destroy_user_session_path, method: :delete do
+            li.user-options-item
+              span.icon-default-color
+                | Logout

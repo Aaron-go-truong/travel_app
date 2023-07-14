@@ -10,7 +10,7 @@ class Admin::PlansController < Admin::BaseController
   def update_status
     @plan.update(deactivated: !@plan.deactivated)
     flash.now[:notice] = 'Status changed successfully.'
-    respond_index_json('shared/flash')
+    respond_index_json('shared/flash', 'shared/flash')
   end
 
   private

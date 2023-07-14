@@ -1,12 +1,12 @@
-= javascript_pack_tag 'users/user_show'
+/ = javascript_pack_tag 'users/user_show'
 
 section.h-100.gradient-custom-2
   .container.h-100.d-flex.align-items-start.justify-content-center
-    .container-profile
-      .img-bg
+    .container-profile.w-100
+      .img-bg.w-100
         = image_pack_tag 'bg.jpg', class: 'rounded-bottom h-100 w-100'
       .under-content.d-flex.px-4.align-items-end.justify-content-between
-        .d-flex.align-items-end.justify-content-center
+        .d-flex.align-items-end.justify-content-center.gap-2
           .img-avt
             = image_tag url_for(@user.avatar), class: "h-100 w-100 rounded-circle", style: "border: 2px solid  #1f618d"
           .ml-4
@@ -19,11 +19,18 @@ section.h-100.gradient-custom-2
               - @user.followers.each do |follower|
                 .img-icon.mt-2
                   = image_tag url_for(follower.avatar), class: "h-100 w-100 rounded-circle"
-        .d-flex
-          button.btn.btn-primary
-              i.fa-regular.fa-eye
-              |  Follow
-      .card.mt-3
+        .d-flex.gap-2
+          .follow[data-controller="follow"]
+            button.btn.btn-sm.flex-grow-1[id = @user.id type="button" class="#{ current_user.following?(@user) ? 'btn-secondary' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
+              - if current_user.following?(@user)
+                | Unfollow
+              - else
+                | Follow
+          .show-recommend[data-controller="user"]
+            button.btn.btn-sm[style="background: #e4e6eb" data-action="click->user#showSlider"]
+              i.fa-solid.fa-chevron-down
+              i.fa-solid.fa-chevron-up.d-none
+      #recommend.card.mt-3.mb-3.w-100.d-none[data-controller="user"]
         .d-flex.justify-content-start.align-items-center
           span
             | People You May Know
@@ -31,112 +38,71 @@ section.h-100.gradient-custom-2
           .carousel-container
             .inner-carousel
               .track
-                - User.all
-                .card-container
-                  .card.p-0
-                    .img-card
-                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
-                    .card-body
-                      h5.card-title
-                        span
-                          | Dimarco
-                      button.w-100.btn.btn-primary
-                        i.fa-regular.fa-eye
-                        |  Follow
-                .card-container
-                  .card.p-0
-                    .img-card
-                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
-                    .card-body
-                      h5.card-title
-                        span
-                          | Dimarco
-                      button.w-100.btn.btn-primary
-                        i.fa-regular.fa-eye
-                        |  Follow
-                .card-container
-                  .card.p-0
-                    .img-card
-                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
-                    .card-body
-                      h5.card-title
-                        span
-                          | Dimarco
-                      button.w-100.btn.btn-primary
-                        i.fa-regular.fa-eye
-                        |  Follow
-                .card-container
-                  .card.p-0
-                    .img-card
-                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
-                    .card-body
-                      h5.card-title
-                        span
-                          | Dimarco
-                      button.w-100.btn.btn-primary
-                        i.fa-regular.fa-eye
-                        |  Follow
-                .card-container
-                  .card.p-0
-                    .img-card
-                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
-                    .card-body
-                      h5.card-title
-                        span
-                          | Dimarco
-                      button.w-100.btn.btn-primary
-                        i.fa-regular.fa-eye
-                        |  Follow
-                .card-container
-                  .card.p-0
-                    .img-card
-                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
-                    .card-body
-                      h5.card-title
-                        span
-                          | Dimarco
-                      button.w-100.btn.btn-primary
-                        i.fa-regular.fa-eye
-                        |  Follow
-                .card-container
-                  .card.p-0
-                    .img-card
-                      img.w-100.h-100[src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl\u003d1" alt="Card image cap"]
-                    .card-body
-                      h5.card-title
-                        span
-                          | Dimarco
-                      button.w-100.btn.btn-primary
-                        i.fa-regular.fa-eye
-                        |  Follow
-
-          .prev.position-absolute
+                - @users.each do |user|
+                  -if user.id != current_user.id
+                    .card-container
+                      .card.p-0
+                        => link_to "/users/#{user.id}" do
+                          .img-card
+                            = image_tag user.avatar, class: "h-100 w-100"
+                        .card-body
+                          h5.card-title
+                            span
+                              | #{user.user_name}
+                          .follow[data-controller="follow"]
+                            button.btn.btn-sm.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-secondary' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
+                              - if current_user.following?(user)
+                                | Unfollow
+                              - else
+                                | Follow
+          .prev.position-absolute.d-none[data-action="click->user#prevAction"]
             i.fa-solid.fa-chevron-left.fa-lg
-          .next.position-absolute
+          .next.position-absolute[data-action="click->user#nextAction"]
             i.fa-solid.fa-chevron-right.fa-lg
-      .explore.w-100.mt-5[data-controller="plan"]
+      .explore.mt-4.w-100[data-controller="plan"]
+        = hidden_field_tag "page", value: "userProfile"
+        = hidden_field_tag "user_id", value: @user.id
         .d-flex.align-items-center.w-100.gap-3
-          .inputs[style="width: 70%"]
-            i.fa.fa-search[data-action="click->plan#filter_action" ]
+          .inputs[style="width: 55%"]
+            i.fa.fa-search[data-action="click->plan#filterAction" ]
             input#search.form-control[type="text" placeholder="Search PLans..." data-action="keydown->plan#search_input"]
           .d-flex.align-items-end.gap-2
             .sort
               span.text-small.text-muted
                 | Sort by
-              select#select-sort.form-select.form-select-sm[aria-label=".form-select-sm example" data-action="change->plan#filter_action"]
+              select#select-sort.form-select.form-select-sm[aria-label=".form-select-sm example" data-action="change->plan#filterAction"]
                 option[value="most_recent" selected]
                   | Most Recent
                 option[value="oldest"]
                   | Oldest
                 option[value="most_like"]
                   | Most Like
-            .text-muted.text-small.btn-clear.p-1.d-none[data-action="click->plan#clear_filter_action"]
+            .status-select[class="#{params[:page] == "myPlans" ? '' : 'd-none'}"]
+              span.text-small.text-muted
+                | Status
+              select#select-status.form-select.form-select-sm[aria-label=".form-select-sm example" data-action="change->plan#filterAction"]
+                option[value="all" selected]
+                  | All
+                option[value="0"]
+                  | Public
+                option[value="1"]
+                  | Followers
+                option[value="2"]
+                  | Only
+            .text-muted.text-small.btn-clear.py-1.px-2.d-none[data-action="click->plan#clearFilterAction"]
               .d-flex.align-items-center.gap-1
                 i.fa-solid.fa-xmark
                 span
                   | Clear filters
-        h4.text-muted.mt-3
-          span
-            | #{@user.user_name}'s Plans
-        #plans_list.row.row-cols-3.w-100.g-2
-          = render 'plans/plan', plans: Plan.where(user_id: @user.id)
+        #plans_list.row.row-cols-3.w-100.g-2.mt-3
+          - Plan.where(user_id: @user.id).each do |plan|
+            .col.mb-2[data-controller="plan" type="button"]
+              .position-relative.g-2.card-plan.rounded-3
+                => link_to plan_path(plan) do
+                  = image_tag url_for(plan.image_description), class: "w-100 card-height rounded-3 position-relative", id: plan.id.to_s, data: { plan_target: 'plancard'}
+                .position-absolute.bottom-0.title-plan.rounded-bottom-3
+                .position-absolute.bottom-0.p-2.w-100
+                  .d-flex.justify-content-between.align-items-center.w-100
+                    span.text-title--bold
+                      | #{plan.title}
+                    i.fa-solid.fa-heart[id= "like_#{plan.id}" data-plan-target="likebtn" data-action="click->plan#like_action" class="#{ plan.likes.where(user_id:current_user.id).blank? ? 'heart' : 'heart--active'}" ]
