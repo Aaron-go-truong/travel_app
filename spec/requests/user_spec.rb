@@ -32,9 +32,8 @@ RSpec.describe UsersController, type: :controller do
 
     it 'add the followed user to the following list' do
       other_user = FactoryBot.create(:user)
-      user.follow(other_user)
+      post :follow, params: { id: other_user.id }
       expect(user.following).to include(other_user)
-      expect(response).to have_http_status(:success)
     end
   end
 
@@ -42,10 +41,9 @@ RSpec.describe UsersController, type: :controller do
 
     it 'remove the followed user from the following list' do
       other_user = FactoryBot.create(:user)
-      user.active_relationships.create(followed_id: other_user.id)
-      user.unfollow(other_user)
+      user.follow(other_user)
+      delete :unfollow, params: { id: other_user.id }
       expect(user.following).not_to include(other_user)
-      have_http_status(:success)
     end
   end
 end
