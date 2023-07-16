@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-  let!(:user){ FactoryBot.create(:user)}
+  let!(:user){ create(:user)}
 
   before do
     sign_in user
@@ -31,7 +31,7 @@ RSpec.describe UsersController, type: :controller do
   describe 'POST #follow' do
 
     it 'add the followed user to the following list' do
-      other_user = FactoryBot.create(:user)
+      other_user = create(:user)
       post :follow, params: { id: other_user.id }
       expect(user.following).to include(other_user)
     end
@@ -40,7 +40,7 @@ RSpec.describe UsersController, type: :controller do
   describe 'DELETE #unfollow' do
 
     it 'remove the followed user from the following list' do
-      other_user = FactoryBot.create(:user)
+      other_user = create(:user)
       user.follow(other_user)
       delete :unfollow, params: { id: other_user.id }
       expect(user.following).not_to include(other_user)
