@@ -20,7 +20,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       other_user = create(:user)
       put :update_status, params: {id: other_user.id}
 
-      expect(other_user.deactivated).to eq(!other_user.deactivated)
+      expect(other_user.deactivated).to be true
       expect(response).to have_http_status(:success)
     end
   end

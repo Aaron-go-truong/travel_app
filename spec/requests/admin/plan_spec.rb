@@ -24,7 +24,7 @@ RSpec.describe Admin::PlansController, type: :controller do
       plan = create(:plan)
       put :update_status, params: {id: plan.id}
 
-      expect(plan.deactivated).to eq(!plan.deactivated)
+      expect(plan.deactivated).to be true
       expect(response).to have_http_status(:success)
     end
   end
