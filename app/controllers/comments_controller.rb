@@ -7,9 +7,8 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params.merge({ plan_id: @plan.id, user_id: current_user.id }))
     @comment.cmt_parent_id = params[:cmt_parent_id].delete('value ') unless params[:cmt_parent_id].delete('value ').nil?
 
-    if @comment.save
-      redirect_to plan_path(@plan)
-    end
+    @comment.save
+    redirect_to plan_path(@plan)
   end
 
   def update

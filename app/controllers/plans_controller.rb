@@ -1,7 +1,7 @@
 class PlansController < ApplicationController
   include Respondable
   skip_before_action :verify_authenticity_token
-  before_action :find_plan, only: %i[show update destroy]
+  before_action :find_plan, only: %i[show edit update destroy]
 
   def index
     @plans = Plan.plan_parent.plan_active.sort_most_recent
@@ -11,8 +11,6 @@ class PlansController < ApplicationController
     if params[:sort_type].present?
       @plans =
         case params[:sort_type]
-        when 'most_recent'
-          @plans.sort_most_recent
         when 'oldest'
           @plans.sort_oldest
         when 'most_like'
@@ -44,7 +42,7 @@ class PlansController < ApplicationController
         redirect_to Plan.find(@plan.plan_parent_id)
       end
     else
-      redirect_to plan_path(@plan)
+      render :new
     end
   end
 
