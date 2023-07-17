@@ -24,20 +24,20 @@ const baseOptions = {
   labelIdle: "Drag & drop here",
 };
 const avatarExtraOptions = {
-  imagePreviewHeight: 200,
+  imagePreviewHeight: 100,
   imageCropAspectRatio: "1:1",
-  imageResizeTargetWidth: 200,
-  imageResizeTargetHeight: 200,
+  imageResizeTargetWidth: 100,
+  imageResizeTargetHeight: 100,
   styleLoadIndicatorPosition: "center bottom",
   styleButtonRemoveItemPosition: "right bottom",
   stylePanelLayout: "compact circle",
 };
 
 const imgExtraOptions = {
-  imagePreviewHeight: 200,
+  imagePreviewHeight: 100,
   imageCropAspectRatio: "1:1",
-  imageResizeTargetWidth: 200,
-  imageResizeTargetHeight: 200,
+  imageResizeTargetWidth: 100,
+  imageResizeTargetHeight: 100,
   styleLoadIndicatorPosition: "center bottom",
   styleButtonRemoveItemPosition: "right bottom",
 };

@@ -2,7 +2,7 @@
   = form_with model: plan, data: {remote: true}, id: "plan_#{type}" do |form|
     = hidden_field_tag :parent_id, value: plan.plan_parent_id
     = hidden_field_tag :type, value: type
-    .form-create.d-flex.w-100.align-items-start.justify-content-around
+    .form-create.w-100.align-items-start.justify-content-around.plan-form-common
       .left-form.w-100.p-2
         .form-group
           .d-flex.align-items-center.gap-1
@@ -77,6 +77,9 @@
             .text-small.text-danger
               i.fa-solid.fa-circle-exclamation
               | #{} Budget can't be blank.
+        .form-group
+          = form.label :notes, class:'col-form-label'
+          = form.text_area :notes, class:"form-control h-100",  rows: "3", cols: "50"
 
     .form-group.mt-2.d-flex.justify-content-end.w-100
       span.btn.btn-primary[id="btn-save-#{type}" data-action="click->plan#formSubmit"]

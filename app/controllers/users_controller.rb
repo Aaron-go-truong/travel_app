@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :find_user, only: %i[follow unfollow]
 
   def index
-    @users = User.where(id: current_user.id)
+    @users = User.all
     @users = current_user.following if params[:sort_type] == 'followed'
     respond_index_json('user', 'user')
   end

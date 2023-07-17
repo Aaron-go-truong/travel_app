@@ -1,10 +1,16 @@
-#show-page
+#show-page[data-controller="plan"]
   .w-100
     = render 'plan_details', plan: @plan
-    .w-100.mt-2.px-5
+    -if @plan.plan_details.count>0
+      .view-details[type="button" data-action="click->plan#displayPlan"]
+        .d-flex.align-items-center.gap-2.text-muted
+          .text-small--bold
+            | View plan details
+          i.fa-solid.fa-caret-down
+    .w-100.mt-2.align-plan-details.d-none
       - @plan.plan_details.each do |plan_detail|
         = render 'plan_details', plan: plan_detail
-  #add-details[class="#{current_user.id != @plan.user_id ? 'd-none' : ''}" data-bs-toggle="modal" data-bs-target="#create_detailsModal"]
+  #add-details.mt-2[class="#{current_user.id != @plan.user_id ? 'd-none' : ''}" data-bs-toggle="modal" data-bs-target="#create_detailsModal"]
     h5.d-flex.align-items-center.gap-2
       i.fa-solid.fa-plus
       span
@@ -19,5 +25,3 @@
       .modal-body
         .w-100
           = render 'shared/new_plan_form', plan: @plan.plan_details.new, type: "new"
-  / = render 'comments/form', comment: @plan.comments.build
-  / = render @plan.comments

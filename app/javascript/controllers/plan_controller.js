@@ -197,4 +197,14 @@ export default class extends Controller {
       form.submit();
     }
   }
+
+  displayPlan() {
+    $(".align-plan-details").toggleClass("d-none");
+  }
+  modalShow() {
+    console.log($("#create_planModal"))
+    $("#create_planModal").addClass("show");
+    $("#create_planModal").css("display", "block");
+    console.log($("#create_planModal"))
+  }
 }

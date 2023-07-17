@@ -5,8 +5,8 @@ section.h-100.gradient-custom-2
     .container-profile.w-100
       .img-bg.w-100
         = image_pack_tag 'bg.jpg', class: 'rounded-bottom h-100 w-100'
-      .under-content.d-flex.px-4.align-items-end.justify-content-between
-        .d-flex.align-items-end.justify-content-center.gap-2
+      .under-content.px-4.align-items-end.justify-content-between
+        .user-details-reponsive.align-items-end.justify-content-center.gap-2
           .img-avt
             = image_tag url_for(@user.avatar), class: "h-100 w-100 rounded-circle", style: "border: 2px solid  #1f618d"
           .ml-4
@@ -19,7 +19,7 @@ section.h-100.gradient-custom-2
               - @user.followers.each do |follower|
                 .img-icon.mt-2
                   = image_tag url_for(follower.avatar), class: "h-100 w-100 rounded-circle"
-        .d-flex.gap-2
+        .d-flex.gap-2.user-details-action
           .follow[data-controller="follow"]
             button.btn.btn-sm.flex-grow-1[id = @user.id type="button" class="#{ current_user.following?(@user) ? 'btn-secondary' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
               - if current_user.following?(@user)
