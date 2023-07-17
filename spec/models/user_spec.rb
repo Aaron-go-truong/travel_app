@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  user = FactoryBot.create(:user)
+  user = create(:user)
 
   describe 'associations' do
     it "should have many plans" do
@@ -58,15 +58,15 @@ RSpec.describe User, type: :model do
     end
 
     it 'add user to following list when follow' do
-      user1 = FactoryBot.create(:user)
-      user2 = FactoryBot.create(:user)
+      user1 = create(:user)
+      user2 = create(:user)
       user1.follow(user2)
       expect(user1.following).to include(user2)
     end
 
     it 'remove user from following list when unfollow' do
-      user1 = FactoryBot.create(:user)
-      user2 = FactoryBot.create(:user)
+      user1 = create(:user)
+      user2 = create(:user)
       user1.active_relationships.create(followed_id: user2.id)
       user1.unfollow(user2)
       expect(user1.following).not_to include(user2)

@@ -62,9 +62,8 @@ RSpec.describe CommentsController, type: :controller do
 
     context 'invalid' do
       let(:comment_params) {{ content: '' }}
-
+      let!(:comment) {create(:comment, plan_id: plan.id, user_id: user.id)}
       it do
-        comment = create(:comment, plan_id: plan.id, user_id: user.id)
         put :update, params: { id: comment.id, comment: comment_params, plan_id: plan.id }
         expect(assigns(:comment).errors).not_to be_empty
       end
@@ -73,8 +72,8 @@ RSpec.describe CommentsController, type: :controller do
 
   describe 'DELETE #destroy' do
     let(:plan) { create(:plan) }
+    let!(:comment) {create(:comment, plan_id: plan.id, user_id: user.id)}
     it do
-      comment = create(:comment, plan_id: plan.id, user_id: user.id)
       delete :destroy, params: { plan_id: plan.id, id: comment.id}
 
       expect(assigns(:comment)).to eq(comment)

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
   let!(:user){ create(:user)}
+  let!(:other_user) {create(:user)}
 
   before do
     sign_in user
@@ -29,18 +30,14 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'POST #follow' do
-
     it 'add the followed user to the following list' do
-      other_user = create(:user)
       post :follow, params: { id: other_user.id }
       expect(user.following).to include(other_user)
     end
   end
 
   describe 'DELETE #unfollow' do
-
     it 'remove the followed user from the following list' do
-      other_user = create(:user)
       user.follow(other_user)
       delete :unfollow, params: { id: other_user.id }
       expect(user.following).not_to include(other_user)

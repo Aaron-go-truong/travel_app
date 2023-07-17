@@ -33,13 +33,14 @@ RSpec.describe LikesController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
+    let!(:like_comment) { create(:like, likeable_id: comment.id, likeable_type: comment.class.name, user_id: user.id) }
+    let!(:like_plan) { create(:like, likeable_id: plan.id, likeable_type: plan.class.name, user_id: user.id) }
+
     context 'delete like comment' do
       let(:like_params) {{ likeable_id: comment.id, likeable_type: comment.class.name }}
       it do
-        like = create(:like, likeable_id: comment.id, likeable_type: comment.class.name, user_id: user.id)
         delete :destroy, params: { user_id: user.id, like: like_params, plan_id: plan.id }
-
-        expect(assigns(:like)).to eq(like)
+        expect(assigns(:like)).to eq(like_comment)
         expect(assigns(:like)).to be_destroyed
         expect(response).to redirect_to(plan_path(plan))
       end
@@ -48,10 +49,9 @@ RSpec.describe LikesController, type: :controller do
     context 'delete like plan' do
       let(:like_params) {{ likeable_id: plan.id, likeable_type: plan.class.name }}
       it do
-        like = create(:like, likeable_id: plan.id, likeable_type: plan.class.name, user_id: user.id)
         delete :destroy, params: { user_id: user.id, like: like_params, plan_id: plan.id }
 
-        expect(assigns(:like)).to eq(like)
+        expect(assigns(:like)).to eq(like_plan)
         expect(assigns(:like)).to be_destroyed
         expect(response).to redirect_to(plan_path(plan))
       end

@@ -19,9 +19,11 @@ RSpec.describe PlansController, type: :controller do
     end
 
     context 'filter' do
+      let!(:plan1) { create(:plan, title: 'Vung Tau Travel', user_id: user.id) }
+      let!(:plan2) { create(:plan, title: 'Phu Yen Travel', user_id: user.id) }
+      let!(:like) { create(:like, likeable_id: plan1.id, likeable_type: "Plan", user_id: user.id) }
+
       it 'assigns the filtered plans if search parameter is provided' do
-        plan1 = create(:plan, title: 'Vung Tau Travel')
-        plan2 = create(:plan, title: 'Nha Trang Travel')
         get :index, params: { search_content: 'Vung Tau' }
 
         expect(assigns(:plans)).to eq([plan1])
@@ -29,18 +31,12 @@ RSpec.describe PlansController, type: :controller do
       end
 
       it 'assigns the filtered plans if page parameter is provided' do
-        plan = create(:plan, title: 'Vung Tau Travel')
-        user.likes.create(likeable_id: plan.id, likeable_type: "Plan", user_id: user.id)
-
         get :index, params: { page: 'favourite' }
-        expect(assigns(:plans)).to eq([plan])
+        expect(assigns(:plans)).to eq([plan1])
         expect(response).to have_http_status(:success)
       end
 
       it 'assigns the filtered plans if user_id parameter is provided' do
-        plan1 = create(:plan, title: 'Vung Tau Travel', user_id: user.id)
-        plan2 = create(:plan, title: 'Phu Yen Travel', user_id: user.id)
-
         get :index, params: { user_id: user.id }
         expect(assigns(:plans)).to eq([plan2,plan1])
         expect(response).to have_http_status(:success)
@@ -48,26 +44,18 @@ RSpec.describe PlansController, type: :controller do
 
       context "sort" do
         it 'update plans in asc order of creation time' do
-          plan1 = create(:plan, title: 'Vung Tau Travel', user_id: user.id)
-          plan2 = create(:plan, title: 'Phu Yen Travel', user_id: user.id)
-
           get :index, params: {user_id: user.id}
           expect(assigns(:plans)).to eq([plan2,plan1])
           expect(response).to have_http_status(:success)
         end
 
         it 'update plans in descending order of creation time' do
-          plan1 = create(:plan, title: 'Vung Tau Travel', user_id: user.id)
-          plan2 = create(:plan, title: 'Phu Yen Travel', user_id: user.id)
-
           get :index, params: { sort_type: 'oldest', user_id: user.id }
           expect(assigns(:plans)).to eq([plan1,plan2])
           expect(response).to have_http_status(:success)
         end
 
         it 'update plans according to the number of likes' do
-          plan1 = create(:plan, title: 'Vung Tau Travel', user_id: user.id)
-          plan2 = create(:plan, title: 'Phu Yen Travel', user_id: user.id)
           user.likes.create(likeable_id: plan1.id, likeable_type: "Plan", user_id: user.id)
 
           get :index, params: { sort_type: 'most_like', user_id: user.id }
@@ -111,10 +99,9 @@ RSpec.describe PlansController, type: :controller do
 
   describe 'POST #update' do
     context 'valid' do
-      let(:plan_params) { { title: 'updated_title' } }
-
+      let!(:plan_params) { { title: 'updated_title' } }
+      let!(:plan) {create(:plan, user_id: user.id )}
       it do
-        plan = create(:plan, user_id: user.id )
         put :update, params: { id: plan.id, plan: plan_params }
         plan.reload
 
