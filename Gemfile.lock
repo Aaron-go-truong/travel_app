@@ -286,6 +286,11 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
+    sentry-rails (5.10.0)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.10.0)
+    sentry-ruby (5.10.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
     simple_form (5.2.0)
@@ -378,6 +383,8 @@ DEPENDENCIES
   sass-rails (>= 6)
   seedbank
   selenium-webdriver (>= 4.0.0.rc1)
+  sentry-rails
+  sentry-ruby
   shoulda-matchers
   simple_form
   simplecov (~> 0.17.1)
