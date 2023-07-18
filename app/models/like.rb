@@ -34,12 +34,13 @@ class Like < ApplicationRecord
       @plan.likes_count += 1
       @plan.save
     end
-
-    LikeNotification.with(
-      like: self,
-      user: user,
-      plan: likeable_type == 'Plan' ? likeable : Plan.find(likeable.plan_id)
-    ).deliver_later(likeable.user)
+    if user.id != plan.user_id
+      LikeNotification.with(
+        like: self,
+        user: user,
+        plan: likeable_type == 'Plan' ? likeable : Plan.find(likeable.plan_id)
+      ).deliver_later(likeable.user)
+    end
   end
 
   def sub_likes_count

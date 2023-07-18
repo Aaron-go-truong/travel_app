@@ -37,14 +37,18 @@
             - if type == "new"
               = form.text_field :activities_item, id: "plan_#{type}_activities_item", class:"form-control mt-1 input-activities-#{type}"
             - else
-              - plan.activities.split(",").each do |activity|
-                  = form.text_field :activities_item,value: activity, class:"form-control mt-1 input-activities-#{type}"
+              - if plan.activities.present?
+                - plan.activities.split(",").each do |activity|
+                  = form.text_field :activities_item, id: "plan_#{type}_activities_item", value: activity, class:"form-control mt-1 input-activities-#{type}"
+              - else
+                = form.text_field :activities_item, id: "plan_#{type}_activities_item", class:"form-control mt-1 input-activities-#{type}"
+
           span.text-danger.text-small.d-none[id="warning_#{type}"]
             | Field can't be empty.
           .d-flex.align-items-center.gap-2
             span.btn.btn-sm.btn-primary.mt-2[id = "#{type}_add_activities" data-action="click->plan#addActivities"]
               | Add Activity
-            span.btn.btn-sm.btn-secondary.mt-2.d-none[id="#{type}_close_activities" data-action="click->plan#removeActivities"]
+            span.btn.btn-sm.btn-secondary.mt-2[id="#{type}_close_activities" class="#{plan.activities.present? ? plan.activities.split(",").count>1 ? '' : 'd-none' : 'd-none'}" data-action="click->plan#removeActivities"]
               | Close
       .right-form.w-100.p-2
         .form-group[data-controller="filepond"]

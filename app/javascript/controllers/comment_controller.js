@@ -20,7 +20,8 @@ export default class extends Controller {
     let comment_id = this.likebtnTarget.id.replace("cmt_", "");
     let plan_id = $("#plan_id").val().replace("value ", "");
     let is_liked = like_elm.hasClass("btn-blue");
-
+    let comment_like_count = $(`#cmt_count_${comment_id}`);
+    let like_count = Number(comment_like_count.text());
     $.ajax({
       type: is_liked ? "DELETE" : "POST",
       url: is_liked ? url + "_destroy" : url + "_new",
@@ -36,9 +37,21 @@ export default class extends Controller {
         if (is_liked) {
           like_elm.removeClass("btn-blue");
           like_elm.addClass("text-grey");
+          if (like_count == 1) {
+            comment_like_count.addClass("d-none");
+          }
+          comment_like_count.removeClass("btn-blue");
+          comment_like_count.addClass("text-grey");
+          comment_like_count.text(like_count - 1);
         } else {
           like_elm.removeClass("text-grey");
           like_elm.addClass("btn-blue");
+          if (like_count == 0) {
+            comment_like_count.removeClass("d-none");
+          }
+          comment_like_count.addClass("btn-blue");
+          comment_like_count.removeClass("text-grey");
+          comment_like_count.text(like_count + 1);
         }
       },
       error(data) {
@@ -94,11 +107,9 @@ export default class extends Controller {
     let comment_id = this.reply_commentTarget.id.replace("reply_", "");
     let comment_reply_element = $(`#reply_cmt_${comment_id}`);
     comment_reply_element.removeClass("d-none");
-
   }
 
   delete_action(event) {
-
     $.ajax({
       type: "DELETE",
       url: event.target.nextElementSibling.href,

@@ -18,6 +18,8 @@
                     a#like-cmt
                       span.like-cmt.small.text-small--bold[ id = "cmt_#{comment.id}" class="#{ comment.likes.where(user_id:current_user.id).blank? ? 'text-grey' : 'btn-blue'}"  data-comment-target="likebtn" data-action="click->comment#like_action"]
                         |  Like
+                      span.like-cmt.small.text-small--bold.ms-2[ id = "cmt_count_#{comment.id}" class="#{ comment.likes.where(user_id:current_user.id).blank? ? 'text-grey' : 'btn-blue'} #{comment.likes.count>0 ? '' : 'd-none'}"  data-comment-target="likebtn" data-action="click->comment#like_action"]
+                        = comment.likes.count
                     a[id="reply_#{comment.id}" data-comment-target="reply_comment" data-action="click->comment#reply_action"]
                       span.small.text-small--bold.text-grey
                         |  Reply

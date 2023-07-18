@@ -207,4 +207,46 @@ export default class extends Controller {
     $("#create_planModal").css("display", "block");
     console.log($("#create_planModal"))
   }
+
+  likeDetail(event) {
+    let url = `/like`;
+    let like_elm = $(`#${event.target.id}`);
+    let plan_id = event.target.id.replace("like_section_","")
+    let is_liked = like_elm.hasClass("like-color");
+    let like_count = Number($(`#like-count-${plan_id}`).text());
+
+    $.ajax({
+      type: is_liked ? "DELETE" : "POST",
+      url: is_liked ? url + "_destroy" : url + "_new",
+      dataType: "html",
+      data: {
+        like: {
+          likeable_id: plan_id,
+          likeable_type: "Plan",
+        },
+        plan_id: plan_id,
+      },
+      success(data) {
+        if (is_liked) {
+          if (like_count == 1) {
+            $(`#like-count-${plan_id}`).addClass("d-none");
+          } else {
+            $(`#like-count-${plan_id}`).text(like_count - 1);
+          }
+          like_elm.removeClass("like-color");
+          like_elm.addClass("text-muted");
+        } else {
+          if (like_count == 0) {
+            $(`#like-count-${plan_id}`).removeClass("d-none");
+          }
+          $(`#like-count-${plan_id}`).text(like_count + 1);
+          like_elm.removeClass("text-muted");
+          like_elm.addClass("like-color");
+        }
+      },
+      error(data) {
+        return false;
+      },
+    });
+  }
 }
