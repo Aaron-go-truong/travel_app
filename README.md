@@ -5,10 +5,10 @@ Travel GO is is an application to share travel plans online.
 - User can register/update account (email confirm).
 - User can create/update travel plans and share with everyone on the system
 - User can create/update comments on other users' travel plans.
-- User can like/dislike other users' travel plans.
+- User can like/dislike other users' travel plans/comments.
 - User can follow/unfollow other users.
 - User can receive notifications when a relevant event occurs through real-time notifications.
-- Admin can create/update/deactive employees account.
+- Admin can active/deactive employees account.
 
 ## General Information
 - [Ruby]: (v3.1.2) - A dynamic, open source programming language.
@@ -58,6 +58,7 @@ travel_app
 │  │  │  ├─ admin
 │  │  │  ├─ application
 │  │  │  ├─ devise
+│  │  │  ├─ users
 │  │  │  └─ shared
 │  │  ├─ fonts
 │  │  ├─ images
@@ -97,4 +98,4 @@ travel_app
 [StimulusJs]: <https://stimulus.hotwired.dev/>
 [Redis]: <https://redis.io/>
 [Cloudinary]: <https://cloudinary.com/>
-[Cloudinary]: <https://jquery.com/>
+[jQuery]: <https://jquery.com/>

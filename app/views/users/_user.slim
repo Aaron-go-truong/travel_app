@@ -14,7 +14,7 @@
                 p.small.text-muted.mb-1
                   | Plans
                 p.mb-0[id="#{user.id}-plans-count"]
-                  | #{user.plans.count}
+                  | #{user.plans.plan_parent.plan_active.count}
               .px-3
                 p.small.text-muted.mb-1
                   | Followers

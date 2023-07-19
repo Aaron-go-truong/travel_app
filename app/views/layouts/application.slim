@@ -25,11 +25,11 @@ html
 
     - if user_signed_in?
       = render 'shared/navbar'
-      .container[style="margin-top: 6rem"]
+      .container-lg[style="margin-top: 6rem"]
         .row
-          .col-2
+          .col-2.show-sidebar
             = render 'shared/sidebar', isAdmin: current_user.has_role?(:admin)
-          .col-10.scroll-view
+          .col-10.scroll-view.content-section
             = yield
     - else
       = yield

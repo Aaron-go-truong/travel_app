@@ -2,7 +2,7 @@
   = form_with model: plan, data: {remote: true}, id: "plan_#{type}" do |form|
     = hidden_field_tag :parent_id, value: plan.plan_parent_id
     = hidden_field_tag :type, value: type
-    .form-create.d-flex.w-100.align-items-start.justify-content-around
+    .form-create.w-100.align-items-start.justify-content-around.plan-form-common
       .left-form.w-100.p-2
         .form-group
           .d-flex.align-items-center.gap-1
@@ -20,16 +20,7 @@
         .form-group.w-100
           = form.label :plan_audience,"Plan audience", class:'col-form-label'
           = form.select(:plan_audience, Plan.plan_audiences.map { |plan_audience| plan_audience.first}, {}, { :class => 'form-select w-50' })
-        .form-group
-          .d-flex.align-items-center.gap-1
-            = form.label :time, class:'col-form-label'
-            span.text-danger
-              | *
-          = form.text_field :time, id: "plan_#{type}_time", class:'form-control'
-          .validates-message.d-none[id="#{type}_time_warning"]
-            .text-small.text-danger
-              i.fa-solid.fa-circle-exclamation
-              | #{} Time can't be blank.
+
         .activities
           .form-group[id = "#{type}_activities_group"]
             = form.label :activities, class:'col-form-label'
@@ -37,14 +28,20 @@
             - if type == "new"
               = form.text_field :activities_item, id: "plan_#{type}_activities_item", class:"form-control mt-1 input-activities-#{type}"
             - else
-              - plan.activities.split(",").each do |activity|
-                  = form.text_field :activities_item,value: activity, class:"form-control mt-1 input-activities-#{type}"
-          span.text-danger.text-small.d-none[id="warning_#{type}"]
-            | Field can't be empty.
+              - if plan.activities.present?
+                - plan.activities.split(",").each do |activity|
+                  = form.text_field :activities_item, id: "plan_#{type}_activities_item", value: activity, class:"form-control mt-1 input-activities-#{type}"
+              - else
+                = form.text_field :activities_item, id: "plan_#{type}_activities_item", class:"form-control mt-1 input-activities-#{type}"
+
+          .validates-message.d-none[id="warning_#{type}"]
+            .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
+              | #{} Budget can't be blank.
           .d-flex.align-items-center.gap-2
             span.btn.btn-sm.btn-primary.mt-2[id = "#{type}_add_activities" data-action="click->plan#addActivities"]
               | Add Activity
-            span.btn.btn-sm.btn-secondary.mt-2.d-none[id="#{type}_close_activities" data-action="click->plan#removeActivities"]
+            span.btn.btn-sm.btn-secondary.mt-2[id="#{type}_close_activities" class="#{plan.activities.present? ? plan.activities.split(",").count>1 ? '' : 'd-none' : 'd-none'}" data-action="click->plan#removeActivities"]
               | Close
       .right-form.w-100.p-2
         .form-group[data-controller="filepond"]
@@ -77,6 +74,19 @@
             .text-small.text-danger
               i.fa-solid.fa-circle-exclamation
               | #{} Budget can't be blank.
+        .form-group
+          .d-flex.align-items-center.gap-1
+            = form.label :time, class:'col-form-label'
+            span.text-danger
+              | *
+          = form.text_field :time, id: "plan_#{type}_time", class:'form-control'
+          .validates-message.d-none[id="#{type}_time_warning"]
+            .text-small.text-danger
+              i.fa-solid.fa-circle-exclamation
+              | #{} Time can't be blank.
+        / .form-group
+        /   = form.label :notes, class:'col-form-label'
+        /   = form.text_area :notes, class:"form-control h-100",  rows: "3", cols: "50"
 
     .form-group.mt-2.d-flex.justify-content-end.w-100
       span.btn.btn-primary[id="btn-save-#{type}" data-action="click->plan#formSubmit"]

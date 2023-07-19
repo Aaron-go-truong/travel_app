@@ -1,14 +1,18 @@
-- plans.each do |plan|
-  .col.mb-2[data-controller="plan" type="button"]
+- @plans.each do |plan|
+  .col.mb-2.plan-reponsive[data-controller="plan" type="button"]
     .position-relative.g-2.card-plan.rounded-3
       => link_to plan_path(plan) do
         = image_tag url_for(plan.image_description), class: "w-100 card-height rounded-3 position-relative", id: plan.id.to_s, data: { plan_target: 'plancard'}
-      .position-absolute.bottom-0.title-plan.rounded-bottom-3
-      .position-absolute.bottom-0.p-2.w-100
-        .d-flex.justify-content-between.align-items-center.w-100
-          span.text-title--bold
-            | #{plan.title}
-          .d-flex.align-items-center.justify-conten-center.gap-1
-            i.fa-solid.fa-heart[id= "like_#{plan.id}" data-plan-target="likebtn" data-action="click->plan#like_action" class="#{ plan.likes.where(user_id:current_user.id).blank? ? 'heart' : 'heart--active'}" ]
-            span.text-underline-hover.text-medium[id="like-count-#{plan.id}" class="#{plan.likes_count > 0 ? '' : 'd-none'}" style="color: white; font-weight: 600"]
-              | #{plan.likes_count}
+
+      .position-absolute.bottom-0.w-100.plan-card-title
+        => link_to plan_path(plan) do
+          .position-relative.title-plan.rounded-bottom-3
+        .position-absolute.plan-title-absolute.w-100
+          .d-flex.justify-content-between.align-items-center.w-100.p-2
+            => link_to plan_path(plan) do
+              span.text-title--bold
+                | #{plan.title}
+            .d-flex.align-items-center.justify-conten-center.gap-1
+              i.fa-solid.fa-heart[id= "like_#{plan.id}" data-plan-target="likebtn" data-action="click->plan#like_action" class="#{ plan.likes.where(user_id:current_user.id).blank? ? 'heart' : 'heart--active'}" ]
+              span.text-underline-hover.text-medium[id="like-count-#{plan.id}" class="#{plan.likes_count > 0 ? '' : 'd-none'}" style="color: white; font-weight: 600"]
+                | #{plan.likes_count}

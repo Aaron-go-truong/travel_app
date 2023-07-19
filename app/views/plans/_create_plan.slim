@@ -1,9 +1,9 @@
-#create-plan.col.mb-2.card-height[class="#{params[:page]=="myPlans" ? '' : 'd-none'}"]
+#create-plan.col.mb-2.card-height[class="#{params[:user_id].present?  ? '' : 'd-none'}" data-controller="plan"]
   .w-100.h-100.addplan-card.rounded-3.d-flex.align-items-center.justify-content-center.gap-2
     i.fa-solid.fa-plus.addplan
-    span.addplan[data-bs-toggle="modal" data-bs-target="#create_planModal"]
+    span.addplan[data-bs-toggle="modal" data-bs-target="#create_planModal" data-action="click->plan#modalShow"]
       | Create new plan
-  #create_planModal.modal.fade[tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"]
+  #create_planModal.modal.fade[tabindex="-1" role="document" aria-labelledby="exampleModalLabel" aria-hidden="true"]
     .modal-dialog[role="document" style="min-width: 70%"]
       .modal-content
         .modal-header

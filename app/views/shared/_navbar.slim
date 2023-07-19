@@ -1,10 +1,13 @@
 nav#main-navbar.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top[data-controller="navbar"]
   .container-fluid
-    button.navbar-toggler[type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"]
-      i.fas.fa-bars
+    .right-navbar.position-relative[data-action="navbar:click:outside->navbar#close"]
+      i.fas.fa-bars.navbar-toggler[data-action="click->navbar#show_sidebar" type="button"]
+      .position-absolute.sidebar.d-none
+        .card[style="padding: 0.5rem; width: 10rem"]
+          = render 'shared/sidebar', isAdmin: current_user.has_role?(:admin)
     => link_to root_path, class: 'navbar-brand'
       .d-flex.align-items-center.gap-1
-        = image_pack_tag 'logo.jpeg', class: 'image',height: "50", alt: "Travel Logo", loading: "lazy"
+        = image_pack_tag 'logo.jpeg',height: "50", width: "50", alt: "Travel Logo", loading: "lazy"
         header[style="#1f618d"]
           | Travel GO
     .d-flex.align-items-center.justify-content-center.gap-3
@@ -17,10 +20,10 @@ nav#main-navbar.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top[data-con
             li.user-options-item
               span.icon-default-color
                 | Profile
-          => link_to users_settings_path do
-            li.user-options-item
-              span.icon-default-color
-                | Setting
+          / => link_to users_settings_path do
+          /   li.user-options-item
+          /     span.icon-default-color
+          /       | Setting
           => link_to destroy_user_session_path, method: :delete do
             li.user-options-item
               span.icon-default-color

@@ -11,7 +11,10 @@ import "@tabler/core/dist/js/tabler.min";
 import "@tabler/core/dist/css/tabler.min.css";
 
 import "@/channels";
-import "@/controllers";
+import "@/controllers"
+import "@/controllers/application";
+import "@/controllers/admin";
+import "@/controllers/shared";
 import "@/styles/index.sass";
 
 Rails.start();

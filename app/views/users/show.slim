@@ -5,8 +5,8 @@ section.h-100.gradient-custom-2
     .container-profile.w-100
       .img-bg.w-100
         = image_pack_tag 'bg.jpg', class: 'rounded-bottom h-100 w-100'
-      .under-content.d-flex.px-4.align-items-end.justify-content-between
-        .d-flex.align-items-end.justify-content-center.gap-2
+      .under-content.px-4.align-items-end.justify-content-between
+        .user-details-reponsive.align-items-end.justify-content-center.gap-2
           .img-avt
             = image_tag url_for(@user.avatar), class: "h-100 w-100 rounded-circle", style: "border: 2px solid  #1f618d"
           .ml-4
@@ -19,7 +19,7 @@ section.h-100.gradient-custom-2
               - @user.followers.each do |follower|
                 .img-icon.mt-2
                   = image_tag url_for(follower.avatar), class: "h-100 w-100 rounded-circle"
-        .d-flex.gap-2
+        .d-flex.gap-2.user-details-action
           .follow[data-controller="follow"]
             button.btn.btn-sm.flex-grow-1[id = @user.id type="button" class="#{ current_user.following?(@user) ? 'btn-secondary' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
               - if current_user.following?(@user)
@@ -41,7 +41,7 @@ section.h-100.gradient-custom-2
                 - @users.each do |user|
                   -if user.id != current_user.id
                     .card-container
-                      .card.p-0
+                      .card.p-1
                         => link_to "/users/#{user.id}" do
                           .img-card
                             = image_tag user.avatar, class: "h-100 w-100"
@@ -50,14 +50,14 @@ section.h-100.gradient-custom-2
                             span
                               | #{user.user_name}
                           .follow[data-controller="follow"]
-                            button.btn.btn-sm.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-secondary' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
+                            button.btn.w-100.flex-grow-1[id = user.id type="button" class="#{ current_user.following?(user) ? 'btn-secondary' : 'btn-primary'}" data-follow-target="flbutton" data-action="click->follow#follow_action"]
                               - if current_user.following?(user)
                                 | Unfollow
                               - else
                                 | Follow
           .prev.position-absolute.d-none[data-action="click->user#prevAction"]
             i.fa-solid.fa-chevron-left.fa-lg
-          .next.position-absolute[data-action="click->user#nextAction"]
+          .next.position-absolute[class="#{@users.count>0 ? '' : 'd-none'}" data-action="click->user#nextAction"]
             i.fa-solid.fa-chevron-right.fa-lg
       .explore.mt-4.w-100[data-controller="plan"]
         = hidden_field_tag "page", value: "userProfile"
@@ -65,7 +65,7 @@ section.h-100.gradient-custom-2
         .d-flex.align-items-center.w-100.gap-3
           .inputs[style="width: 55%"]
             i.fa.fa-search[data-action="click->plan#filterAction" ]
-            input#search.form-control[type="text" placeholder="Search PLans..." data-action="keydown->plan#search_input"]
+            input#search.form-control[type="text" placeholder="Search Plans..." data-action="keydown->plan#search_input"]
           .d-flex.align-items-end.gap-2
             .sort
               span.text-small.text-muted
@@ -95,14 +95,20 @@ section.h-100.gradient-custom-2
                 span
                   | Clear filters
         #plans_list.row.row-cols-3.w-100.g-2.mt-3
-          - Plan.where(user_id: @user.id).each do |plan|
-            .col.mb-2[data-controller="plan" type="button"]
+          - Plan.where(user_id: @user.id).plan_parent.plan_active.sort_most_recent.each do |plan|
+            .col.mb-2.plan-reponsive[data-controller="plan" type="button"]
               .position-relative.g-2.card-plan.rounded-3
                 => link_to plan_path(plan) do
                   = image_tag url_for(plan.image_description), class: "w-100 card-height rounded-3 position-relative", id: plan.id.to_s, data: { plan_target: 'plancard'}
-                .position-absolute.bottom-0.title-plan.rounded-bottom-3
-                .position-absolute.bottom-0.p-2.w-100
-                  .d-flex.justify-content-between.align-items-center.w-100
-                    span.text-title--bold
-                      | #{plan.title}
-                    i.fa-solid.fa-heart[id= "like_#{plan.id}" data-plan-target="likebtn" data-action="click->plan#like_action" class="#{ plan.likes.where(user_id:current_user.id).blank? ? 'heart' : 'heart--active'}" ]
+                .position-absolute.bottom-0.w-100.plan-card-title
+                  => link_to plan_path(plan) do
+                    .position-relative.title-plan.rounded-bottom-3
+                  .position-absolute.plan-title-absolute.w-100
+                    .d-flex.justify-content-between.align-items-center.w-100.p-2
+                      => link_to plan_path(plan) do
+                        span.text-title--bold
+                          | #{plan.title}
+                      .d-flex.align-items-center.justify-conten-center.gap-1
+                        i.fa-solid.fa-heart[id= "like_#{plan.id}" data-plan-target="likebtn" data-action="click->plan#like_action" class="#{ plan.likes.where(user_id:current_user.id).blank? ? 'heart' : 'heart--active'}" ]
+                        span.text-underline-hover.text-medium[id="like-count-#{plan.id}" class="#{plan.likes_count > 0 ? '' : 'd-none'}" style="color: white; font-weight: 600"]
+                          | #{plan.likes_count}

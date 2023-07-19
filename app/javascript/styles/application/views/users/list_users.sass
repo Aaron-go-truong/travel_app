@@ -1,10 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap")
-
-body
-  background-color: #eee
-  font-family: "Poppins", sans-serif
-  font-weight: 300
-
 .min-width
   min-width: 14rem
 
@@ -21,10 +14,9 @@ body
   border: none
 
 .active
-
   background: #f6f7fb !important
   border-color: #f6f7fb !important
-  color: #000 !important
+  color: $black !important
   font-size: 12px
 
 .inputs
@@ -36,12 +28,12 @@ body
   border: none
   height: 55px
   border-radius: 0px
-  border-bottom: 1px solid #eee
+  border-bottom: 1px solid $grey-bg
 
   &:focus
     color: #495057
-    background-color: #fff
-    border-color: #eee
+    background-color: $white
+    border-color: $grey-bg
     outline: 0
     box-shadow: none
     border-bottom: 1px solid blue
@@ -50,7 +42,6 @@ body
     color: blue
 
 .inputs i
-
   position: absolute
   top: 50%
   transform: translateY(-50%)
@@ -73,15 +64,14 @@ body
 
 .user-image
   border-radius: 0.625rem
-  width: 8rem
-  min-height: 8rem
-  max-height: 8rem
+  width: 7.5rem
+  height: 7.5rem
 
 .user-card
-  min-width: 22.5rem
+  max-width: 18rem
 
 .unfollow-btn
-  background-color: #c0c0c0
+  background-color: $grey-btn-secondary
 
 a
   text-decoration: none !important

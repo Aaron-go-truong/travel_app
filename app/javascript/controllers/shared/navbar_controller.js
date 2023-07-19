@@ -10,12 +10,19 @@ export default class extends Controller {
   }
 
   close(event) {
-    $('.user-options').hide()
+    $('.user-options').addClass('d-none')
+    $('.sidebar').addClass('d-none')
   }
 
   show_options(event) {
     $(()=>{
       $('.user-options').toggleClass('d-none');
+    })
+  }
+
+  show_sidebar(){
+    $(()=>{
+      $('.sidebar').toggleClass('d-none');
     })
   }
 }

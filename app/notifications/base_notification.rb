@@ -7,7 +7,7 @@ class BaseNotification < Noticed::Base
       notification: ApplicationController.renderer.render(
         partial: 'notifications/notification',
         locals: {
-          notification: recipient.notifications.newest_first.first
+          notification: recipient.notifications.newest_first
         }
       ),
       counter: recipient.notifications.unread.size

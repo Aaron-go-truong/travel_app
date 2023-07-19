@@ -5,7 +5,7 @@ FactoryBot.define do
     amount {Faker::Number.number(digits: 8)}
     time {Faker::Number.number(digits: 2)}
     address { Faker::Address.street_address }
-    plan_audience { Plan.plan_audiences.values.sample }
+    plan_audience { Plan.plan_audiences.keys.sample }
 
     association :user
   end

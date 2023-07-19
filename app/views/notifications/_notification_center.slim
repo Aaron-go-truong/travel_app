@@ -10,7 +10,7 @@
       .position-relative
         .more-options.rounded-circle.d-flex.justify-content-center.align-items-center
           i.fa-solid.fa-ellipsis[type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
-        .mark-as-read.position-absolute.d-none[data-action="click->notification#mark_all_as_read"]
+        .mark-as-read.position-absolute[class="d-none" data-action="click->notification#mark_all_as_read"]
           .card[style="padding:0.25rem"]
             .option
               | Mark all as read
@@ -20,6 +20,10 @@
       strong#unread-noti.filter-noti
         | Unread
     #notificationsBody.notifications
-      ul#notificationList.mt-2
-        = render partial: 'notifications/notification', collection: notifications
+      - if notifications.count>0
+        ul#notificationList.mt-2
+          = render partial: 'notifications/notification', collection: notifications
+      - else
+        h5.mt-3.text-muted.ms-2
+          | Nothing here!
     #notificationFooter

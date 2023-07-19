@@ -13,3 +13,34 @@
 .dynamic-height
   -webkit-transform: translateY(100%)
   transform: translateY(100%)
+
+.hide-sidebar, .right-navbar
+  display: none
+
+.budget-info, .time-info, .plan-form-common
+  display: flex
+
+@media (max-width: 995px)
+  .show-sidebar
+    display: none
+  .content-section
+    width: 100% !important
+  .right-navbar
+    display: block
+
+@media (max-width: 520px)
+  .align-plan-details
+    padding-left: 0 !important
+  .plan-form-common, .plan-details-reponsive, .user-details-reponsive, .under-content
+    display: block !important
+  .image-reponsive, .card-reponsive
+    width: 100% !important
+  .plan-reponsive
+    width: 50% !important
+  .plan-card-title
+    height: 35% !important
+  .img-avt
+    height: 8rem !important
+    width:  8rem !important
+  .user-details-action
+    justify-content: end

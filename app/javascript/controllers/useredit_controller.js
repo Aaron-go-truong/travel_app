@@ -6,9 +6,11 @@ export default class extends Controller {
 
   connect() {
     let date = $("#birthday").text().split("/");
-    $("#birthday-day-value").val(date[0]);
-    $(`#birthday-month-value option:eq(${date[1]})`).prop("selected", true);
-    $("#birthday-year-value").val(date[2]);
+    if (date.length > 1) {
+      $("#birthday-day-value").val(date[0]);
+      $(`#birthday-month-value option:eq(${date[1]})`).prop("selected", true);
+      $("#birthday-year-value").val(date[2]);
+    }
   }
 
   showEditAction(event) {
@@ -68,12 +70,12 @@ export default class extends Controller {
       url: "/users/edit_profile",
       dataType: "html",
       data: { user: data },
-      success(data) {
-        field == "birthday"
-          ? $(`#${field}`).text(data.date_of_birth)
-          : field == "gender"
-          ? $(`#${field}`).text($("#gender-value :selected").text())
-          : $(`#${field}`).text($(`#${field}-value`).val());
+      success(reponse) {
+        if (field == "birthday") {
+          $(`#${field}`).text(data.date_of_birth.toLocaleDateString("en-GB"));
+        } else if (field == "gender")
+          $(`#${field}`).text($("#gender-value :selected").text());
+        else $(`#${field}`).text($(`#${field}-value`).val());
       },
       error(data) {
         return false;
@@ -86,7 +88,10 @@ export default class extends Controller {
     $(`#${target}`).addClass("d-none");
     $(`#${target}-tool`).removeClass("d-none");
     $(`#${target}-input`).removeClass("d-none");
-    $("span:contains(Edit)").addClass("disabled-button")
+    $("span:contains(Edit)").addClass("disabled-button");
+    if (target == "user_name" || target == "address") {
+      $(`#${target}-value`).val($(`#${target}`).text());
+    }
   }
 
   hideInput(target) {
@@ -94,7 +99,7 @@ export default class extends Controller {
     $(`#${target}-input`).addClass("d-none");
     $(`#${target}-edit-button`).removeClass("d-none");
     $(`#${target}`).removeClass("d-none");
-    $("span:contains(Edit)").removeClass("disabled-button")
+    $("span:contains(Edit)").removeClass("disabled-button");
   }
 
   isEditing() {
