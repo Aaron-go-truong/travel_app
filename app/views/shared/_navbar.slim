@@ -20,10 +20,10 @@ nav#main-navbar.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top[data-con
             li.user-options-item
               span.icon-default-color
                 | Profile
-          => link_to users_settings_path do
-            li.user-options-item
-              span.icon-default-color
-                | Setting
+          / => link_to users_settings_path do
+          /   li.user-options-item
+          /     span.icon-default-color
+          /       | Setting
           => link_to destroy_user_session_path, method: :delete do
             li.user-options-item
               span.icon-default-color

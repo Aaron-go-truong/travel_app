@@ -37,6 +37,7 @@
           .delete-plan.px-2.py-1.rounded-3
             = link_to plan, method: :delete, class:'icon-default-color', data: {confirm: 'Are you sure you want to delete this item?'} do
               i.fa-solid.fa-trash
+
       .modal.fade[id="edit_plan_#{plan.id}_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"]
         .modal-dialog[role="document" style="min-width: 70%"]
           .modal-content

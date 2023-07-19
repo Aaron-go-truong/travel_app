@@ -33,14 +33,23 @@ class Like < ApplicationRecord
       @plan = Plan.find(likeable_id)
       @plan.likes_count += 1
       @plan.save
+      if user.id != Plan.find(likeable_id).user_id
+        LikeNotification.with(
+          like: self,
+          user: user,
+          plan: likeable_type == 'Plan' ? likeable : Plan.find(likeable.plan_id)
+        ).deliver_later(likeable.user)
+      end
+    else
+      if user.id != Comment.find(likeable_id).user_id
+        LikeNotification.with(
+          like: self,
+          user: user,
+          plan: likeable_type == 'Plan' ? likeable : Plan.find(likeable.plan_id)
+        ).deliver_later(likeable.user)
+      end
     end
-    if user.id != plan.user_id
-      LikeNotification.with(
-        like: self,
-        user: user,
-        plan: likeable_type == 'Plan' ? likeable : Plan.find(likeable.plan_id)
-      ).deliver_later(likeable.user)
-    end
+
   end
 
   def sub_likes_count

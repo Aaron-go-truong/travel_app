@@ -78,11 +78,11 @@ export default class extends Controller {
       user_id: $("#user_id").val().replace("value ", ""),
       page: page,
     };
-    this.filterMethod(filter_data);
+    this.filterMethod(filter_data, page);
     $(".btn-clear").removeClass("d-none");
   }
 
-  filterMethod(filter_data) {
+  filterMethod(filter_data, page) {
     $.ajax({
       type: "GET",
       url: "/plans",
@@ -91,7 +91,7 @@ export default class extends Controller {
       success(data) {
         $("#plans_list").html("");
         $("#plans_list").html(data.html);
-        $("#plans_list").append(data.sub_html);
+        if (page != "userProfile") $("#plans_list").append(data.sub_html);
       },
       error(data) {
         return false;
@@ -117,7 +117,7 @@ export default class extends Controller {
       page: page,
     };
 
-    this.filterMethod(filter_data);
+    this.filterMethod(filter_data, page);
     $(".btn-clear").addClass("d-none");
   }
 
@@ -202,16 +202,16 @@ export default class extends Controller {
     $(".align-plan-details").toggleClass("d-none");
   }
   modalShow() {
-    console.log($("#create_planModal"))
+    console.log($("#create_planModal"));
     $("#create_planModal").addClass("show");
     $("#create_planModal").css("display", "block");
-    console.log($("#create_planModal"))
+    console.log($("#create_planModal"));
   }
 
   likeDetail(event) {
     let url = `/like`;
     let like_elm = $(`#${event.target.id}`);
-    let plan_id = event.target.id.replace("like_section_","")
+    let plan_id = event.target.id.replace("like_section_", "");
     let is_liked = like_elm.hasClass("like-color");
     let like_count = Number($(`#like-count-${plan_id}`).text());
 
