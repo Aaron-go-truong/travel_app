@@ -29,27 +29,12 @@ class Like < ApplicationRecord
   private
 
   def broadcast_notifications
+    add_likes_count
     if likeable_type == 'Plan'
-      @plan = Plan.find(likeable_id)
-      @plan.likes_count += 1
-      @plan.save
-      if user.id != Plan.find(likeable_id).user_id
-        LikeNotification.with(
-          like: self,
-          user: user,
-          plan: likeable_type == 'Plan' ? likeable : Plan.find(likeable.plan_id)
-        ).deliver_later(likeable.user)
-      end
-    else
-      if user.id != Comment.find(likeable_id).user_id
-        LikeNotification.with(
-          like: self,
-          user: user,
-          plan: likeable_type == 'Plan' ? likeable : Plan.find(likeable.plan_id)
-        ).deliver_later(likeable.user)
-      end
+      broadcast if user.id != Plan.find(likeable_id).user_id
+    elsif user.id != Comment.find(likeable_id).user_id
+      broadcast
     end
-
   end
 
   def sub_likes_count
@@ -58,5 +43,21 @@ class Like < ApplicationRecord
       @plan.likes_count -= 1
       @plan.save
     end
+  end
+
+  def add_likes_count
+    if likeable_type == 'Plan'
+      @plan = Plan.find(likeable_id)
+      @plan.likes_count += 1
+      @plan.save
+    end
+  end
+
+  def broadcast
+    LikeNotification.with(
+      like: self,
+      user: user,
+      plan: likeable_type == 'Plan' ? likeable : Plan.find(likeable.plan_id)
+    ).deliver_later(likeable.user)
   end
 end
