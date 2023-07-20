@@ -10,13 +10,12 @@ RSpec.describe LikesController, type: :controller do
   end
 
   describe 'POST #create' do
-
     def do_request
       post :create, params: { plan_id: plan.id, like: like_params, user_id: user.id }
     end
 
     context 'like comment' do
-      let(:like_params) {{ likeable_id: comment.id, likeable_type: comment.class.name }}
+      let(:like_params) { { likeable_id: comment.id, likeable_type: comment.class.name } }
       it do
         expect { do_request }.to change(comment.likes.all, :count).by(1)
         expect(response).to redirect_to(plan_path(plan))
@@ -24,7 +23,7 @@ RSpec.describe LikesController, type: :controller do
     end
 
     context 'like plan' do
-      let(:like_params) {{ likeable_id: plan.id, likeable_type: plan.class.name }}
+      let(:like_params) { { likeable_id: plan.id, likeable_type: plan.class.name } }
       it do
         expect { do_request }.to change(plan.likes.all, :count).by(1)
         expect(response).to redirect_to(plan_path(plan))
@@ -37,7 +36,7 @@ RSpec.describe LikesController, type: :controller do
     let!(:like_plan) { create(:like, likeable_id: plan.id, likeable_type: plan.class.name, user_id: user.id) }
 
     context 'delete like comment' do
-      let(:like_params) {{ likeable_id: comment.id, likeable_type: comment.class.name }}
+      let(:like_params) { { likeable_id: comment.id, likeable_type: comment.class.name } }
       it do
         delete :destroy, params: { user_id: user.id, like: like_params, plan_id: plan.id }
         expect(assigns(:like)).to eq(like_comment)
@@ -47,7 +46,7 @@ RSpec.describe LikesController, type: :controller do
     end
 
     context 'delete like plan' do
-      let(:like_params) {{ likeable_id: plan.id, likeable_type: plan.class.name }}
+      let(:like_params) { { likeable_id: plan.id, likeable_type: plan.class.name } }
       it do
         delete :destroy, params: { user_id: user.id, like: like_params, plan_id: plan.id }
 

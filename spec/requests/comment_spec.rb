@@ -11,11 +11,11 @@ RSpec.describe CommentsController, type: :controller do
     let(:plan) { create(:plan) }
 
     def do_request
-      post :create, params: { plan_id: plan.id, comment: comment_params, cmt_parent_id: "value " }
+      post :create, params: { plan_id: plan.id, comment: comment_params, cmt_parent_id: 'value ' }
     end
 
     context 'valid' do
-      let(:comment_params) {{ content: 'be updated' }}
+      let(:comment_params) { { content: 'be updated' } }
       it do
         expect { do_request }.to change(plan.comments.all, :count).by(1)
 
@@ -25,7 +25,7 @@ RSpec.describe CommentsController, type: :controller do
     end
 
     context 'invalid' do
-      let(:comment_params) {{ content: '' }}
+      let(:comment_params) { { content: '' } }
       it do
         expect { do_request }.not_to change(plan.comments.all, :count)
         expect(response).to redirect_to(plan_path(plan))
@@ -33,12 +33,12 @@ RSpec.describe CommentsController, type: :controller do
     end
 
     context 'reply' do
-      let(:comment) {create(:comment, plan_id: plan.id, user_id: user.id)}
-      let(:comment_params) {{ content: 'reply' }}
+      let(:comment) { create(:comment, plan_id: plan.id, user_id: user.id) }
+      let(:comment_params) { { content: 'reply' } }
       it do
-        expect {
+        expect do
           post :create, params: { plan_id: plan.id, comment: comment_params, cmt_parent_id: "value #{comment.id}" }
-         }.to change(comment.replies.all, :count).by(1)
+        end.to change(comment.replies.all, :count).by(1)
         expect(response).to redirect_to(plan_path(plan))
       end
     end
@@ -48,7 +48,7 @@ RSpec.describe CommentsController, type: :controller do
     let!(:plan) { create(:plan) }
 
     context 'valid' do
-      let(:comment_params) {{ content: 'be updated' }}
+      let(:comment_params) { { content: 'be updated' } }
 
       it do
         comment = create(:comment, plan_id: plan.id, user_id: user.id)
@@ -61,8 +61,8 @@ RSpec.describe CommentsController, type: :controller do
     end
 
     context 'invalid' do
-      let(:comment_params) {{ content: '' }}
-      let!(:comment) {create(:comment, plan_id: plan.id, user_id: user.id)}
+      let(:comment_params) { { content: '' } }
+      let!(:comment) { create(:comment, plan_id: plan.id, user_id: user.id) }
       it do
         put :update, params: { id: comment.id, comment: comment_params, plan_id: plan.id }
         expect(assigns(:comment).errors).not_to be_empty
@@ -72,9 +72,9 @@ RSpec.describe CommentsController, type: :controller do
 
   describe 'DELETE #destroy' do
     let(:plan) { create(:plan) }
-    let!(:comment) {create(:comment, plan_id: plan.id, user_id: user.id)}
+    let!(:comment) { create(:comment, plan_id: plan.id, user_id: user.id) }
     it do
-      delete :destroy, params: { plan_id: plan.id, id: comment.id}
+      delete :destroy, params: { plan_id: plan.id, id: comment.id }
 
       expect(assigns(:comment)).to eq(comment)
       expect(assigns(:comment)).to be_destroyed

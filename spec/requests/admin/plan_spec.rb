@@ -14,7 +14,7 @@ RSpec.describe Admin::PlansController, type: :controller do
       get :index
 
       expect(response).to render_template(:index)
-      expect(assigns(:plans)).to include(*(plans))
+      expect(assigns(:plans)).to include(*plans)
       expect(response).to have_http_status(:success)
     end
   end
@@ -22,8 +22,8 @@ RSpec.describe Admin::PlansController, type: :controller do
   describe 'GET #update_status' do
     it 'change status plan' do
       plan = create(:plan)
-      put :update_status, params: {id: plan.id}
-
+      put :update_status, params: { id: plan.id }
+      plan.reload
       expect(plan.deactivated).to be true
       expect(response).to have_http_status(:success)
     end

@@ -53,7 +53,6 @@ class Plan < ApplicationRecord
 
   validates_numericality_of :amount
 
-
   scope :plan_parent, -> { where plan_parent_id: nil }
   scope :filter_by_title, ->(title) { where('title ILIKE ?', "%#{title}%") }
   scope :filter_by_username, ->(username) { where(id: joins(:user).where('user_name ILIKE ? ', "%#{username}%").ids) }

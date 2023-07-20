@@ -2,12 +2,10 @@ class PlansController < ApplicationController
   include Respondable
   skip_before_action :verify_authenticity_token
   before_action :find_plan, only: %i[show edit update destroy]
+  before_action :filter_plan, only: %i[index]
 
   def index
-    @plans = Plan.plan_parent.plan_active.sort_most_recent
     @plans = @plans.where(user_id: params[:user_id]).plan_parent if params[:user_id].present?
-    @plans = @plans.favourite_plans(current_user.id) if params[:page] == 'favourite'
-    @plans = @plans.includes(:user).filter_by_title(params[:search_content]).or(@plans.includes(:user).filter_by_username(params[:search_content])) if params[:search_content].present?
     if params[:sort_type].present?
       @plans =
         case params[:sort_type]
@@ -106,5 +104,13 @@ class PlansController < ApplicationController
 
   def find_plan
     @plan = Plan.find(params[:id])
+  end
+
+  def filter_plan
+    @plans = Plan.plan_parent.plan_active.sort_most_recent
+    @plans = @plans.favourite_plans(current_user.id) if params[:page] == 'favourite'
+    if params[:search_content].present?
+      @plans = @plans.includes(:user).filter_by_title(params[:search_content]).or(@plans.includes(:user).filter_by_username(params[:search_content]))
+    end
   end
 end

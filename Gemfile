@@ -13,18 +13,18 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-#Auth
+# Auth
 gem 'devise'
 gem 'pundit'
 gem 'rolify'
 
-#View
+# View
 gem 'cssbundling-rails', '~> 1.1'
 gem 'slim'
 gem 'slim-rails'
 gem 'simple_form'
 
-#Other
+# Other
 gem 'seedbank'
 gem 'noticed', '~> 1.6'
 gem 'redis', '~> 4.0'
